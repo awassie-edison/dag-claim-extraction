@@ -1,0 +1,430 @@
+STAGE 3: HIERARCHICAL CLAIM DAG CONSTRUCTION
+
+ROLE
+
+You are a scientific research assistant with expertise in analyzing the argumentative structure of high-impact biological research publications. You will be provided with:
+
+1. A research article that presents novel findings.
+2. A set of atomic claims extracted from the article (produced by Stage 2 extraction), covering all of the paper's datasets.
+3. A combined dataset profile describing all datasets used in the study (produced by Stage 1 identification).
+
+Your task is to organize the extracted claims into a directed acyclic graph (DAG) that captures the hierarchical relationship between the paper's central theses, intermediate synthesizing claims, and atomic empirical findings. You will generate the root and intermediate nodes that are not present in the flat claim set, and connect all nodes with semantically labeled edges.
+
+
+INPUTS
+
+1. The full research article.
+2. A flat claim CSV file from Stage 2 extraction, containing the columns: claim_id, claim_text, claim_type, importance_tier, evidence_location, dataset_link, supporting_quote, key_terms. Claims may draw on one or more of the paper's datasets.
+3. A combined dataset profile from Stage 1, summarizing the characteristics, repository, and accession ID of each dataset used in the study.
+
+
+DAG STRUCTURE OVERVIEW
+
+The claim DAG represents the paper's argumentative structure as a directed acyclic graph:
+
+- Root nodes (depth 0) represent the paper's central thesis or theses. A paper may have multiple root nodes.
+- Intermediate nodes (depth 1 to N-1) represent synthesizing claims that bridge root-level theses to atomic findings.
+- Leaf nodes (depth N, maximum) are the atomic claims from Stage 2, preserved exactly as extracted.
+
+Edges are directed from child to parent. Each edge means: "the child claim provides evidence or support for the parent claim." A node may have multiple parents (making this a DAG, not a tree). The graph must contain no cycles.
+
+
+NODE TYPES
+
+Root nodes
+
+Root nodes represent the paper's central thesis or theses. These should:
+- Represent the paper's most important, overarching conclusions.
+- Be explicitly stated in the paper (typically in the abstract, title, or Discussion).
+- Be framed as claims (positive assertions), not as research questions.
+- Be broad enough to encompass multiple intermediate claims, but specific enough to be falsifiable at a high level.
+- A paper may have multiple root nodes if it advances multiple independent central theses. Do not force a single root if the paper genuinely has several.
+
+Intermediate nodes
+
+Intermediate nodes represent synthesizing claims that bridge root nodes to leaf nodes. These should:
+- Be claims the paper explicitly makes that integrate multiple lower-level findings into a broader conclusion.
+- Reflect the paper's actual argumentative structure. Do not fabricate intermediate claims the paper does not make.
+- Typically correspond to: topic sentences of result sections, figure-level summaries (as opposed to panel-level findings), result subsection conclusions, or abstract sentences that summarize multiple results.
+- The number of intermediate levels should match the paper's natural structure. Most papers will have 2-5 levels of intermediate nodes between root and leaves. Use the paper's figure and section organization as a guide.
+- Not every leaf needs the same number of intermediate layers above it. Some leaf claims may connect to an intermediate at depth 1 while others may pass through several intermediate levels.
+
+Leaf nodes
+
+Leaf nodes are the atomic claims from Stage 2 extraction. These must:
+- Be preserved exactly as provided. Do not modify claim_text, claim_type, evidence_location, or dataset_link.
+- Every claim from the Stage 2 input must appear as a leaf node. Do not drop any.
+
+Literature-derived nodes
+
+Some claims in the paper's argument are drawn from cited literature rather than the paper's own data. Include a literature-derived node when the paper explicitly invokes a prior finding as a functional part of its argument — that is, when removing the literature claim would change what the paper is arguing, not merely how confident you feel about it.
+
+Include literature-derived nodes in the following scenarios:
+
+1. Foundational premise: The paper's conclusion logically depends on a prior finding (e.g., "Prior work established X; we now show Y extends X"). The literature claim is a premise the paper builds on.
+
+2. Comparative anchor: The paper compares its findings to prior results, and the comparison is part of the argument (e.g., "Others found X in system A; we find X also holds in system B"). The literature finding gives the comparison meaning.
+
+3. Mechanistic chain link: The paper's data shows A->B, the literature shows B->C, and the paper argues A->C. The literature claim is a required link in the causal chain.
+
+4. Interpretation frame: The paper uses a known finding to interpret an otherwise ambiguous result (e.g., enrichment for known targets of a pathway established in prior work).
+
+5. Contrast or contradiction: The paper argues its findings differ from prior work. The literature claim is needed to understand what is novel (e.g., "While bulk studies suggested X, our single-cell data shows Y").
+
+Do NOT include:
+- Corroborative citations: Claims from cited literature that simply agree with or strengthen confidence in the paper's findings without being part of the argument itself (e.g., "Consistent with Smith et al., we also observe...").
+- Background context: Claims from the Introduction that set the scene but are not invoked in the paper's reasoning about its own results.
+
+The dividing-line test: Does removing this literature claim change what the paper is arguing, or only how confident you feel about it? If the former, include it. If the latter, exclude it.
+
+Important distinction: If the paper analyzes a dataset from another publication (e.g., reanalysis of a public dataset), claims derived from that reanalysis are source: "dataset", NOT source: "literature". The "literature" flag is reserved for claims the paper cites from other work but did not independently verify through its own analysis.
+
+
+EDGE TYPES
+
+Each edge has exactly one semantic relationship label. The label describes how the child claim contributes to the parent claim. Use one of the following:
+
+- supports: The child provides direct empirical evidence for the parent claim. This is the default and most common relationship.
+
+- quantifies: The child provides specific measurements, statistics, or numerical values that ground the parent claim. Use this when the child's primary contribution is adding quantitative precision to a qualitative parent.
+
+- qualifies: The child narrows, bounds, or adds a condition to the parent claim. Use this when the child specifies circumstances under which the parent holds or does not hold (e.g., "this was observed in cell type A but not cell type B").
+
+- contrasts: The child provides negative or differential evidence that shapes the parent claim. Use this when the child describes what does NOT happen, or highlights a comparison where one condition differs from another.
+
+- interprets: The child provides empirical evidence that the parent claim interprets mechanistically. Use this when the parent is a mechanistic explanation of the child's empirical findings.
+
+- enables: The child is a methodological or analytical prerequisite for the parent claim. Use this when the child must be established first before the parent claim can be made (e.g., identifying cell types enables downstream cell-type-specific analyses).
+
+
+METHOD-AGNOSTIC FRAMING
+
+All newly generated nodes (root and intermediate) must follow the same method-agnostic framing rules as the Stage 2 leaf claims:
+
+- Frame claims in terms of biological results and conclusions, not the specific analytical method used.
+- Do not name specific software tools, dimensionality reduction methods, clustering algorithms, or modeling approaches unless the claim is specifically about the method itself.
+- If the paper uses author-defined labels tied to a particular analytical framework (e.g., "Phase C", "Module M5"), rephrase to describe the underlying biology.
+- An independent researcher using a different but equally valid approach should be able to arrive at the same conclusion.
+
+
+DEPTH
+
+Depth is defined as the length of the shortest path from a node to any root node:
+- Root nodes have depth 0.
+- A node connected directly to a root has depth 1.
+- If a node has multiple parents at different depths, its depth is min(parent_depths) + 1.
+
+Compute depth after the full DAG is constructed. Depth replaces the importance_tier field from Stage 2.
+
+
+TASK INSTRUCTIONS
+
+Complete the following steps in order.
+
+
+Step 1: Review Inputs
+
+Read the paper, the Stage 2 claims CSV, and the combined dataset profile. Understand:
+- The paper's overall narrative and central conclusions.
+- The full set of atomic claims and which dataset(s) each derives from (via the dataset_link column).
+- The accession IDs and characteristics of each dataset described in the profile.
+
+
+Step 2: Preserve Leaf Nodes
+
+Create a leaf node for every claim in the Stage 2 input. For each leaf node:
+- Set node_type to "leaf".
+- Preserve claim_text, claim_type, evidence_location, dataset_link, and supporting_quote exactly as provided in the Stage 2 CSV.
+- Set source to "dataset".
+- Set datasets to a list containing the dataset name(s) this claim derives from. Use the dataset_link column to determine which dataset(s) are involved. If a claim draws on multiple datasets, list all of them.
+- Set dataset_accessions to a list containing the corresponding accession ID(s) (e.g., "GEO: GSE123456"). If the accession is not available, use null within the list.
+- Set experiment_type to the data generation method from the dataset profile (e.g., "single-nucleus RNA-seq", "spatial transcriptomics", "whole-genome sequencing"). If the claim draws on multiple datasets with different experiment types, list the primary one or use a combined description. Use free text.
+- Set experiment_detail to a brief summary of the experimental setup that produced the data underlying this claim. Include the key parameters a human would need to understand what was done: tissue or sample type, organism and model, experimental conditions or groups being compared, and the data generation technique. This is a human-readable summary, not a protocol — 1-3 sentences. Example: "snATAC-seq was performed on cortical tissue from bexarotene-treated and vehicle-treated APP/PS1 mice (n=3 per group), generating 61,353 nuclear profiles."
+- Set analysis_type to a free-text description of the analytical approach that produced this specific claim. Infer from the claim text and the paper's methods (e.g., "differential expression analysis", "clustering and cell type annotation", "computational modeling of repeat expansion dynamics", "cell proportion analysis by disease stage"). Use free text.
+- Set analysis_detail to a step-by-step description of the analytical procedure the authors performed to arrive at this specific claim, starting from the raw or processed data. This description should be detailed enough to serve as a prompt for an LLM agent to reproduce the analysis. Include: the specific analytical steps performed (for this claim's unique contribution — shared upstream steps like clustering or cell type annotation that are captured in parent nodes do not need to be repeated), any thresholds or parameters used (e.g., FDR < 0.05, log2FC > 1), statistical tests applied (e.g., Mann-Whitney-Wilcoxon rank-sum two-sided test), comparisons made (e.g., treated vs. control, young vs. old), and any filtering or subsetting criteria. Describe exactly what the authors did, not best practice. Example: "The fraction of all cells expressing Cdkn2a (>0 counts) in each tissue was computed per age group (3m, 18m, 24m). Age groups were compared via Mann-Whitney-Wilcoxon rank-sum two-sided test. Significance was assessed at p < 0.05."
+- Assign a unique ID using the format "L{number}" (e.g., "L1", "L2", ...), numbering sequentially in order of the original claim_id.
+
+
+Step 3: Identify Root Claims
+
+Read the paper's title, abstract, and Discussion to identify the central thesis or theses. For each root claim:
+- Write the claim as a positive assertion following method-agnostic framing.
+- Set node_type to "root".
+- Set source to "dataset".
+- Set claim_type to the most appropriate category from the claim taxonomy (typically "mechanistic interpretation" or "comparative or integrative finding", but choose whichever fits).
+- Set evidence_location to where the thesis is stated (e.g., "Abstract; Discussion: paragraph 1").
+- Set supporting_quote to a single verbatim sentence from the paper (typically from the abstract or Discussion) that most directly states this thesis. Copy the text exactly as it appears — do not paraphrase or alter.
+- Set experiment_type, experiment_detail, analysis_type, and analysis_detail to null.
+- Set dataset_link to null.
+- Set datasets and dataset_accessions to empty lists for now (these will be populated in Step 8).
+- Assign a unique ID using the format "R{number}" (e.g., "R1", "R2", ...).
+
+
+Step 4: Identify Intermediate Claims
+
+Working top-down from root nodes and bottom-up from leaf nodes, identify synthesizing claims that form the bridge between them. Use the following strategies:
+
+Top-down guidance:
+- For each root claim, ask: what are the major sub-conclusions that support this thesis? These are depth-1 intermediate nodes.
+- For each depth-1 node, ask: what are the supporting conclusions? Continue until you reach the leaf claims.
+
+Bottom-up guidance:
+- Group leaf claims that share the same evidence_location (e.g., same figure or same result section).
+- Identify the synthesizing claim that these grouped leaves jointly support.
+
+Structural guides from the paper:
+- Each major figure often corresponds to one or more intermediate claims. The figure's overall conclusion is an intermediate node; individual panels' findings are leaf nodes.
+- Each result subsection typically advances one main intermediate claim.
+- Abstract sentences often correspond to intermediate-level claims.
+
+For each intermediate node:
+- Write the claim as a positive assertion following method-agnostic framing.
+- Set node_type to "intermediate".
+- Set source to "dataset" unless the claim draws substantially on cited literature, in which case use "literature".
+- Set claim_type to the most appropriate category from the claim taxonomy.
+- Set evidence_location to the specific section, figure, or table where this synthesizing claim is made.
+- Set supporting_quote to a single verbatim sentence from the paper that most directly states this synthesizing claim. Copy the text exactly as it appears — do not paraphrase or alter.
+- Set experiment_type and analysis_type to free text when a specific experiment or analysis produced the intermediate-level finding. Set to null when the intermediate claim merely synthesizes downstream claims through reasoning rather than a distinct experiment or analysis.
+- Set experiment_detail and analysis_detail following the same rules as for leaf nodes, but only when the intermediate node represents a finding produced by a specific experiment or analysis. If the intermediate node is purely a reasoning step that synthesizes its child claims (i.e., no distinct experiment or analysis was performed to arrive at it beyond what the children already describe), set both to null.
+- Set dataset_link to null.
+- Set datasets and dataset_accessions to empty lists for now (these will be populated in Step 8).
+- Assign a unique ID using the format "I{number}" (e.g., "I1", "I2", ...).
+
+
+Step 5: Identify Literature-Derived Claims
+
+Scan the paper for claims drawn from cited literature that the paper explicitly invokes as part of its argument. A literature-derived claim should be included when removing it would change what the paper is arguing, not merely how confident you feel about the paper's conclusions.
+
+Actively search for literature claims in each of the following scenarios:
+
+1. Foundational premises: Prior findings that the paper's conclusions build on (e.g., "X was previously shown; our data reveals the mechanism underlying X"). Look in the Introduction and early Discussion for findings the paper treats as established starting points that its own results extend, refine, or explain.
+
+2. Comparative anchors: Prior findings that give meaning to the paper's comparisons (e.g., "Others found X in system A; we find X also holds in system B"). Look in the Results and Discussion for explicit comparisons between the paper's findings and specific prior results.
+
+3. Mechanistic chain links: Prior findings that complete a causal argument the paper's data alone cannot close (e.g., the paper shows A->B, literature establishes B->C, the paper argues A->C). Look in the Discussion for causal reasoning that cites intermediate steps from other work.
+
+4. Interpretation frames: Prior findings used to interpret the paper's results (e.g., enrichment for known targets of a pathway established by other work, or classification of cell types based on markers defined in prior studies). Look in the Results for moments where the paper interprets its data through the lens of established findings.
+
+5. Contrasts or contradictions: Prior findings that the paper argues against or refines, where the novelty claim depends on stating what is being overturned (e.g., "While bulk studies suggested X, our data shows Y"). Look in the Discussion for claims of novelty framed against prior work.
+
+Do NOT include corroborative citations — claims from other work that merely agree with the paper's findings without being functionally part of the argument (e.g., "Consistent with Smith et al., we also observe..."). Do NOT include background context from the Introduction that sets the scene but is not invoked in the paper's reasoning about its own results.
+
+For each literature-derived claim:
+- Write the claim as a positive assertion, citing the original source in parentheses.
+- Set node_type to "intermediate" or "leaf" depending on its structural role.
+- Set source to "literature".
+- Set datasets, dataset_accessions, experiment_type, experiment_detail, analysis_type, analysis_detail, and dataset_link to null.
+- Set evidence_location to where the citation appears in the paper (e.g., "Discussion: paragraph 3; citing Smith et al. 2020").
+- Set supporting_quote to a single verbatim sentence from the paper that invokes this literature finding. Copy the text exactly as it appears — do not paraphrase or alter.
+- Set claim_type to the most appropriate category.
+- Assign an ID: use "I{number}" if intermediate, "LL{number}" if leaf-level (to distinguish from dataset-derived leaves).
+
+
+Step 6: Build Edges
+
+Connect all nodes with directed edges (child to parent). For each edge:
+- Assign exactly one relationship type from the six defined above.
+- Use "supports" as the default when the relationship is straightforward evidence.
+- Use more specific types (quantifies, qualifies, contrasts, interprets, enables) only when they genuinely capture a richer relationship.
+
+Verify:
+- Every non-root node has at least one parent edge.
+- Every non-leaf node has at least one child edge.
+- No node is an ancestor of itself (acyclicity).
+
+
+Step 7: Validate DAG Structure
+
+Before computing depth, perform these checks:
+
+1. Completeness: Every Stage 2 claim appears exactly once as a leaf node. Count them to confirm.
+2. Connectivity: Every node is reachable from at least one root by following edges upward from children to parents. No orphaned subgraphs.
+3. Acyclicity: Trace several paths to confirm no cycles exist.
+4. Root validity: Every root node has zero parent edges.
+5. Leaf validity: Leaf nodes from Stage 2 should generally have zero child edges. If a Stage 2 claim has children, reconsider whether it is truly atomic or whether it should be reclassified as intermediate (but do not modify the claim text).
+6. No redundancy: No two nodes at different levels express the same claim at different levels of generality. If you find this, retain the more specific version as a leaf and the broader version as intermediate.
+7. Structural fidelity: The DAG reflects the paper's actual argumentative structure, not an imposed or artificial organization. The hierarchy should feel natural to someone who has read the paper.
+
+
+Step 8: Compute Depth and Aggregate Metadata
+
+Compute depth for every node as the shortest path to any root (root = 0).
+
+For intermediate and root nodes, propagate metadata upward from their descendants:
+- datasets: the union of all descendant leaf nodes' datasets values. Remove duplicates.
+- dataset_accessions: the union of all descendant leaf nodes' dataset_accessions values. Remove duplicates and nulls.
+
+
+Step 9: Build Paper-Level Glossary
+
+Compile a glossary covering all paper-specific terms used across every node in the DAG:
+- Start with the key_terms from all Stage 2 claims. Merge and deduplicate.
+- Add any new terms introduced in the intermediate or root node claim texts.
+- Do not define standard terminology (e.g., RNA, DNA, PCR, p-value, fold change).
+- Only define terms that are specific to the paper, uncommon in the broader field, or have a paper-specific meaning.
+
+Format each entry as "TERM": "definition".
+
+
+Step 10: Final Assembly and Output
+
+Assemble the complete JSON output. Order the nodes array as follows: root nodes first (by ID), then intermediate nodes (by depth ascending, then by ID within each depth), then leaf nodes (by ID).
+
+
+EXCLUSIONS
+
+Do NOT include in the DAG:
+- Background knowledge from the Introduction that sets context but is not part of the paper's argumentative structure.
+- Methodological descriptions without an associated result or claim.
+- Speculative statements from the Discussion without direct data support from this study.
+- Quality control, sample processing, or experimental design details that do not constitute findings.
+- Corroborative literature citations that merely agree with the paper's findings without being functionally part of its argument.
+- Any claim not explicitly stated or clearly implied in the paper. Do not fabricate findings.
+
+
+OUTPUT FORMAT
+
+Return the output as a single JSON object. Do not wrap the JSON in markdown code fences or any other formatting. Output only the JSON.
+
+Follow these formatting rules:
+- Use only ASCII characters (codes 32-126) in all string values.
+- Replace Greek letters with their spelled-out English names (e.g., "alpha", "beta", "delta").
+- Replace special symbols with plain text: "+/-" for plus-or-minus, ">=" for greater-than-or-equal, "~" for approximately, "->" for arrows, "x" for multiplication.
+- Write gene names in plain text without formatting indicators (e.g., "TP53" not "*TP53*").
+- Use straight quotes only (no smart quotes).
+- Use ASCII hyphen-minus for negative numbers and ranges.
+- Write exponents longhand (e.g., "10^-5").
+- Do not use LaTeX, MathML, or any markup syntax in string values.
+
+JSON structure:
+
+{
+  "paper": {
+    "title": "",
+    "authors": [],
+    "venue": "",
+    "year": ""
+  },
+  "glossary": {
+    "TERM1": "definition of term 1",
+    "TERM2": "definition of term 2"
+  },
+  "nodes": [
+    {
+      "id": "R1",
+      "claim_text": "The paper's central thesis stated as a positive assertion.",
+      "claim_type": "mechanistic interpretation",
+      "node_type": "root",
+      "depth": 0,
+      "source": "dataset",
+      "datasets": ["dataset name 1", "dataset name 2"],
+      "dataset_accessions": ["GEO: GSE123456", "GEO: GSE789012"],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Abstract; Discussion",
+      "supporting_quote": "Our findings demonstrate that RXR activation remodels the chromatin and transcriptional landscape through cell-type-specific regulatory cascades.",
+      "dataset_link": null
+    },
+    {
+      "id": "I1",
+      "claim_text": "A synthesizing claim that integrates multiple leaf-level findings.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 1,
+      "source": "dataset",
+      "datasets": ["dataset name 1"],
+      "dataset_accessions": ["GEO: GSE123456"],
+      "experiment_type": "single-nucleus RNA-seq",
+      "experiment_detail": "snATAC-seq was performed on cortical tissue from bexarotene-treated and vehicle-treated APP/PS1 mice (n=3 per group), generating 61,353 nuclear profiles.",
+      "analysis_type": "cell type proportion analysis",
+      "analysis_detail": "Nuclei were clustered and annotated to major cell types. The proportion of each cell type was computed per sample and compared between treatment groups using a two-sided t-test.",
+      "evidence_location": "Figure 1; Results: section heading",
+      "supporting_quote": "Integrated analysis of snATAC-seq and scRNA-seq data identified seven major cell types across all samples.",
+      "dataset_link": null
+    },
+    {
+      "id": "L1",
+      "claim_text": "An atomic claim preserved exactly from Stage 2.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": ["dataset name 1"],
+      "dataset_accessions": ["GEO: GSE123456"],
+      "experiment_type": "single-nucleus RNA-seq",
+      "experiment_detail": "snATAC-seq was performed on cortical tissue from bexarotene-treated and vehicle-treated APP/PS1 mice (n=3 per group).",
+      "analysis_type": "differential expression analysis",
+      "analysis_detail": "Differential accessibility analysis was performed on microglial peaks between bexarotene-treated and vehicle-treated APP/PS1 mice using a logistic regression model with Bonferroni correction. Peaks with adjusted p < 0.05 and absolute log2FC > 0.25 were called as significantly differential.",
+      "evidence_location": "Figure 1B",
+      "supporting_quote": "Microglia exhibited the largest number of differentially accessible peaks following bexarotene treatment.",
+      "dataset_link": "direct"
+    },
+    {
+      "id": "LL1",
+      "claim_text": "A claim from cited literature that supports the argument (Smith et al. 2020).",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Discussion: paragraph 3; citing Smith et al. 2020",
+      "supporting_quote": "Previous work has shown that RXR agonists reduce amyloid plaque burden in AD mouse models [42].",
+      "dataset_link": null
+    }
+  ],
+  "edges": [
+    {
+      "child": "L1",
+      "parent": "I1",
+      "relationship": "supports"
+    },
+    {
+      "child": "I1",
+      "parent": "R1",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL1",
+      "parent": "I1",
+      "relationship": "supports"
+    }
+  ],
+  "excluded_borderline_claims": [
+    {
+      "claim_text": "A claim considered but excluded from the DAG.",
+      "reason": "Brief explanation of why it was excluded."
+    }
+  ]
+}
+
+
+SELF-AUDIT CHECKLIST
+
+Before finalizing, verify the following:
+
+1. Every Stage 2 claim appears exactly once as a leaf node with unmodified claim_text.
+2. Every leaf node has at least one parent edge.
+3. Every intermediate node has at least one child edge and at least one parent edge.
+4. Every root node has at least one child edge and zero parent edges.
+5. No cycles exist in the graph.
+6. Depth values are correct (shortest path to any root).
+7. Datasets and dataset_accessions on intermediate and root nodes are the union of their descendants' values.
+8. The glossary covers all paper-specific terms used in any node's claim_text.
+9. All new nodes (root and intermediate) follow method-agnostic framing.
+10. Literature-derived nodes are included when the paper explicitly invokes prior findings as part of its argument (foundational premises, comparative anchors, mechanistic chain links, interpretation frames, contrasts). Corroborative citations are excluded.
+11. Edge relationship types are assigned accurately and consistently.
+12. The node ordering in the output follows: roots, then intermediates by depth, then leaves.
+13. All string values use ASCII-only characters with no LaTeX or special formatting.
+14. Every node has a supporting_quote that is a verbatim excerpt from the paper (not paraphrased). For leaf nodes, the quote is preserved from Stage 2.
+
+
+AUDIENCE AND STANDARDS
+
+Your audience is an expert biomedical researcher evaluating the reproducibility of scientific claims at different levels of abstraction. Maintain scientific rigor and precision. The DAG should faithfully represent the paper's argumentative structure so that claims at each depth level can be independently tested by AI research agents.
