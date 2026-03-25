@@ -57,25 +57,31 @@ Leaf nodes are the atomic claims from Stage 2 extraction. These must:
 
 Literature-derived nodes
 
-Some claims in the paper's argument are drawn from cited literature rather than the paper's own data. Include a literature-derived node when the paper explicitly invokes a prior finding as a functional part of its argument — that is, when removing the literature claim would change what the paper is arguing, not merely how confident you feel about it.
+Some claims in the paper's argument are drawn from cited literature rather than the paper's own data. Include a literature-derived node when the paper relies on a prior finding as part of its reasoning — that is, when the prior finding serves as a premise, link, or frame that at least one other claim in the DAG depends on. The prior finding does not need to be cited at every point where it is used; it is sufficient that the paper's argument logically depends on it.
 
 Include literature-derived nodes in the following scenarios:
 
-1. Foundational premise: The paper's conclusion logically depends on a prior finding (e.g., "Prior work established X; we now show Y extends X"). The literature claim is a premise the paper builds on.
+1. Foundational premise: The paper's conclusion logically depends on a prior finding or framework (e.g., "Prior work established X; we now show Y extends X," or the paper organizes its argument around a framework defined by prior work). The literature claim is a premise the paper builds on. These often appear in the Introduction but are load-bearing to the rest of the paper — the paper's structure, motivation, or interpretation would not make sense without them.
 
 2. Comparative anchor: The paper compares its findings to prior results, and the comparison is part of the argument (e.g., "Others found X in system A; we find X also holds in system B"). The literature finding gives the comparison meaning.
 
 3. Mechanistic chain link: The paper's data shows A->B, the literature shows B->C, and the paper argues A->C. The literature claim is a required link in the causal chain.
 
-4. Interpretation frame: The paper uses a known finding to interpret an otherwise ambiguous result (e.g., enrichment for known targets of a pathway established in prior work).
+4. Interpretation frame: The paper uses a specific prior finding to interpret an otherwise ambiguous result — that is, the data alone would support multiple interpretations, and the literature claim is what selects among them. This includes cases where the interpretation relies on established biology without re-citing it at the point of use (e.g., interpreting gene expression changes in terms of a known biological function, or classifying cells using markers defined in prior work). Do not include prior findings that merely label or annotate results without resolving ambiguity.
 
 5. Contrast or contradiction: The paper argues its findings differ from prior work. The literature claim is needed to understand what is novel (e.g., "While bulk studies suggested X, our single-cell data shows Y").
 
-Do NOT include:
-- Corroborative citations: Claims from cited literature that simply agree with or strengthen confidence in the paper's findings without being part of the argument itself (e.g., "Consistent with Smith et al., we also observe...").
-- Background context: Claims from the Introduction that set the scene but are not invoked in the paper's reasoning about its own results.
+Inclusion tests — apply both:
 
-The dividing-line test: Does removing this literature claim change what the paper is arguing, or only how confident you feel about it? If the former, include it. If the latter, exclude it.
+1. Structural-role test: Consider the paper's argument as a logical structure, independent of the authors' rhetorical phrasing. Does this literature finding serve as a premise, link, or frame that at least one other claim in the DAG depends on? If so, include it. If the claim merely corroborates a finding that would stand on its own evidence without the literature reference, exclude it. Important: Author phrasing such as "consistent with," "in agreement with," or "as previously shown" does NOT automatically make a claim corroborative. These phrases often introduce structurally necessary premises. Judge by the logical role, not the rhetorical hedging. A claim is corroborative only when the paper's own data independently establishes the same conclusion and the literature reference adds nothing to the argument's logic.
+
+2. Traceability test: Will this literature claim serve as a child or parent of at least one other node in the DAG? If it connects to the argumentative structure, include it. If it would be an isolated node with no edges to other claims, it is scene-setting and should be excluded.
+
+Specificity guardrail: Only include prior findings that are specific and attributable to identifiable prior work — a named framework, a specific experimental result, or a defined concept from a citable body of research. Do NOT include general textbook knowledge that any reader in the field would know and that does not constitute a specific prior finding (e.g., "neurons transmit electrical signals," "gene expression is regulated by transcription factors," "the immune system fights infection").
+
+Do NOT include:
+- Corroborative citations: Exclude a literature claim ONLY when both conditions hold: (a) the paper's own data independently establishes the same conclusion — not merely the same observation. If the data shows a quantitative change (e.g., a gene's expression decreases with age) but the literature claim provides the biological significance of that change (e.g., why that gene matters for a pathway or phenotype), then the data does NOT independently establish the same point — the data establishes the observation and the literature claim establishes the interpretation. These are distinct claims, and the literature claim is structurally necessary. AND (b) the literature claim does not serve as a premise for any claim that goes beyond what the data alone shows. If the paper uses the literature finding to interpret, extend, or contextualize its data — even with corroborative language like "consistent with" — the claim is structurally necessary and should be included.
+- Citation piles: When the Introduction cites many papers to establish that a general phenomenon exists (e.g., "Neuroinflammation plays a key role in AD [1-15]"), these are scene-setting, not foundational premises. A foundational premise is a specific finding or framework that the paper's own argument structurally depends on.
 
 Important distinction: If the paper analyzes a dataset from another publication (e.g., reanalysis of a public dataset), claims derived from that reanalysis are source: "dataset", NOT source: "literature". The "literature" flag is reserved for claims the paper cites from other work but did not independently verify through its own analysis.
 
@@ -193,21 +199,45 @@ For each intermediate node:
 
 Step 5: Identify Literature-Derived Claims
 
-Scan the paper for claims drawn from cited literature that the paper explicitly invokes as part of its argument. A literature-derived claim should be included when removing it would change what the paper is arguing, not merely how confident you feel about the paper's conclusions.
+This step has two phases: candidate enumeration, then filtering. Complete both phases fully before proceeding to Step 6.
 
-Actively search for literature claims in each of the following scenarios:
+Phase A — Enumerate all candidates: Systematically scan the entire paper and produce a numbered candidate list of every prior finding the paper invokes. Cast a wide net: include any claim drawn from cited literature that could plausibly play a structural role. For each candidate, record:
+  (a) the verbatim sentence(s) from the paper that invoke it,
+  (b) which scenario it falls under (foundational premise, comparative anchor, mechanistic chain link, interpretation frame, or contrast), and
+  (c) the specific node(s) in the DAG it would connect to as a child or parent.
 
-1. Foundational premises: Prior findings that the paper's conclusions build on (e.g., "X was previously shown; our data reveals the mechanism underlying X"). Look in the Introduction and early Discussion for findings the paper treats as established starting points that its own results extend, refine, or explain.
+Scan each of these paper sections in order and record all candidates before moving to the cross-check:
+  - Title and Abstract
+  - Introduction (paragraph by paragraph)
+  - Results (subsection by subsection)
+  - Discussion (paragraph by paragraph)
 
-2. Comparative anchors: Prior findings that give meaning to the paper's comparisons (e.g., "Others found X in system A; we find X also holds in system B"). Look in the Results and Discussion for explicit comparisons between the paper's findings and specific prior results.
+For each of the five scenarios below, explicitly list any candidates found. If no candidates are found for a scenario, state "None found" rather than skipping silently. This ensures you have considered all five scenarios before filtering.
+
+1. Foundational premises: Prior findings or frameworks that the paper's conclusions build on. Look in the Introduction for specific findings or frameworks that the paper treats as established starting points — not generic scene-setting, but claims that reappear as structural elements of the paper's own argument. Ask: does this prior finding shape a root or intermediate node? If the paper organizes its results around a framework from prior work (e.g., testing established hallmarks, extending a known model), that framework is a foundational premise.
+
+2. Comparative anchors: Prior findings that give meaning to the paper's comparisons (e.g., "Others found X in system A; we find X also holds in system B"). Look in the Results and Discussion for comparisons between the paper's findings and specific prior results.
 
 3. Mechanistic chain links: Prior findings that complete a causal argument the paper's data alone cannot close (e.g., the paper shows A->B, literature establishes B->C, the paper argues A->C). Look in the Discussion for causal reasoning that cites intermediate steps from other work.
 
-4. Interpretation frames: Prior findings used to interpret the paper's results (e.g., enrichment for known targets of a pathway established by other work, or classification of cell types based on markers defined in prior studies). Look in the Results for moments where the paper interprets its data through the lens of established findings.
+4. Interpretation frames: Prior findings used to interpret the paper's results where the data alone would support multiple interpretations and the literature claim is what selects among them. This includes cases where the interpretation relies on established biology without re-citing it at the specific sentence (e.g., interpreting upregulation of a gene in terms of its known function, enrichment for known pathway targets, or classifying cells using markers defined in prior work). Look throughout the Results and Discussion for moments where the paper interprets its data through the lens of established findings. Do not include prior findings that merely label or annotate results without resolving ambiguity.
 
-5. Contrasts or contradictions: Prior findings that the paper argues against or refines, where the novelty claim depends on stating what is being overturned (e.g., "While bulk studies suggested X, our data shows Y"). Look in the Discussion for claims of novelty framed against prior work.
+5. Contrasts or contradictions: Prior findings that the paper argues against or refines, where the novelty claim depends on stating what is being overturned (e.g., "While bulk studies suggested X, our data shows Y"). Look in the Results and Discussion for claims of novelty framed against prior work.
 
-Do NOT include corroborative citations — claims from other work that merely agree with the paper's findings without being functionally part of the argument (e.g., "Consistent with Smith et al., we also observe..."). Do NOT include background context from the Introduction that sets the scene but is not invoked in the paper's reasoning about its own results.
+Phase A cross-check — Before proceeding to Phase B, review each intermediate node in the DAG. If an intermediate node interprets a biological observation through a specific mechanism, gene function, or established framework, verify that the Phase A candidate list includes a literature candidate for the basis of that interpretation. If the intermediate node's claim depends on knowledge from prior work (e.g., it references a gene's known role, a defined cell state, or a characterized pathway) and no corresponding literature candidate exists in the list, add one. This catches candidates that were missed during the section-by-section scan because the paper invoked the prior finding implicitly rather than with an explicit citation at the point of use.
+
+Phase B — Filter: Apply the inclusion and exclusion criteria below to each candidate from Phase A. For every candidate you reject, record the reason in excluded_borderline_claims. For every candidate you keep, create the node. Every Phase A candidate must appear either as an included literature node or in excluded_borderline_claims — no candidate may be silently dropped.
+
+Verify each candidate passes both inclusion tests:
+
+1. Structural-role test: Consider the paper's argument as a logical structure, independent of the authors' rhetorical phrasing. Does this literature finding serve as a premise, link, or frame that at least one other claim in the DAG depends on? If so, include it. If the claim merely corroborates a finding that would stand on its own evidence without the literature reference, exclude it. Important: Author phrasing such as "consistent with," "in agreement with," or "as previously shown" does NOT automatically make a claim corroborative. These phrases often introduce structurally necessary premises. Judge by the logical role, not the rhetorical hedging. A claim is corroborative only when the paper's own data independently establishes the same conclusion and the literature reference adds nothing to the argument's logic.
+
+2. Traceability test: Does this claim connect as a child or parent of at least one other node in the DAG? If it would be an isolated node, it is scene-setting and should be excluded.
+
+Do NOT include:
+- Corroborative citations: Exclude a literature claim ONLY when both conditions hold: (a) the paper's own data independently establishes the same conclusion — not merely the same observation. If the data shows a quantitative change (e.g., a gene's expression decreases with age) but the literature claim provides the biological significance of that change (e.g., why that gene matters for a pathway or phenotype), then the data does NOT independently establish the same point — the data establishes the observation and the literature claim establishes the interpretation. These are distinct claims, and the literature claim is structurally necessary. AND (b) the literature claim does not serve as a premise for any claim that goes beyond what the data alone shows. If the paper uses the literature finding to interpret, extend, or contextualize its data — even with corroborative language like "consistent with" — the claim is structurally necessary and should be included.
+- Citation piles: When the paper cites many references to establish that a general phenomenon exists (e.g., "Neuroinflammation plays a key role in AD [1-15]"), these are scene-setting. Only include a prior finding from such a section if it is a specific, identifiable result or framework that the paper's own argument structurally depends on.
+- General textbook knowledge: Do not include basic biology that any reader in the field would know and that is not attributable to specific prior work (e.g., "neurons transmit electrical signals").
 
 For each literature-derived claim:
 - Write the claim as a positive assertion, citing the original source in parentheses.
@@ -274,11 +304,12 @@ Assemble the complete JSON output. Order the nodes array as follows: root nodes 
 EXCLUSIONS
 
 Do NOT include in the DAG:
-- Background knowledge from the Introduction that sets context but is not part of the paper's argumentative structure.
 - Methodological descriptions without an associated result or claim.
 - Speculative statements from the Discussion without direct data support from this study.
 - Quality control, sample processing, or experimental design details that do not constitute findings.
-- Corroborative literature citations that merely agree with the paper's findings without being functionally part of its argument.
+- Corroborative literature citations where both conditions hold: the paper's own data independently establishes the same conclusion (not merely the same observation — observing a quantitative change is not the same as establishing the biological significance of that change), and the literature reference adds nothing to the argument's logic beyond agreement.
+- Citation-pile claims: generic assertions backed by many references that establish a field exists, rather than specific findings the paper builds on.
+- General textbook knowledge not attributable to specific prior work.
 - Any claim not explicitly stated or clearly implied in the paper. Do not fabricate findings.
 
 
@@ -396,6 +427,26 @@ JSON structure:
       "relationship": "supports"
     }
   ],
+  "literature_candidates": [
+    {
+      "candidate_id": 1,
+      "claim_text": "A prior finding considered during Phase A.",
+      "scenario": "interpretation frame",
+      "source_sentence": "Verbatim sentence from the paper that invokes this finding.",
+      "connected_nodes": ["I1"],
+      "disposition": "included as LL1",
+      "reason": null
+    },
+    {
+      "candidate_id": 2,
+      "claim_text": "A prior finding that was considered but excluded.",
+      "scenario": "comparative anchor",
+      "source_sentence": "Verbatim sentence from the paper.",
+      "connected_nodes": ["I3"],
+      "disposition": "excluded",
+      "reason": "Corroborative: the paper's data independently establishes the same conclusion."
+    }
+  ],
   "excluded_borderline_claims": [
     {
       "claim_text": "A claim considered but excluded from the DAG.",
@@ -418,11 +469,12 @@ Before finalizing, verify the following:
 7. Datasets and dataset_accessions on intermediate and root nodes are the union of their descendants' values.
 8. The glossary covers all paper-specific terms used in any node's claim_text.
 9. All new nodes (root and intermediate) follow method-agnostic framing.
-10. Literature-derived nodes are included when the paper explicitly invokes prior findings as part of its argument (foundational premises, comparative anchors, mechanistic chain links, interpretation frames, contrasts). Corroborative citations are excluded.
-11. Edge relationship types are assigned accurately and consistently.
-12. The node ordering in the output follows: roots, then intermediates by depth, then leaves.
-13. All string values use ASCII-only characters with no LaTeX or special formatting.
-14. Every node has a supporting_quote that is a verbatim excerpt from the paper (not paraphrased). For leaf nodes, the quote is preserved from Stage 2.
+10. Literature-derived nodes: Verify that Phase A produced candidates for all five scenarios (with explicit "None found" where applicable) and that the cross-check against intermediate nodes was performed. Each included literature claim passes both the structural-role test and the traceability test. Corroborative citations, citation piles, and general textbook knowledge are excluded. Verify that no Phase A candidate was rejected solely because of the authors' rhetorical phrasing (e.g., "consistent with," "in agreement with") — if a candidate was rejected with phrasing-based reasoning, re-evaluate its structural role. Verify that no candidate was rejected by conflating an observation with its interpretation — if the data shows a change and the literature claim explains the significance of that change, those are distinct claims.
+11. Every Phase A candidate appears either as an included literature node or in excluded_borderline_claims. The literature_candidates array in the output contains one entry per Phase A candidate with its disposition.
+12. Edge relationship types are assigned accurately and consistently.
+13. The node ordering in the output follows: roots, then intermediates by depth, then leaves.
+14. All string values use ASCII-only characters with no LaTeX or special formatting.
+15. Every node has a supporting_quote that is a verbatim excerpt from the paper (not paraphrased). For leaf nodes, the quote is preserved from Stage 2.
 
 
 AUDIENCE AND STANDARDS

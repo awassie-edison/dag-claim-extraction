@@ -1,0 +1,162 @@
+STAGE 4: ANALYSIS PROTOCOL ENHANCEMENT VIA CODE REPOSITORY
+
+PURPOSE
+You are a computational biology expert. You have the paper's full text, its
+claim DAG (from Stage 3), and the contents of the paper's associated code
+repository. Your task is to enhance the analysis_detail field on every node
+that currently has a non-null analysis_detail, using the actual code to make
+each description precise enough for an LLM agent to reproduce the analysis
+programmatically.
+
+INPUTS PROVIDED
+1. The paper's full text (extracted from PDF).
+2. The claim_dag.json from Stage 3 — contains nodes with existing
+   analysis_detail fields derived from reading the paper.
+3. The paper's code repository contents — individual files delimited by
+   ===CODE_FILE: path=== ... ===END_CODE_FILE=== markers.
+
+TASK
+For every node where analysis_detail is not null, rewrite the field to include
+code-informed details. The enhanced analysis_detail should be detailed enough
+that an LLM agent with access to the raw data files could write and execute
+code to reproduce the analysis and arrive at the same claim.
+
+CRITICAL: Each analysis_detail must be FULLY SELF-CONTAINED. An AI agent will
+read a single node's analysis_detail in isolation and must be able to reproduce
+that analysis without seeing any other node. Therefore:
+- Do NOT reference other nodes (e.g., "See L7 for details", "as in I3").
+- Do NOT reference repository file paths or script names (e.g., "see
+  DGE_analysis.R"). The code_scripts field captures provenance separately.
+- If a node's analysis depends on upstream preprocessing, describe those
+  upstream steps inline rather than pointing to another node.
+- Write the analysis_detail as a standalone protocol, not a cross-referenced
+  document.
+
+ENHANCEMENT TARGETS
+For each analysis_detail, incorporate the following from the code:
+
+1. INPUT SPECIFICATION
+   - Exact input file paths/names as used in the code (e.g., "adata.h5ad",
+     "counts_matrix.csv", "metadata.tsv").
+   - File formats expected (h5ad, rds, csv, mtx, etc.).
+   - Which upstream preprocessing outputs feed into this step.
+   - Any required reference files (genome annotations, gene lists, etc.).
+
+2. EXECUTION SEQUENCE
+   - The key function calls that implement this analysis, in order.
+     Describe what each step does (e.g., "Run PCA with n_comps=50 using
+     scanpy.tl.pca") rather than naming scripts ("run script.R").
+   - Intermediate files or objects produced between steps.
+   - Any conditional logic or branching.
+
+3. PARAMETERS AND THRESHOLDS
+   - Exact parameter values as set in the code (not just what the paper
+     states — code values take precedence when they differ).
+   - Parameters that differ from tool defaults (flag these explicitly).
+   - Random seeds if specified.
+   - Filtering thresholds (min genes, min cells, max mito %, etc.).
+
+4. ENVIRONMENT AND DEPENDENCIES
+   - Key package versions if specified in the repo (from renv.lock,
+     requirements.txt, environment.yml, setup.py, DESCRIPTION, or
+     import statements).
+   - Any system-level dependencies or external tools called via shell.
+
+5. EXPECTED OUTPUTS
+   - Output file names and formats as written by the code.
+   - Key variables, objects, or data structures produced.
+   - How outputs connect to the next analysis step or downstream nodes.
+
+MATCHING RULES — How to map DAG nodes to code files
+- Match by tool/package name: e.g., "Seurat" in analysis_detail -> search
+  for Seurat function calls in R scripts.
+- Match by analysis type: e.g., "differential expression" -> FindMarkers,
+  DESeq2, or edgeR calls.
+- Match by gene/feature name: e.g., if a node mentions "Apoe", search for
+  that gene name in the code.
+- Match by figure/table: if evidence_location references "Figure 3a",
+  search for plotting code that generates that figure.
+- When multiple scripts implement parts of a single analysis, list all of
+  them in code_scripts.
+
+RULES — What to modify and what to preserve
+
+DO NOT MODIFY these fields (they must remain identical to the input):
+  id, claim_text, claim_type, node_type, depth, source, datasets,
+  dataset_accessions, experiment_type, experiment_detail, evidence_location,
+  supporting_quote, dataset_link
+
+YOU MAY MODIFY:
+  analysis_detail — enhance with code-informed details (this is the primary
+    task). Preserve the existing content as the foundation and add to it.
+    Do not remove accurate information that was already there.
+    IMPORTANT: Do NOT add notes like "No code for this analysis was found
+    in the repository" or "No matching script was identified." If you
+    cannot match a node to code, leave its analysis_detail EXACTLY as it
+    was in the input — byte-for-byte identical. Do not append, prepend,
+    or modify it in any way.
+  analysis_type — minor refinements only if the code reveals a more precise
+    characterization.
+
+YOU MUST ADD these new fields to every node that has a non-null
+analysis_detail:
+  analysis_detail_enhanced (boolean) — true if the analysis_detail was
+    successfully enhanced using code; false if the node could not be matched
+    to any code file (in which case analysis_detail is left UNCHANGED).
+  code_scripts (list of strings) — the specific files from the code
+    repository that informed the enhancement. Use the format
+    "path/to/script.R:45-120" (with line ranges) when possible, or just
+    "path/to/script.R" if the entire file is relevant. Empty list [] if
+    analysis_detail_enhanced is false.
+
+For nodes where analysis_detail is null (root nodes, literature-derived
+nodes, synthesis-only intermediates), do NOT add analysis_detail_enhanced
+or code_scripts. Leave these nodes completely unchanged.
+
+YOU MUST ADD this top-level object to the JSON (alongside "paper",
+"glossary", "nodes", "edges", etc.):
+  code_repository — an object with:
+    url (string): the repository URL
+    branch (string): the branch that was read (e.g., "main", "master")
+    fetched_date (string): today's date in YYYY-MM-DD format
+    files_read (list of strings): all code file paths that were provided
+      as input to this stage
+
+DISCREPANCY HANDLING
+If the code contradicts the paper's methods section (e.g., a different
+p-value threshold, a different normalization method, or an extra filtering
+step not mentioned in the paper), note the discrepancy explicitly in the
+enhanced analysis_detail using the format:
+  "[CODE NOTE: The code uses X, whereas the paper states Y.]"
+
+This is important for reproducibility — the code is the ground truth for
+what was actually executed.
+
+ASCII-ONLY OUTPUT
+Use only ASCII characters (codes 32-126) in all text fields. Spell out
+Greek letters (alpha, beta, delta). Use ASCII equivalents for symbols:
++/- not plus-minus, >= not greater-equal, 10^-5 not superscript, etc.
+Straight quotes only. No LaTeX or markup.
+
+OUTPUT FORMAT
+Return the COMPLETE claim_dag.json with all modifications applied. The
+output must be valid JSON. Include every node, every edge, every field —
+this is a full replacement of the file, not a patch.
+
+Do not wrap the JSON in markdown code fences. Do not include any text
+before or after the JSON object.
+
+SELF-AUDIT CHECKLIST (verify before outputting)
+1. Every node from the input is present in the output with the same id.
+2. No claim_text, node_type, depth, source, or supporting_quote was changed.
+3. Every node with non-null analysis_detail has analysis_detail_enhanced
+   and code_scripts fields.
+4. No node with null analysis_detail has these new fields.
+5. The code_repository top-level object is present and complete.
+6. The JSON is valid and parseable.
+7. All edges from the input are preserved unchanged.
+8. literature_candidates and excluded_borderline_claims are preserved.
+9. No analysis_detail references other node IDs (L1, I3, etc.) or script
+   file names. Each is a standalone protocol.
+10. Nodes with analysis_detail_enhanced=false have their analysis_detail
+    EXACTLY matching the input — no added notes about missing code.

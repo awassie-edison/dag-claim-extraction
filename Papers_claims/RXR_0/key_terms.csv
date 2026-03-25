@@ -1,0 +1,14 @@
+term,definition
+APP/PS1,APP/PS1deltaE9 transgenic mouse model of Alzheimer's disease expressing mutant human amyloid precursor protein and presenilin 1
+Bexarotene,A synthetic RXR agonist used to activate retinoid X receptors
+RXR,Retinoid X Receptor - a nuclear receptor that functions as a heterodimer partner for other nuclear receptors to regulate gene transcription
+snATAC-seq,Single-nucleus Assay for Transposase-Accessible Chromatin using sequencing - measures chromatin accessibility at single-nucleus resolution
+scRNA-seq,Single-cell RNA sequencing - measures gene expression at single-cell resolution
+ChIP-seq,Chromatin immunoprecipitation followed by sequencing - identifies genome-wide binding sites of a protein of interest
+TF footprinting,Computational analysis of ATAC-seq data to infer transcription factor binding events based on protected chromatin regions within accessible peaks
+chromVAR,A computational method for inferring transcription-factor-associated accessibility from single-cell epigenomic data
+BINDetect,A module within the TOBIAS pipeline that estimates bound motif sites and differential motif scores between conditions
+TOBIAS,Transcription factor Occupancy prediction By Investigation of ATAC-seq Signal - a computational framework for TF footprinting analysis
+CRE,Cis-regulatory element - a non-coding DNA region that regulates transcription of nearby genes
+TSS,Transcription start site - the genomic position where transcription of a gene begins
+LXR,Liver X Receptor (NR1H3) - a nuclear receptor that heterodimerizes with RXR to regulate lipid metabolism genes

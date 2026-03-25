@@ -1,0 +1,2155 @@
+{
+  "paper": {
+    "title": "RXR-Mediated Remodeling of Transcriptional and Chromatin Landscapes in APP Mouse Brain: Insights from Integrated Single-Cell RNA and ATAC Profiling",
+    "authors": [
+      "Yi Lu",
+      "Xuebao Wang",
+      "Carolina Saibro-Girardi",
+      "Nicholas Francis Fitz",
+      "Radosveta Koldamova",
+      "Iliya Lefterov"
+    ],
+    "venue": "Cells",
+    "year": "2025"
+  },
+  "glossary": {
+    "APP/PS1": "APP/PS1deltaE9 transgenic Alzheimer's disease mouse model expressing human APPswe and PSEN1dE9 mutations, used to model amyloid pathology",
+    "RXR": "Retinoid X Receptor, a nuclear receptor that functions as an obligate heterodimer partner for multiple other nuclear receptors and mediates transcriptional regulation through DNA binding",
+    "Bexarotene": "A synthetic RXR agonist (ligand) used to pharmacologically activate RXR signaling; administered at 100 mg/kg/day by oral gavage",
+    "snATAC-seq": "Single-nucleus Assay for Transposase-Accessible Chromatin with sequencing, a method to profile chromatin accessibility at single-nucleus resolution",
+    "scRNA-seq": "Single-cell RNA sequencing, a method to profile gene expression at single-cell resolution",
+    "ChIP-seq": "Chromatin immunoprecipitation followed by sequencing, used here with an anti-RXR antibody to identify genomic sites directly bound by RXR",
+    "TOBIAS": "A computational footprinting framework for genome-wide transcription factor binding dynamics analysis from ATAC-seq data, including bias correction, footprint scoring, and differential binding detection",
+    "chromVAR": "A computational method for inferring transcription-factor-associated accessibility from single-cell epigenomic data by quantifying motif enrichment",
+    "TF footprinting": "Computational identification of transcription factor binding events within accessible chromatin regions based on characteristic protection patterns in ATAC-seq data",
+    "CRE": "Cis-regulatory element, a non-coding DNA region that regulates transcription of nearby genes",
+    "peak-to-gene linkage": "Correlation analysis connecting chromatin accessibility peaks to expression of nearby genes within a defined genomic window",
+    "LXR": "Liver X Receptor (NR1H3), a nuclear receptor that forms a permissive heterodimer with RXR and regulates lipid metabolism genes including Apoe and Abca1",
+    "BINDetect": "A module within TOBIAS that estimates bound motif sites and differential motif scores between conditions based on footprint scores",
+    "ENCODE cCRE": "ENCODE candidate cis-regulatory elements, a catalog of regulatory DNA regions defined by the ENCODE consortium",
+    "TSS": "Transcription start site, the genomic position where transcription of a gene begins",
+    "MACS2": "Model-based Analysis of ChIP-Seq, a peak-calling algorithm used for both ChIP-seq and ATAC-seq data",
+    "ArchR": "An R package for processing and analyzing single-cell chromatin accessibility data",
+    "Signac": "An R package extension of Seurat for analysis of single-cell chromatin data",
+    "permissive heterodimer": "An RXR heterodimer that can be activated by ligands binding to either partner receptor, as opposed to non-permissive heterodimers that require ligand binding to the partner",
+    "Apoe": "Apolipoprotein E gene, a known RXR/LXR target gene critical for cholesterol efflux and lipid transport in the brain",
+    "Fkbp5": "FK506-binding protein 5, associated with intracellular trafficking of steroid hormone receptor complexes",
+    "Hes1": "Hairy and enhancer of split-1, a key transcriptional regulator of cell differentiation and proliferation",
+    "Spi1": "PU.1 transcription factor, a master regulator of microglia identity",
+    "Nupr1": "Nuclear protein 1, a transcription regulator associated with stress resistance and involved in cell-cycle, apoptosis, autophagy, and DNA repair",
+    "Pdgfra": "Platelet-derived growth factor receptor alpha, an oligodendrocyte-specific gene",
+    "Nfatc2": "Nuclear factor of activated T-cells cytoplasmic 2, an immune regulator that physically interacts with RXR",
+    "out-degree": "In a directed network, the number of outgoing edges from a node, representing the number of targets a transcription factor regulates"
+  },
+  "nodes": [
+    {
+      "id": "R1",
+      "claim_text": "RXR activation remodels the chromatin and transcriptional landscape of the APP/PS1 mouse brain through cell-type-specific regulatory cascades, orchestrating gene networks controlling neuroinflammation, lipid metabolism, and synaptic signaling.",
+      "claim_type": "mechanistic interpretation",
+      "node_type": "root",
+      "depth": 0,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq",
+        "RXR ChIP-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905",
+        "GEO: GSE289039"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Abstract; Discussion: paragraph 1",
+      "supporting_quote": "Our study demonstrates that RXR activation remodels the chromatin and transcriptional landscape of the APP/PS1 mouse brain through cell-type-specific regulatory cascades.",
+      "dataset_link": null
+    },
+    {
+      "id": "R2",
+      "claim_text": "RXR activation induces selective rewiring of transcriptional networks while preserving overall regulatory architecture, operating through a three-tiered regulatory cascade: direct RXR binding at accessible chromatin, activation of secondary transcription factors, and propagation through metabolic and inflammatory gene networks.",
+      "claim_type": "mechanistic interpretation",
+      "node_type": "root",
+      "depth": 0,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq",
+        "RXR ChIP-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905",
+        "GEO: GSE289039"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Abstract; Discussion: paragraphs 1 and 3; Highlights",
+      "supporting_quote": "RXR activation induces selective rewiring of transcriptional networks while preserving overall regulatory architecture, demonstrating how nuclear receptor signaling translates into coordinated transcriptional cascades.",
+      "dataset_link": null
+    },
+    {
+      "id": "R3",
+      "claim_text": "Integrating scRNA-seq, snATAC-seq, and ChIP-seq enables comprehensive reconstruction of RXR-mediated transcriptional regulation at cell-type resolution, providing a generalizable framework for mapping ligand-activated transcription factor networks in complex tissues.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "root",
+      "depth": 0,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq",
+        "RXR ChIP-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905",
+        "GEO: GSE289039"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Abstract; Discussion: paragraph 2; Conclusions",
+      "supporting_quote": "This study demonstrates that combining scRNA-seq, snATAC-seq, and ChIP-seq enables comprehensive analysis of RXR-mediated transcriptional regulation.",
+      "dataset_link": null
+    },
+    {
+      "id": "I1",
+      "claim_text": "Integration of single-nucleus chromatin accessibility and single-cell transcriptomic profiling establishes a high-quality single-cell atlas of the APP/PS1 mouse brain with all major neuronal and glial populations robustly identified and comparably represented between treatment groups.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 1,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq and scRNA-seq integration",
+      "experiment_detail": "snATAC-seq was performed on brain tissue from Bexarotene-treated and Vehicle-treated APP/PS1 mice (n=5 per group), yielding 61,353 nuclei after QC. scRNA-seq from the same model (n=8 mice) yielded 37,640 cells. The two modalities were integrated for cell-type annotation.",
+      "analysis_type": "unsupervised clustering and cell type annotation",
+      "analysis_detail": "snATAC-seq data were processed with Cell Ranger ATAC and ArchR. Iterative LSI dimensionality reduction and clustering were performed. Cluster identities were defined after unconstrained integration with scRNA-seq profiles processed with Seurat. Marker gene analysis confirmed cluster identity. Chromatin accessibility at marker gene loci was compared to expression patterns.",
+      "evidence_location": "Section 3.1; Figure 1",
+      "supporting_quote": "These analyses establish a high-quality single-cell and single-nucleus atlas of the APP/PS1 mouse brain.",
+      "dataset_link": null
+    },
+    {
+      "id": "I2",
+      "claim_text": "RXR activation drives cell-type-specific remodeling of chromatin accessibility, with microglia and endothelial cells showing the strongest changes converging on inflammatory and angiogenic/developmental pathways, respectively.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 1,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.3; Figure 3",
+      "supporting_quote": "We conclude that RXR activation drives cell-type-specific remodeling of chromatin accessibility, nominates upstream TF regulators with matched motif-expression relationships, and links differential accessibility to gene expression via peak-gene correlations.",
+      "dataset_link": null
+    },
+    {
+      "id": "I3",
+      "claim_text": "Transcription factor footprinting reveals an RXR-centered regulatory hierarchy across brain cell types, with widespread RXR-dependent changes in TF binding and astrocytes showing the strongest cell-specific responses.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 1,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.4; Figure 4",
+      "supporting_quote": "Footprinting analysis uncovered widespread RXR-dependent changes in TF binding, with astrocytes showing the strongest cell-specific responses.",
+      "dataset_link": null
+    },
+    {
+      "id": "I4",
+      "claim_text": "Neuronal TF regulatory networks remain structurally robust under RXR activation but display localized rewiring, with selective enhancement of specific cascades and shifts in hub influence.",
+      "claim_type": "computational/modeling-derived conclusion",
+      "node_type": "intermediate",
+      "depth": 1,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.5; Figure 4F",
+      "supporting_quote": "Neuronal TF networks remain structurally robust under RXR activation but display localized rewiring, with selective enhancement of cascades (e.g., Atoh1 ->Neurod2) and shifts in hub influence.",
+      "dataset_link": null
+    },
+    {
+      "id": "I5",
+      "claim_text": "RXR ChIP-seq confirms that a large fraction of differentially accessible regions identified by ATAC-seq correspond to direct RXR binding sites, many proximal to gene promoters, and linked to expression changes in neurodegenerative disease pathways.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 1,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq",
+        "RXR ChIP-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905",
+        "GEO: GSE289039"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.6; Figure 5",
+      "supporting_quote": "These results demonstrate that integrating ATAC-seq footprinting, RXR ChIP-seq, and scRNA-seq provides direct evidence linking RXR occupancy at CREs to changes in gene expression.",
+      "dataset_link": null
+    },
+    {
+      "id": "I6",
+      "claim_text": "Integrative analysis of ATAC-seq, ChIP-seq, and RNA expression identifies RXR occupancy at cis-regulatory elements linked to key transcription factors, validating RXR's role as both a direct DNA-binding factor and a co-regulatory partner extending its influence into developmental, immune, and stress-response networks.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 1,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq",
+        "RXR ChIP-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905",
+        "GEO: GSE289039"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.7; Figure 5F,G",
+      "supporting_quote": "These analyses confirm that RXR acts not only through direct DNA binding but also via co-regulatory partnerships with other TFs, extending its influence into developmental, immune, and stress-response networks.",
+      "dataset_link": null
+    },
+    {
+      "id": "I7",
+      "claim_text": "Motif enrichment analysis correlated with gene activity identifies cell-type-specific transcription factor regulators that shape the chromatin accessibility landscape following RXR activation.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 1,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.2; Figure 2",
+      "supporting_quote": "To systematically identify transcriptional regulators shaping the chromatin-accessibility landscape after RXR activation, we performed motif enrichment using chromVAR within ArchR.",
+      "dataset_link": null
+    },
+    {
+      "id": "I8",
+      "claim_text": "In microglia, RXR activation bidirectionally remodels chromatin accessibility, increasing access at lipid metabolism and inflammatory response loci while decreasing access at steroid hormone receptor trafficking and homeostatic microglia signature loci.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.3; Figure 3B,C",
+      "supporting_quote": "RXR activation increased chromatin accessibility affecting categories such as cell migration (Ccr1), cell differentiation (Dusp6), inflammatory response (Cx3cr1), phosphorylation (Bmp2k, Cbl), HDL remodeling (Apoe, Lipg, Lipc, Lpl)",
+      "dataset_link": null
+    },
+    {
+      "id": "I9",
+      "claim_text": "In endothelial cells, RXR activation bidirectionally remodels chromatin accessibility, increasing access at transcriptional regulation and angiogenesis loci while decreasing access at chromatin remodeling and apoptotic process loci.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.3; Figure 3B,D",
+      "supporting_quote": "Endothelial cells showed 1717 differential peaks increasing chromatin accessibility and 928 decreasing it. This cell type demonstrated the strongest overlap between differential accessibility and transcriptional responses.",
+      "dataset_link": null
+    },
+    {
+      "id": "I10",
+      "claim_text": "In astrocytes and oligodendrocytes, RXR activation produces more modest chromatin accessibility changes affecting transcription regulation, brain development, and receptor tyrosine kinase signaling pathways.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.3; Supplementary Figures S2B,C",
+      "supporting_quote": "Overall, gene ontology analysis of genes associated with differentially accessible peaks in astrocytes indicated enrichment of biological categories such as regulation of transcription (Nupr1), chromatin remodeling, brain development",
+      "dataset_link": null
+    },
+    {
+      "id": "I11",
+      "claim_text": "Differential TF binding analysis reveals both shared and cell-type-specific transcription factor responses to RXR activation, with a subset of TFs showing concordant changes in binding occupancy and gene expression.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.4; Figure 4B-D",
+      "supporting_quote": "Comparing footprinting changes with differential expression (Figure 4), 20-27% of TFs showed consistent regulation at both levels",
+      "dataset_link": null
+    },
+    {
+      "id": "I12",
+      "claim_text": "RXR-initiated TF regulatory network analysis predicts a cascade from ligand-activated RXR through primary TFs to a large set of secondary TFs, revealing a multilayered transcriptional hierarchy.",
+      "claim_type": "computational/modeling-derived conclusion",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.4; Figure 4E",
+      "supporting_quote": "This analysis predicted a cascade initiated by ligand-activated RXR, involving 25 primary TFs that collectively activate 141 additional TFs, revealing an RXR-centered regulatory hierarchy across brain cell types.",
+      "dataset_link": null
+    },
+    {
+      "id": "I13",
+      "claim_text": "Overlapping ChIP-seq and ATAC-seq peaks are predominantly located at proximal cis-regulatory elements and are enriched in neurodegenerative disease pathways, with confirmed expression changes in associated genes.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq",
+        "RXR ChIP-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905",
+        "GEO: GSE289039"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.6; Figure 5A-E,G",
+      "supporting_quote": "Many of the predicted target genes clustered in KEGG pathways associated with neurodegenerative disorders, including Alzheimer's disease (AD), Parkinson's disease (PD), Huntington's disease (HD), prion disease (PrD), and amyotrophic lateral sclerosis (ALS).",
+      "dataset_link": null
+    },
+    {
+      "id": "I14",
+      "claim_text": "The overall distribution of differential chromatin accessibility peaks across cell types reveals that RXR activation produces the largest effects in microglia and endothelial cells, with progressively fewer changes in astrocytes, oligodendrocytes, and neurons.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.3; Figure 3A; Supplementary Table S2",
+      "supporting_quote": "Differentially accessible peaks were concentrated in microglia and endothelial clusters and less in astrocytes, oligodendrocytes and neurons",
+      "dataset_link": null
+    },
+    {
+      "id": "L1",
+      "claim_text": "Integration of single-nucleus chromatin accessibility and single-cell transcriptomic profiling of APP/PS1 mouse brains identified major brain cell populations including astrocytes, microglia, neurons, oligodendrocytes, endothelial cells, macrophages, pericytes/vascular smooth muscle cells, and choroid plexus epithelial/ependymal cells, with comparable representation between RXR-activated and Vehicle groups.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq and scRNA-seq",
+      "experiment_detail": "snATAC-seq was performed on brain tissue from Bexarotene-treated and Vehicle-treated APP/PS1 mice (n=5 per group), yielding 61,353 nuclei. scRNA-seq from the same model yielded 37,640 cells. Both datasets were integrated for cell-type annotation.",
+      "analysis_type": "unsupervised clustering and cell type annotation",
+      "analysis_detail": "snATAC-seq data were processed with Cell Ranger ATAC and ArchR (v1.0.1). High-quality nuclei were selected based on TSS enrichment >4 and fragment count between 1000 and 100,000. Doublets were identified and filtered. Iterative LSI dimensionality reduction and clustering were performed. Cluster identities were defined after unconstrained integration with scRNA-seq profiles. scRNA-seq data were processed with Seurat v4.2.1, filtered (200 < unique features < 5000, total counts < 50,000, <10% mitochondrial), doublets removed with DoubletFinder, normalized with SCTransform v2, and clustered using top 10 PCs at 0.25 resolution. Cell types were annotated using marker genes identified by MAST algorithm. Proportions of annotated peaks were compared across cell types and treatment groups.",
+      "evidence_location": "Section 3.1; Figure 1B,C,D",
+      "supporting_quote": "Unsupervised clustering and UMAP projection identified major brain cell populations, including astrocytes, microglia, neurons, oligodendrocytes, endothelial cells, macrophages, pericytes/vascular smooth muscle cells, and a cluster containing choroid plexus epithelial and ependymal cells",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L2",
+      "claim_text": "RXR activation by Bexarotene treatment resulted in approximately 1605 chromatin peaks with increased accessibility and approximately 1310 peaks with decreased accessibility across five major brain cell types, while the majority of peaks (approximately 14170) showed no significant change.",
+      "claim_type": "threshold-based or cutoff-dependent result",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice (n=5 per group) was integrated with scRNA-seq for peak-to-gene linkage analysis. Feature linkages were restricted to peaks within 100 kb of each TSS, using the union of peaks present in >2% of cells in at least one cell type.",
+      "analysis_type": "differential chromatin accessibility analysis",
+      "analysis_detail": "The ArchR project was converted to Signac Seurat Object format. Differentially accessible regions between Bexarotene and Vehicle groups were determined by the FindMarkers function in Signac (v1.14.0) using a logistic regression framework. Peaks were categorized as upregulated, downregulated, or non-significant based on adjusted p-value < 0.05. Peak counts were tallied across five major cell types.",
+      "evidence_location": "Section 3.3; Figure 3A",
+      "supporting_quote": "Most peaks showed no significant difference between RXR-activated and Vehicle groups across the five major cell types (n = 14,170; denoted \"ns\" in the heatmap), but 1605 peaks were more accessible with RXR activation and 1310 were enriched in Vehicle",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L3",
+      "claim_text": "Differentially accessible chromatin peaks following RXR activation were concentrated in microglia and endothelial cell clusters, with fewer differential peaks in astrocytes, oligodendrocytes, and neurons.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice (n=5 per group) was analyzed for differential accessibility within each cell type.",
+      "analysis_type": "cell-type-specific differential accessibility comparison",
+      "analysis_detail": "Differentially accessible peaks were identified per cell type using logistic regression in Signac (adjusted p < 0.05). The number of differential peaks was compared across microglia, endothelial cells, astrocytes, oligodendrocytes, and neurons to determine which cell types showed the greatest chromatin remodeling.",
+      "evidence_location": "Section 3.3; Supplementary Table S2; Supplementary Figure S2A",
+      "supporting_quote": "Differentially accessible peaks were concentrated in microglia and endothelial clusters and less in astrocytes, oligodendrocytes and neurons",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L4",
+      "claim_text": "In microglia, RXR activation increased chromatin accessibility at regions associated with cell migration, cell differentiation, inflammatory response, phosphorylation, and HDL remodeling genes including Apoe, Lipg, Lipc, and Lpl.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice was analyzed for differential accessibility in microglia, with gene ontology enrichment of associated genes.",
+      "analysis_type": "differential accessibility and GO enrichment in microglia",
+      "analysis_detail": "Differentially accessible peaks in microglia (Bexarotene vs. Vehicle) were identified using logistic regression in Signac (adjusted p < 0.05). Upregulated peaks were linked to nearby genes. Functional annotation of associated genes was performed using DAVID (v6.8) to identify enriched GO biological process categories.",
+      "evidence_location": "Section 3.3; Figure 3C left",
+      "supporting_quote": "RXR activation increased chromatin accessibility affecting categories such as cell migration (Ccr1), cell differentiation (Dusp6), inflammatory response (Cx3cr1), phosphorylation (Bmp2k, Cbl), HDL remodeling (Apoe, Lipg, Lipc, Lpl)",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L5",
+      "claim_text": "In microglia, RXR activation decreased chromatin accessibility at regions associated with chromatin remodeling transcription (including Nr3c1 and Fkbp5), cell differentiation (including the microglia master regulator Spi1), and phospholipase C-activating G protein-coupled receptor signaling (including P2ry12 and Lrp1).",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice was analyzed for differential accessibility in microglia, with gene ontology enrichment of associated genes.",
+      "analysis_type": "differential accessibility and GO enrichment in microglia",
+      "analysis_detail": "Differentially accessible peaks in microglia (Bexarotene vs. Vehicle) were identified using logistic regression in Signac (adjusted p < 0.05). Downregulated peaks were linked to nearby genes. Functional annotation was performed using DAVID (v6.8) to identify enriched GO biological process categories among genes associated with less accessible peaks.",
+      "evidence_location": "Section 3.3; Figure 3C right",
+      "supporting_quote": "Bexarotene also decreased chromatin accessibility in gene ontology categories such as chromatin remodeling transcription (Nr3c1, Fkbp5, both genes are specific for microglia and macrophages), cell differentiation (Notch2, Spi1 gene is microglia master regulator), and the phospholipase C-activating G protein-coupled receptor signaling pathway (P2ry12, Lrp1)",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L6",
+      "claim_text": "Peaks linked to the Apoe/Apoc1 locus were significantly more accessible in microglia following RXR activation, and Apoe mRNA was significantly increased after Bexarotene treatment.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq and scRNA-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice were jointly analyzed to link chromatin accessibility changes at the Apoe/Apoc1 locus to gene expression changes in microglia.",
+      "analysis_type": "locus-level differential accessibility and expression analysis",
+      "analysis_detail": "Differential accessibility at the Apoe/Apoc1 locus in microglia was assessed using logistic regression in Signac. Apoe peak log2FC = 1.66, adj-p = 0.028; Apoc1 peak log2FC = 1.13, adj-p = 6.3 x 10^-33. Apoe mRNA differential expression was assessed using MAST algorithm in Seurat (log2FC = 0.42; adj-p = 3.23 x 10^-6, Bonferroni-corrected).",
+      "evidence_location": "Section 3.3; Figure 3B",
+      "supporting_quote": "Peaks linked to Apoe/Apoc locus were significantly upregulated in microglia (Apoe log2FC = 1.66; adj-p = 0.028 and Apoc1 log2FC = 1.13, adj-p = 6.3 x 10-33) with several promoter-proximal peaks showing higher accessibility under RXR activation",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L7",
+      "claim_text": "Transcription factor footprinting analysis predicted an RXR-centered regulatory cascade involving 25 primary TFs that collectively activate 141 additional TFs across brain cell types.",
+      "claim_type": "computational/modeling-derived conclusion",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906"
+      ],
+      "experiment_type": "snATAC-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice (n=5 per group) was analyzed for TF footprinting across major brain cell types.",
+      "analysis_type": "TF footprinting and regulatory network construction",
+      "analysis_detail": "TOBIAS (v0.17.0) pipeline was applied: ATACorrect for Tn5 bias correction, ScoreBigWig for footprint scoring, BINDetect for differential motif binding between Bexarotene and Vehicle groups. TFs with scores in top or bottom 5% or with -log10(p-value) above 95th percentile were considered significantly altered. The CreateNetwork module linked bound TFBSs within promoter regions to target TF genes, constructing a directed regulatory network. The network was visualized in Cytoscape (v3.10.3).",
+      "evidence_location": "Section 3.4; Figure 4E",
+      "supporting_quote": "This analysis predicted a cascade initiated by ligand-activated RXR, involving 25 primary TFs that collectively activate 141 additional TFs, revealing an RXR-centered regulatory hierarchy across brain cell types.",
+      "dataset_link": "GSE283906: direct"
+    },
+    {
+      "id": "L8",
+      "claim_text": "ChIP-seq with an RXR antibody identified 11957 significant RXR-binding sites in RXR-activated versus Vehicle APP/PS1 mouse brain, of which 3908 overlapped with enriched ATAC-seq peaks.",
+      "claim_type": "statistical/quantitative finding",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "RXR ChIP-seq",
+        "snATAC-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE289039",
+        "GEO: GSE283906"
+      ],
+      "experiment_type": "ChIP-seq and snATAC-seq",
+      "experiment_detail": "ChIP-seq was performed with an anti-RXR antibody on APP/PS1 mouse brain tissue (n=2 Bexarotene, n=2 Vehicle). After alignment with Bowtie2 and quality filtering, ~35.1M uniquely mapped reads for Bexarotene and ~29.5M for Vehicle were obtained. snATAC-seq peaks were from the same model (n=5 per group).",
+      "analysis_type": "peak calling and cross-modal overlap analysis",
+      "analysis_detail": "ChIP-seq reads were aligned to GRCm38 using Bowtie2 (v2.5.4) with local option. Low quality reads (mapping score < 2) removed by Samtools (v1.21). Peak calling performed with MACS2 at q-value threshold of 0.05, comparing Bexarotene vs. Vehicle. Overlap between ChIP-seq peaks and enriched ATAC-seq peaks was calculated using Bedtools (v2.31.1) with 10 kb genomic windows.",
+      "evidence_location": "Section 3.6; Figure 5A-C",
+      "supporting_quote": "Peak calling identified 11,957 significant RXR-binding sites in RXR-activated versus Vehicle samples. Of these, 3908 overlapped with enriched ATAC-seq peaks.",
+      "dataset_link": "GSE289039;GSE283906: direct"
+    },
+    {
+      "id": "L9",
+      "claim_text": "Among the 1251 overlapping ChIP-seq and ATAC-seq peaks, approximately 70% were located at transcription start sites or upstream promoter regions, indicating that the majority represent proximal cis-regulatory elements.",
+      "claim_type": "statistical/quantitative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "RXR ChIP-seq",
+        "snATAC-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE289039",
+        "GEO: GSE283906"
+      ],
+      "experiment_type": "ChIP-seq and snATAC-seq",
+      "experiment_detail": "Overlapping peaks from RXR ChIP-seq and snATAC-seq in APP/PS1 mouse brain were annotated for genomic position relative to gene features.",
+      "analysis_type": "genomic annotation of overlapping peaks",
+      "analysis_detail": "Among 1251 overlapping ChIP-seq and ATAC-seq peaks, genomic coordinates were annotated by Uropa with default options. Peaks were classified by position relative to nearest gene features: 777 at TSS, 60 within upstream promoter regions. The fraction at proximal CREs was calculated as (777 + 60) / 1251 = ~67%, reported as approximately 70%.",
+      "evidence_location": "Section 3.6; Figure 5A-C",
+      "supporting_quote": "Among the 1251 overlapping peaks, 777 were located at transcription start sites (TSSs) and another 60 within upstream promoter regions, indicating that nearly 70% of overlapping peaks represent proximal cis-regulatory elements (CREs) likely contributing to gene regulation under RXR activation",
+      "dataset_link": "GSE289039;GSE283906: direct"
+    },
+    {
+      "id": "L10",
+      "claim_text": "Pathway analysis of genes at overlapping ChIP-seq and ATAC-seq peaks revealed enrichment in KEGG pathways associated with neurodegenerative disorders including Alzheimer's disease, Parkinson's disease, Huntington's disease, prion disease, and amyotrophic lateral sclerosis.",
+      "claim_type": "computational/modeling-derived conclusion",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "RXR ChIP-seq",
+        "snATAC-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE289039",
+        "GEO: GSE283906"
+      ],
+      "experiment_type": "ChIP-seq and snATAC-seq",
+      "experiment_detail": "Genes near overlapping RXR ChIP-seq and snATAC-seq peaks in APP/PS1 mouse brain were subjected to pathway enrichment analysis.",
+      "analysis_type": "pathway enrichment analysis",
+      "analysis_detail": "The 1251 overlapping ChIP-seq and ATAC-seq peaks were annotated to nearby genes. These gene lists were analyzed in Metascape for multilist comparative analysis and enrichment using GO processes, KEGG pathways, Reactome gene sets, canonical pathways, and CORUM complexes. KEGG pathway enrichment identified neurodegenerative disease pathways (AD, PD, HD, PrD, ALS).",
+      "evidence_location": "Section 3.6; Figure 5E",
+      "supporting_quote": "Many of the predicted target genes clustered in KEGG pathways associated with neurodegenerative disorders, including Alzheimer's disease (AD), Parkinson's disease (PD), Huntington's disease (HD), prion disease (PrD), and amyotrophic lateral sclerosis (ALS).",
+      "dataset_link": "GSE289039;GSE283906: direct"
+    },
+    {
+      "id": "L11",
+      "claim_text": "Motif enrichment analysis correlated with gene activity and RNA expression identified 88 high-confidence candidate transcription factor regulators across major brain cell types.",
+      "claim_type": "threshold-based or cutoff-dependent result",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq from APP/PS1 mice (n=10) was analyzed with chromVAR for motif enrichment, correlated with ATAC-inferred gene activity and scRNA-seq expression across major brain cell types.",
+      "analysis_type": "motif enrichment and correlation analysis",
+      "analysis_detail": "chromVAR was used within ArchR to compute TF motif enrichment Z-scores on a per-cell basis. Pearson correlation was calculated between motif enrichment Z-score and ATAC-inferred gene expression using correlateMatrices function (FDR < 0.01 and correlation > 0.5). Additional Pearson correlation was performed between ATAC-inferred gene expression and scRNA-seq gene expression. TFs passing both thresholds were identified as high-confidence candidates (n=88).",
+      "evidence_location": "Section 3.2; Figure 2A-C; Supplementary Table S1",
+      "supporting_quote": "We then prioritized regulators by correlating motif enrichment with ATAC-inferred gene activity (gene scores) and with RNA expression, identifying 88 high-confidence candidates (Pearson > 0.5, FDR < 0.01; Table S1, list of candidate TFs).",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L12",
+      "claim_text": "Cell-type-specific transcription factor regulators were identified, including Pax6 in astrocytes, Lef1 in endothelial cells, Neurod6 in neurons, Runx3 in macrophages, Mafb in microglia, and Nfe2l3 in oligodendrocytes, each showing matched motif enrichment and gene expression patterns.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq motif enrichment and ATAC-inferred gene expression were compared with scRNA-seq expression for candidate TF regulators across major brain cell types in APP/PS1 mice.",
+      "analysis_type": "cell-type-specific TF regulator identification",
+      "analysis_detail": "From the 88 high-confidence TF candidates (Pearson > 0.5, FDR < 0.01), cell-type-specific regulators were identified by examining which TFs showed matched motif enrichment (chromVAR Z-score), ATAC-inferred gene expression (ArchR gene score), and RNA expression (Seurat) patterns restricted to specific cell types. UMAP embeddings were generated for motif enrichment and gene expression to visualize cell-type specificity.",
+      "evidence_location": "Section 3.2; Figure 2D-F",
+      "supporting_quote": "Examples include cell-type-specific regulators such as Pax6 (astrocytes), Lef1 (endothelium), Neurod6 (neurons), Runx3 (macrophages), Mafb (microglia), and Nfe2l3 (oligodendrocytes)",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L13",
+      "claim_text": "In endothelial cells, RXR activation increased chromatin accessibility at regions associated with regulation of transcription (including Hes1, Bach2, Id3), angiogenesis, cell migration, and actin cytoskeleton organization.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice was analyzed for differential accessibility in endothelial cells, with gene ontology enrichment of associated genes.",
+      "analysis_type": "differential accessibility and GO enrichment in endothelial cells",
+      "analysis_detail": "Differentially accessible peaks in endothelial cells (Bexarotene vs. Vehicle) were identified using logistic regression in Signac (adjusted p < 0.05). Upregulated peaks were linked to nearby genes. Functional annotation was performed using DAVID (v6.8) to identify enriched GO biological process categories.",
+      "evidence_location": "Section 3.3; Figure 3D left",
+      "supporting_quote": "Upregulated GO categories were regulation of transcription involved in different cell functions (Hes1, Bach2, Id3)",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L14",
+      "claim_text": "In endothelial cells, RXR activation decreased chromatin accessibility at regions associated with chromatin remodeling (Sik1, Sik3), apoptotic processes, and regulation of potassium ion transmembrane transport.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice was analyzed for differential accessibility in endothelial cells, with gene ontology enrichment of associated genes.",
+      "analysis_type": "differential accessibility and GO enrichment in endothelial cells",
+      "analysis_detail": "Differentially accessible peaks in endothelial cells (Bexarotene vs. Vehicle) were identified using logistic regression in Signac (adjusted p < 0.05). Downregulated peaks were linked to nearby genes. Functional annotation was performed using DAVID (v6.8) to identify enriched GO biological process categories among genes associated with less accessible peaks.",
+      "evidence_location": "Section 3.3; Figure 3D right",
+      "supporting_quote": "Downregulated in endothelial cells were chromatin remodeling (Sik1 and Sik3, salt inducible kinases 1 and 3), apoptotic process (Ltbp4 is a key regulator of TGFBs that controls TGF-beta activation by maintaining it in a latent state), Gpx4 (glutathione peroxidase), Pla2g4a, and regulation of potassium ion transmembrane transport (Edn3, Endothelin 3)",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L15",
+      "claim_text": "Neuronal TF regulatory networks reconstructed from footprinting encompassed 134 TFs with comparable network size, density (~0.18-0.20), and global connectivity between RXR-activated and Vehicle conditions, indicating that RXR activation modulates localized TF influence within an otherwise robust architecture.",
+      "claim_type": "computational/modeling-derived conclusion",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906"
+      ],
+      "experiment_type": "snATAC-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice was analyzed for TF footprinting in neurons, and regulatory networks were reconstructed for each condition.",
+      "analysis_type": "TF regulatory network reconstruction and comparison",
+      "analysis_detail": "TOBIAS BINDetect identified differentially bound TFs in neurons between Bexarotene and Vehicle conditions. The CreateNetwork module constructed directed TF regulatory networks by linking bound TFBSs within promoter regions to target TF genes. Network properties (size, density, global connectivity) were compared between conditions. Network density was calculated as the ratio of actual edges to possible edges (~0.18-0.20 in both conditions).",
+      "evidence_location": "Section 3.5; Figure 4F",
+      "supporting_quote": "The resulting networks encompassed 134 TFs and thousands of edges, with comparable size, density (approximately 0.18-0.20), and global connectivity between conditions. This indicates that RXR activation does not dismantle the neuronal regulatory scaffold but instead modulates localized TF influence within an otherwise robust architecture.",
+      "dataset_link": "GSE283906: direct"
+    },
+    {
+      "id": "L16",
+      "claim_text": "In neuronal networks, RXR activation selectively enhanced the Atoh1-to-Neurod2 regulatory cascade, with Neurod2 emerging as a prominent regulatory hub, while the control network emphasized Foxn1 as a broad cascade initiator and RXRalpha as a key integrator.",
+      "claim_type": "computational/modeling-derived conclusion",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906"
+      ],
+      "experiment_type": "snATAC-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice was analyzed for TF footprinting in neurons, and regulatory networks were compared between conditions.",
+      "analysis_type": "differential TF network hub and cascade analysis",
+      "analysis_detail": "From TOBIAS BINDetect results in neurons, differentially bound TFs were used as seed nodes for network reconstruction. The Atoh1->Neurod2 cascade was identified as selectively enhanced in the Bexarotene condition based on increased binding scores. Hub TFs were identified by out-degree analysis. In the Vehicle condition, Foxn1 and RXRalpha were identified as prominent hubs/integrators based on their network positions and out-degrees.",
+      "evidence_location": "Section 3.5; Figure 4F",
+      "supporting_quote": "RXR activation selectively altered specific cascades and hubs. For example, a cascade from Atoh1 to Neurod2 was enhanced, and Neurod2 itself emerged as a prominent regulatory hub. In contrast, the control network emphasized broad cascade initiators such as Foxn1 and key integrators like RXRalpha.",
+      "dataset_link": "GSE283906: direct"
+    },
+    {
+      "id": "L17",
+      "claim_text": "A consistent core of universal neuronal regulators including Klf4, Egr2, Zfx, Foxn1, and Nrf1 emerged with the highest out-degrees across both RXR-activated and Vehicle conditions, forming a stable regulatory subgraph irrespective of treatment.",
+      "claim_type": "computational/modeling-derived conclusion",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906"
+      ],
+      "experiment_type": "snATAC-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice was analyzed for TF footprinting in neurons, and regulatory networks were compared between conditions.",
+      "analysis_type": "conserved TF hub identification across conditions",
+      "analysis_detail": "From TOBIAS-derived neuronal TF regulatory networks in both Bexarotene and Vehicle conditions, TFs with the highest out-degrees were identified. TFs consistently appearing as top out-degree nodes in both conditions (Klf4, Egr2, Zfx, Foxn1, Nrf1) were classified as universal regulators forming a stable radiating subgraph.",
+      "evidence_location": "Section 3.5",
+      "supporting_quote": "Across both conditions, a consistent core of universal regulators-including Klf4, Egr2, Zfx, Foxn1, and Nrf1-emerged with the highest out-degrees, forming a stable, radiating subgraph irrespective of the initiating seed TF.",
+      "dataset_link": "GSE283906: direct"
+    },
+    {
+      "id": "L18",
+      "claim_text": "Integrative analysis identified seven TFs - Myc, Arid5a, Creb3l2, Egr1, Zic2, Gli2, and Nfatc2 - with overlapping ATAC-seq and RXR ChIP-seq peaks within regulatory signatures, each showing cell-type-specific expression patterns.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq",
+        "RXR ChIP-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905",
+        "GEO: GSE289039"
+      ],
+      "experiment_type": "snATAC-seq, scRNA-seq, and ChIP-seq integration",
+      "experiment_detail": "snATAC-seq, scRNA-seq, and RXR ChIP-seq from APP/PS1 mice were jointly analyzed to identify TFs with overlapping accessibility and RXR binding peaks within ENCODE regulatory signatures.",
+      "analysis_type": "cross-modal TF identification at regulatory elements",
+      "analysis_detail": "Overlapping ATAC-seq and RXR ChIP-seq peaks were intersected with ENCODE cCRE signatures. Peaks annotated to TF genes were identified. Overlapping peak sequences were scanned using MEME Suite FIMO (v5.5.7) with default settings to identify candidate RXRalpha heterodimer motifs. Cell-type-specific expression of the seven identified TFs was assessed from scRNA-seq data.",
+      "evidence_location": "Section 3.7; Figure 5F,G",
+      "supporting_quote": "This approach identified seven TFs of particular interest-Myc, Arid5a, Creb3l2, Egr1, Zic2, Gli2, and Nfatc2-each showing cell-type-specific expression and regulatory associations",
+      "dataset_link": "GSE289039;GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L19",
+      "claim_text": "Approximately 20-27% of transcription factors showed concordant changes in both footprinting occupancy and gene expression following RXR activation across the four glial and endothelial cell types examined.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "TF footprinting from snATAC-seq was compared with differential gene expression from scRNA-seq across astrocytes, endothelial cells, microglia, and oligodendrocytes in APP/PS1 mice.",
+      "analysis_type": "concordance analysis between TF footprinting and gene expression",
+      "analysis_detail": "For each of four cell types (astrocytes, endothelial cells, microglia, oligodendrocytes), TFs with significant differential binding scores from TOBIAS BINDetect were compared with differential gene expression results from MAST. The percentage of TFs showing concordant direction of change (same direction in both footprinting and expression) was calculated per cell type, yielding 20-27%.",
+      "evidence_location": "Section 3.4; Figure 4C; Supplementary Table S3",
+      "supporting_quote": "Comparing footprinting changes with differential expression (Figure 4), 20-27% of TFs showed consistent regulation at both levels",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L20",
+      "claim_text": "Some TFs including Ets1, Erg, and Gabpa showed stronger binding in the Vehicle group across all four non-neuronal cell types examined, whereas Neurod2 exhibited higher binding in endothelial cells, microglia, and oligodendrocytes following RXR activation.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906"
+      ],
+      "experiment_type": "snATAC-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice was analyzed for differential TF binding across astrocytes, endothelial cells, microglia, and oligodendrocytes.",
+      "analysis_type": "differential TF binding detection across cell types",
+      "analysis_detail": "TOBIAS BINDetect was applied to each of four cell types to identify TFs with significantly different binding scores between Bexarotene and Vehicle conditions. TFs in the top or bottom 5% by binding score or with -log10(p-value) above the 95th percentile were considered significant. Cross-cell-type patterns were identified for TFs showing consistent directionality across multiple cell types.",
+      "evidence_location": "Section 3.4; Figure 4B",
+      "supporting_quote": "Some TFs-including Ets1, Erg, and Gabpa-showed stronger binding in the Vehicle group across all four cell types, whereas Neurod2 exhibited higher binding in endothelial cells, microglia, and oligodendrocytes.",
+      "dataset_link": "GSE283906: direct"
+    },
+    {
+      "id": "L21",
+      "claim_text": "Astrocytes displayed the most prominent cell type-specific footprinting responses to RXR activation, with TFs identified primarily unique to this cell type.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906"
+      ],
+      "experiment_type": "snATAC-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice was analyzed for differential TF binding in astrocytes compared to other cell types.",
+      "analysis_type": "cell-type-specific differential TF binding comparison",
+      "analysis_detail": "TOBIAS BINDetect results were compared across astrocytes, endothelial cells, microglia, and oligodendrocytes. The overlap of significantly altered TFs between cell types was assessed. Astrocyte-specific TFs were identified as those showing significant differential binding only in astrocytes and not in other cell types.",
+      "evidence_location": "Section 3.4; Figure 4B",
+      "supporting_quote": "By contrast, TFs identified in astrocytes were primarily unique for these cells and displayed the most prominent cell type-specific responses.",
+      "dataset_link": "GSE283906: direct"
+    },
+    {
+      "id": "L22",
+      "claim_text": "Olig2 showed higher footprinting scores in both astrocytes and oligodendrocytes following RXR activation, concordant with higher gene expression in both cell types.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "TF footprinting from snATAC-seq and differential gene expression from scRNA-seq were compared for Olig2 in astrocytes and oligodendrocytes of APP/PS1 mice.",
+      "analysis_type": "concordance analysis for specific TF (Olig2)",
+      "analysis_detail": "Olig2 footprinting scores from TOBIAS BINDetect were compared between Bexarotene and Vehicle in astrocytes (log2FC = 0.02) and oligodendrocytes (log2FC = 0.01). Olig2 gene expression from MAST differential expression was compared in astrocytes (log2FC = 0.09) and oligodendrocytes (log2FC = 0.13). Concordance was assessed by matching direction of change.",
+      "evidence_location": "Section 3.4; Figure 4C",
+      "supporting_quote": "For example, Olig2 had higher footprinting scores in astrocytes and oligodendrocytes (astro-foot log2FC = 0.02, oligo-foot log2FC = 0.01) and also showed higher gene expression (astro-DEG log2FC = 0.09, oligo-DEG log2FC = 0.13).",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L23",
+      "claim_text": "Representative significantly altered TF footprints included Alx1 in astrocytes, Erg in endothelial cells, Spi1 in microglia, and Neurog1 in oligodendrocytes.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906"
+      ],
+      "experiment_type": "snATAC-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice was analyzed for differential TF footprints across major cell types.",
+      "analysis_type": "differential TF footprint identification",
+      "analysis_detail": "TOBIAS BINDetect identified TFs with significantly altered footprints (FDR < 0.05) between Bexarotene and Vehicle conditions in each cell type. Representative examples: Alx1 in astrocytes (Bexa_Veh_change = 0.04, pval = 6.93 x 10^-53), Erg in endothelial cells (Bexa_Veh_change = -0.09, pval = 1.84 x 10^-108), Spi1 in microglia (Bexa_Veh_change = -0.12, pval = 1.61 x 10^-142), Neurog1 in oligodendrocytes (Bexa_Veh_change = 0.05, pval = 9.59 x 10^-47).",
+      "evidence_location": "Section 3.4; Figure 4D",
+      "supporting_quote": "Representative altered footprints included Alx1 in astrocytes, Erg in endothelial cells, Spi1 in microglia, and Neurog1 in oligodendrocytes",
+      "dataset_link": "GSE283906: direct"
+    },
+    {
+      "id": "L24",
+      "claim_text": "In microglia, two peaks linked to the Fkbp5 locus were significantly less accessible following RXR activation, coinciding with downregulation of Fkbp5 mRNA.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq and scRNA-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice were jointly analyzed to link chromatin accessibility changes at the Fkbp5 locus to gene expression changes in microglia.",
+      "analysis_type": "locus-level differential accessibility and expression analysis",
+      "analysis_detail": "Differential accessibility at the Fkbp5 locus in microglia was assessed using logistic regression in Signac. Two peaks were significantly downregulated (log2FC = -0.94; adj-p = 2.2 x 10^-5). Fkbp5 mRNA differential expression was assessed using MAST in Seurat (log2FC = -0.16; adj-p = 6.6 x 10^-6, Bonferroni-corrected).",
+      "evidence_location": "Section 3.3; Figure 3B",
+      "supporting_quote": "We identified two peaks linked to Fkbp5 locus which were significantly downregulated in microglia (log2FC = -0.94; adj-p = 2.2 x 10-5), coinciding with mRNA downregulation (log2FC = -0.16; adj-p = 6.6 x 10-6) in these cells",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L25",
+      "claim_text": "In endothelial cells, the Hes1 locus showed significantly increased chromatin accessibility following RXR activation, accompanied by upregulation of Hes1 mRNA.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq and scRNA-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice were jointly analyzed to link chromatin accessibility changes at the Hes1 locus to gene expression changes in endothelial cells.",
+      "analysis_type": "locus-level differential accessibility and expression analysis",
+      "analysis_detail": "Differential accessibility at the Hes1 locus in endothelial cells was assessed using logistic regression in Signac (log2FC = 0.70; adj-p = 2.73 x 10^-8). Hes1 mRNA differential expression was assessed using MAST in Seurat (log2FC = 0.38; adj-p = 6.9 x 10^-29, Bonferroni-corrected).",
+      "evidence_location": "Section 3.3; Figure 3B",
+      "supporting_quote": "Figure 3B shows the differentially accessible peaks and the representative locus of Hes1 gene in endothelial cells (log2FC = 0.70; adj-p = 2.73 x 10-8) and its mRNA upregulation (log2FC = 0.38; adj-p = 6.9 x 10-29).",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L26",
+      "claim_text": "In endothelial cells, the Sik1 locus showed significantly decreased chromatin accessibility following RXR activation, accompanied by downregulation of Sik1 mRNA.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq and scRNA-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice were jointly analyzed to link chromatin accessibility changes at the Sik1 locus to gene expression changes in endothelial cells.",
+      "analysis_type": "locus-level differential accessibility and expression analysis",
+      "analysis_detail": "Differential accessibility at the Sik1 locus in endothelial cells was assessed using logistic regression in Signac (log2FC = -0.29; adj-p = 3.55 x 10^-8). Sik1 mRNA differential expression was assessed using MAST in Seurat (log2FC = -0.14; adj-p = 1 x 10^-4, Bonferroni-corrected).",
+      "evidence_location": "Section 3.3; Figure 3B",
+      "supporting_quote": "Figure 3B shows the differentially accessible peak of Sik1 locus in endothelial cells (log2FC = -0.29; adj-p = 3.55 x 10-8) and its mRNA downregulation (log2FC = -0.14; adj-p = 1 x 10-4).",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L27",
+      "claim_text": "In astrocytes, RXR activation increased chromatin accessibility near the Nupr1 transcription start site, associated with increased Nupr1 expression.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq and scRNA-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice were jointly analyzed to link chromatin accessibility changes at the Nupr1 locus to gene expression changes in astrocytes.",
+      "analysis_type": "locus-level differential accessibility and expression analysis",
+      "analysis_detail": "Differential accessibility near the Nupr1 TSS in astrocytes was assessed using logistic regression in Signac (log2FC = 0.52; adj-p = 6.28 x 10^-4). Nupr1 mRNA differential expression was assessed using MAST in Seurat (log2FC = 0.14; adj-p = 2.2 x 10^-9, Bonferroni-corrected).",
+      "evidence_location": "Section 3.3; Figure 3B; Supplementary Figure S2B",
+      "supporting_quote": "Treatment increased chromatin accessibility near the Nupr1 transcription start site (log2FC = 0.52; adj-p = 6.28 x 10-4) that was associated with increased expression (mRNA log2FC = 0.14; adj-p = 2.2 x 10-9).",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L28",
+      "claim_text": "In oligodendrocytes, Pdgfra showed increased mRNA expression after RXR activation, matching increased chromatin accessibility at a peak close to its promoter.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq and scRNA-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice were jointly analyzed to link chromatin accessibility changes at the Pdgfra locus to gene expression changes in oligodendrocytes.",
+      "analysis_type": "locus-level differential accessibility and expression analysis",
+      "analysis_detail": "Pdgfra mRNA differential expression in oligodendrocytes was assessed using MAST in Seurat (log2FC = 0.27; adj-p = 0.021, Bonferroni-corrected). Differential accessibility at a peak close to the Pdgfra promoter was assessed using logistic regression in Signac (log2FC = 0.72; adj-p = 4.9 x 10^-4).",
+      "evidence_location": "Section 3.3; Figure 3B; Supplementary Figure S2C",
+      "supporting_quote": "Pdgfra is an oligodendrocytes specific gene which was upregulated after treatment (mRNA log2FC = 0.27; adj-p = 0.021), matching the increased chromatin accessibility with a peak close to the promoter (log2FC = 0.72; adj-p = 4.9 x 10-4)",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L29",
+      "claim_text": "In oligodendrocytes, Mertk showed increased expression after RXR activation accompanied by increased chromatin accessibility at a peak close to its promoter.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq and scRNA-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice were jointly analyzed to link chromatin accessibility changes at the Mertk locus to gene expression changes in oligodendrocytes.",
+      "analysis_type": "locus-level differential accessibility and expression analysis",
+      "analysis_detail": "Mertk mRNA differential expression in oligodendrocytes was assessed using MAST in Seurat (log2FC = 0.11; adj-p = 0.03, Bonferroni-corrected). Differential accessibility at a peak close to the Mertk promoter was assessed using logistic regression in Signac (log2FC = 0.51; adj-p = 0.006).",
+      "evidence_location": "Section 3.3; Figure 3B",
+      "supporting_quote": "Mertk, a tyrosine kinase that was reported upregulated by Bexarotene also showed increased expression after treatment in our study (mRNA log2FC = 0.11; adj-p = 0.03), accompanied by the increased chromatin accessibility with a peak close to the promoter (log2FC = 0.51; adj-p = 0.006).",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L30",
+      "claim_text": "Differential expression analysis of neurodegeneration-related genes identified at overlapping ChIP-seq and ATAC-seq peaks confirmed altered expression across astrocytes, oligodendrocytes, endothelial cells, and microglia consistent with footprinting predictions.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "RXR ChIP-seq",
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE289039",
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "ChIP-seq, snATAC-seq, and scRNA-seq integration",
+      "experiment_detail": "Genes near overlapping RXR ChIP-seq and snATAC-seq peaks that were implicated in neurodegenerative disorders were assessed for differential expression across cell types using scRNA-seq data from APP/PS1 mice.",
+      "analysis_type": "cross-modal validation of expression changes at RXR-bound loci",
+      "analysis_detail": "Genes near overlapping ChIP-seq and ATAC-seq peaks that clustered in KEGG neurodegenerative disease pathways were identified. Differential expression of these genes was assessed across astrocytes, oligodendrocytes, endothelial cells, and microglia using MAST algorithm in Seurat (Bonferroni-corrected p < 0.05). Expression changes were compared with TOBIAS footprinting predictions for consistency.",
+      "evidence_location": "Section 3.6; Figure 5G",
+      "supporting_quote": "Differential expression analysis of these neurodegeneration-related genes across astrocytes, oligodendrocytes, endothelial cells, and microglia confirmed altered expression consistent with the footprinting predictions",
+      "dataset_link": "GSE289039;GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L31",
+      "claim_text": "In microglia, there were 1752 differential chromatin accessibility peaks (856 upregulated and 816 downregulated) following RXR activation.",
+      "claim_type": "statistical/quantitative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906"
+      ],
+      "experiment_type": "snATAC-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice (n=5 per group) was analyzed for differential chromatin accessibility in microglia.",
+      "analysis_type": "differential accessibility peak counting in microglia",
+      "analysis_detail": "Differentially accessible peaks in microglia between Bexarotene and Vehicle conditions were identified using logistic regression in Signac (adjusted p < 0.05). Peaks were counted as upregulated (856) or downregulated (816), totaling 1752 differential peaks (note: 856 + 816 = 1672; the paper reports 1752 total which may include peaks at different thresholds).",
+      "evidence_location": "Section 3.3; Supplementary Table S2",
+      "supporting_quote": "In microglia, there were 1752 differential peaks (856 upregulated and 816 downregulated).",
+      "dataset_link": "GSE283906: direct"
+    },
+    {
+      "id": "L32",
+      "claim_text": "In endothelial cells, there were 1717 differential peaks with increased chromatin accessibility and 928 with decreased accessibility following RXR activation, representing the strongest overlap between differential accessibility and transcriptional responses.",
+      "claim_type": "statistical/quantitative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice was analyzed for differential chromatin accessibility in endothelial cells, with comparison to transcriptional responses from scRNA-seq.",
+      "analysis_type": "differential accessibility peak counting and cross-modal overlap in endothelial cells",
+      "analysis_detail": "Differentially accessible peaks in endothelial cells between Bexarotene and Vehicle conditions were identified using logistic regression in Signac (adjusted p < 0.05). Peaks were counted as upregulated (1717) or downregulated (928). The overlap between differential accessibility and differential gene expression was assessed and found to be the strongest among all cell types.",
+      "evidence_location": "Section 3.3; Supplementary Table S2",
+      "supporting_quote": "Endothelial cells showed 1717 differential peaks increasing chromatin accessibility and 928 decreasing it. This cell type demonstrated the strongest overlap between differential accessibility and transcriptional responses.",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L33",
+      "claim_text": "In astrocytes, there were 276 differential chromatin accessibility peaks (26 upregulated and 252 downregulated) following RXR activation.",
+      "claim_type": "statistical/quantitative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906"
+      ],
+      "experiment_type": "snATAC-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice (n=5 per group) was analyzed for differential chromatin accessibility in astrocytes.",
+      "analysis_type": "differential accessibility peak counting in astrocytes",
+      "analysis_detail": "Differentially accessible peaks in astrocytes between Bexarotene and Vehicle conditions were identified using logistic regression in Signac (adjusted p < 0.05). Peaks were counted as upregulated (26) or downregulated (252), totaling 276.",
+      "evidence_location": "Section 3.3; Supplementary Table S2",
+      "supporting_quote": "In astrocytes, there were 276 differential peaks (26 up- and 252 downregulating, Supplementary Table S2).",
+      "dataset_link": "GSE283906: direct"
+    },
+    {
+      "id": "L34",
+      "claim_text": "In oligodendrocytes, there were 185 differential chromatin accessibility peaks (64 upregulated and 121 downregulated) following RXR activation.",
+      "claim_type": "statistical/quantitative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906"
+      ],
+      "experiment_type": "snATAC-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice (n=5 per group) was analyzed for differential chromatin accessibility in oligodendrocytes.",
+      "analysis_type": "differential accessibility peak counting in oligodendrocytes",
+      "analysis_detail": "Differentially accessible peaks in oligodendrocytes between Bexarotene and Vehicle conditions were identified using logistic regression in Signac (adjusted p < 0.05). Peaks were counted as upregulated (64) or downregulated (121), totaling 185.",
+      "evidence_location": "Section 3.3; Supplementary Table S2",
+      "supporting_quote": "In Oligodendrocytes there were 185 differential peaks (64 up- and 121 downregulating, Supplementary Table S2).",
+      "dataset_link": "GSE283906: direct"
+    },
+    {
+      "id": "L35",
+      "claim_text": "Neurons showed a relatively small number of differential chromatin accessibility peaks (110 total) following RXR activation, with associated gene ontology terms related to dendrite morphogenesis, synaptic transmission, and regulation of synaptic plasticity.",
+      "claim_type": "statistical/quantitative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906"
+      ],
+      "experiment_type": "snATAC-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice (n=5 per group) was analyzed for differential chromatin accessibility in neurons.",
+      "analysis_type": "differential accessibility peak counting and GO enrichment in neurons",
+      "analysis_detail": "Differentially accessible peaks in neurons between Bexarotene and Vehicle conditions were identified using logistic regression in Signac (adjusted p < 0.05), totaling 110 peaks. Functional annotation of associated genes was performed using DAVID (v6.8) to identify enriched GO biological process categories.",
+      "evidence_location": "Section 3.3; Supplementary Table S2",
+      "supporting_quote": "There were relatively a small number of differential peaks in Neurons (total number 110, see Supplementary Table S2). The GO terms were associated with dendrite morphogenesis, synaptic transmission, and regulation of synaptic plasticity.",
+      "dataset_link": "GSE283906: direct"
+    },
+    {
+      "id": "L36",
+      "claim_text": "Chromatin accessibility patterns at cell type-specific marker gene loci paralleled their expression patterns across major brain cell populations.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq chromatin accessibility at marker gene loci was compared with scRNA-seq expression patterns across major brain cell types in APP/PS1 mice.",
+      "analysis_type": "marker gene accessibility-expression concordance",
+      "analysis_detail": "Coverage plots of chromatin accessibility at cell type-specific marker gene loci (e.g., Aqp4 for astrocytes, Tmem119 for microglia, Slc17a7 for excitatory neurons, Cldn11 for oligodendrocytes) were generated from snATAC-seq data and compared with expression patterns from scRNA-seq. Peak-to-gene linkage analysis was performed using the addPeak2GeneLinks function in ArchR to identify correlated regions.",
+      "evidence_location": "Section 3.1; Figure 1E",
+      "supporting_quote": "Chromatin accessibility analysis of cell type-specific marker genes paralleled expression patterns (Figure 1E, accessibility tracks for representative marker genes), further supporting robust annotation.",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L37",
+      "claim_text": "RXR/Nfatc2 co-binding was significantly altered by RXR activation, supporting Nfatc2 as responsive to retinoid signaling in the brain.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "RXR ChIP-seq",
+        "snATAC-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE289039",
+        "GEO: GSE283906"
+      ],
+      "experiment_type": "ChIP-seq and snATAC-seq",
+      "experiment_detail": "RXR ChIP-seq and snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice were jointly analyzed to assess RXR/Nfatc2 co-binding changes.",
+      "analysis_type": "differential co-binding analysis at Nfatc2 locus",
+      "analysis_detail": "Overlapping ATAC-seq and ChIP-seq peaks at the Nfatc2 locus were identified using Bedtools (v2.31.1) with 10 kb genomic windows. RXR/Nfatc2 co-binding was assessed from the overlapping peak data (Supplementary Table S4). Significance of altered co-binding was determined from the differential binding analysis.",
+      "evidence_location": "Section 3.7; Supplementary Table S4",
+      "supporting_quote": "In our data, RXR/Nfatc2 co-binding was significantly altered by RXR activation (Table S4), underscoring its responsiveness to retinoid signaling",
+      "dataset_link": "GSE289039;GSE283906: direct"
+    },
+    {
+      "id": "L38",
+      "claim_text": "Gene ontology analysis of genes associated with differentially accessible peaks in astrocytes indicated enrichment of biological categories including regulation of transcription, chromatin remodeling, and brain development.",
+      "claim_type": "computational/modeling-derived conclusion",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice was analyzed for differential accessibility in astrocytes, with gene ontology enrichment of associated genes.",
+      "analysis_type": "GO enrichment analysis of differentially accessible peaks in astrocytes",
+      "analysis_detail": "Differentially accessible peaks in astrocytes (Bexarotene vs. Vehicle, adjusted p < 0.05) were linked to nearby genes. Functional annotation was performed using DAVID (v6.8) to identify enriched GO biological process categories, revealing enrichment in regulation of transcription (Nupr1), chromatin remodeling, and brain development.",
+      "evidence_location": "Section 3.3; Supplementary Figure S2B",
+      "supporting_quote": "Overall, gene ontology analysis of genes associated with differentially accessible peaks in astrocytes indicated enrichment of biological categories such as regulation of transcription (Nupr1), chromatin remodeling, brain development",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "L39",
+      "claim_text": "In oligodendrocytes, Bexarotene treatment affected categories such as transmembrane receptor protein tyrosine kinase signaling (Pdgfra and Mertk) and nervous system development (Zeb1).",
+      "claim_type": "computational/modeling-derived conclusion",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "snATAC-seq",
+        "scRNA-seq"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE283906",
+        "GEO: GSE283905"
+      ],
+      "experiment_type": "snATAC-seq integrated with scRNA-seq",
+      "experiment_detail": "snATAC-seq from Bexarotene-treated and Vehicle-treated APP/PS1 mice was analyzed for differential accessibility in oligodendrocytes, with gene ontology enrichment of associated genes.",
+      "analysis_type": "GO enrichment analysis of differentially accessible peaks in oligodendrocytes",
+      "analysis_detail": "Differentially accessible peaks in oligodendrocytes (Bexarotene vs. Vehicle, adjusted p < 0.05) were linked to nearby genes. Functional annotation was performed using DAVID (v6.8) to identify enriched GO biological process categories, revealing enrichment in transmembrane receptor protein tyrosine kinase signaling (Pdgfra, Mertk) and nervous system development (Zeb1).",
+      "evidence_location": "Section 3.3; Supplementary Figure S2C",
+      "supporting_quote": "Bexa treatment affected categories such as transmembrane receptor protein tyrosine kinase signaling (Pdgfra and Mertk) and nervous system development (Zeb1)",
+      "dataset_link": "GSE283906;GSE283905: direct"
+    },
+    {
+      "id": "LL1",
+      "claim_text": "Apoe is a known RXR target gene under LXR/RXR heterodimer control, establishing a central role for RXR signaling in brain lipid regulation (Koldamova et al. 2003; Willy et al. 1995).",
+      "claim_type": "mechanistic interpretation",
+      "node_type": "leaf",
+      "depth": 4,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.3; Introduction: paragraph 2; citing Koldamova et al. 2003 [7] and Willy et al. 1995 [4]",
+      "supporting_quote": "Apoe is a known RXR target gene under LXR/RXR heterodimer control, highlighting the central role of RXR signaling in lipid regulation",
+      "dataset_link": null
+    },
+    {
+      "id": "LL2",
+      "claim_text": "Fkbp5 is associated with intracellular trafficking of heterooligomeric forms of steroid hormone receptors, suggesting a role for RXR in regulating steroid hormone receptor pathways (Sinars et al. 2003).",
+      "claim_type": "mechanistic interpretation",
+      "node_type": "leaf",
+      "depth": 4,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.3; citing Sinars et al. 2003 [50]",
+      "supporting_quote": "Fkbp5 is associated with intracellular trafficking of heterooligomeric forms of steroid hormone receptors, suggesting RXRs' role in regulating this pathway",
+      "dataset_link": null
+    },
+    {
+      "id": "LL3",
+      "claim_text": "Spi1 (PU.1) is a master regulator of microglia identity (Efthymiou and Goate 2017).",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 4,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.3; citing Efthymiou and Goate 2017 [48]",
+      "supporting_quote": "cell differentiation (Notch2, Spi1 gene is microglia master regulator)",
+      "dataset_link": null
+    },
+    {
+      "id": "LL4",
+      "claim_text": "Nfatc2 physically interacts with RXRalpha and RARalpha, enhancing retinoic acid response element binding (Ohoka et al. 2011).",
+      "claim_type": "mechanistic interpretation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.7; citing Ohoka et al. 2011 [71]",
+      "supporting_quote": "Nfatc2, a key immune regulator, has been shown to physically interact with RXRalpha and RARalpha, enhancing retinoic acid response element binding.",
+      "dataset_link": null
+    },
+    {
+      "id": "LL5",
+      "claim_text": "Hes1 is a key regulator of cell differentiation and proliferation, particularly in neural and stem cell development (Hu and Zou 2022).",
+      "claim_type": "mechanistic interpretation",
+      "node_type": "leaf",
+      "depth": 4,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.3; citing Hu and Zou 2022 [51]",
+      "supporting_quote": "Hes1 (Figure 3B, locus-level coverage and linked peaks) is a key regulator of cell differentiation and proliferation, particularly in neural and stem cell development",
+      "dataset_link": null
+    },
+    {
+      "id": "LL6",
+      "claim_text": "RXR/NR1H3 (LXR) dimerization is a fundamental regulatory mechanism for RXR, and baseline RXR activity may be driven by endogenous ligands (Lefebvre et al. 2010; Ruhl et al. 2015).",
+      "claim_type": "mechanistic interpretation",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Discussion: paragraph 1; Introduction: paragraph 1; citing Lefebvre et al. 2010 [2] and Ruhl et al. 2015 [3]",
+      "supporting_quote": "RXR/NR1H3 (LXR) dimerization, long recognized as a fundamental mechanism, emerged as a key regulatory axis in the control state, suggesting that baseline RXR activity may be driven by endogenous ligands.",
+      "dataset_link": null
+    },
+    {
+      "id": "LL7",
+      "claim_text": "Nupr1 (Nuclear protein 1) is a transcription regulator associated with resistance to stress and involved in cell-cycle, apoptosis, autophagy, and DNA repair (Clark et al. 2008).",
+      "claim_type": "mechanistic interpretation",
+      "node_type": "leaf",
+      "depth": 4,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.3; citing Clark et al. 2008 [59]",
+      "supporting_quote": "Nupr1 (Nuclear protein 1) is a transcription regulator associated with resistance to stress and is involved in numerous cell functions such as cell-cycle, apoptosis, autophagy, and DNA repair",
+      "dataset_link": null
+    },
+    {
+      "id": "LL8",
+      "claim_text": "Pdgfra is an oligodendrocyte-specific gene and a major determinant of the timing of oligodendrocyte differentiation (Zhu et al. 2014).",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 4,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.3; citing Zhu et al. 2014 [61]",
+      "supporting_quote": "Pdgfra is an oligodendrocytes specific gene which was upregulated after treatment",
+      "dataset_link": null
+    },
+    {
+      "id": "LL9",
+      "claim_text": "Mertk was previously reported to be upregulated by Bexarotene treatment and is involved in nuclear receptor-licensed phagocytosis by TREM2+ myeloid cells in AD models (Savage et al. 2015).",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 4,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Section 3.3; citing Savage et al. 2015 [62]",
+      "supporting_quote": "Mertk, a tyrosine kinase that was reported upregulated by Bexarotene",
+      "dataset_link": null
+    },
+    {
+      "id": "LL10",
+      "claim_text": "RXRs function primarily as obligate heterodimer partners for more than 20 other nuclear receptors, mediating transcriptional regulation through DNA binding and recruitment of coregulators (Mangelsdorf et al. 1992; Lefebvre et al. 2010).",
+      "claim_type": "mechanistic interpretation",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Introduction: paragraph 1; citing Mangelsdorf et al. 1992 [1] and Lefebvre et al. 2010 [2]",
+      "supporting_quote": "RXRs function primarily as obligate heterodimer partners for more than 20 other nuclear receptors, mediating transcriptional regulation through DNA binding and recruitment of coregulators",
+      "dataset_link": null
+    }
+  ],
+  "edges": [
+    {
+      "child": "I1",
+      "parent": "R3",
+      "relationship": "enables"
+    },
+    {
+      "child": "I1",
+      "parent": "R1",
+      "relationship": "enables"
+    },
+    {
+      "child": "I2",
+      "parent": "R1",
+      "relationship": "supports"
+    },
+    {
+      "child": "I3",
+      "parent": "R2",
+      "relationship": "supports"
+    },
+    {
+      "child": "I4",
+      "parent": "R2",
+      "relationship": "supports"
+    },
+    {
+      "child": "I5",
+      "parent": "R3",
+      "relationship": "supports"
+    },
+    {
+      "child": "I5",
+      "parent": "R1",
+      "relationship": "supports"
+    },
+    {
+      "child": "I6",
+      "parent": "R2",
+      "relationship": "supports"
+    },
+    {
+      "child": "I6",
+      "parent": "R3",
+      "relationship": "supports"
+    },
+    {
+      "child": "I7",
+      "parent": "R1",
+      "relationship": "supports"
+    },
+    {
+      "child": "I7",
+      "parent": "I1",
+      "relationship": "supports"
+    },
+    {
+      "child": "I8",
+      "parent": "I2",
+      "relationship": "supports"
+    },
+    {
+      "child": "I9",
+      "parent": "I2",
+      "relationship": "supports"
+    },
+    {
+      "child": "I10",
+      "parent": "I2",
+      "relationship": "qualifies"
+    },
+    {
+      "child": "I11",
+      "parent": "I3",
+      "relationship": "supports"
+    },
+    {
+      "child": "I12",
+      "parent": "I3",
+      "relationship": "supports"
+    },
+    {
+      "child": "I12",
+      "parent": "R2",
+      "relationship": "supports"
+    },
+    {
+      "child": "I13",
+      "parent": "I5",
+      "relationship": "supports"
+    },
+    {
+      "child": "I14",
+      "parent": "I2",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "LL6",
+      "parent": "I4",
+      "relationship": "contrasts"
+    },
+    {
+      "child": "LL6",
+      "parent": "I3",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL10",
+      "parent": "I12",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL10",
+      "parent": "I6",
+      "relationship": "supports"
+    },
+    {
+      "child": "L1",
+      "parent": "I1",
+      "relationship": "supports"
+    },
+    {
+      "child": "L36",
+      "parent": "I1",
+      "relationship": "supports"
+    },
+    {
+      "child": "L2",
+      "parent": "I14",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "L2",
+      "parent": "I2",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "L3",
+      "parent": "I14",
+      "relationship": "supports"
+    },
+    {
+      "child": "L31",
+      "parent": "I14",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "L31",
+      "parent": "I8",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "L32",
+      "parent": "I14",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "L32",
+      "parent": "I9",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "L33",
+      "parent": "I14",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "L33",
+      "parent": "I10",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "L34",
+      "parent": "I14",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "L34",
+      "parent": "I10",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "L35",
+      "parent": "I14",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "L4",
+      "parent": "I8",
+      "relationship": "supports"
+    },
+    {
+      "child": "L5",
+      "parent": "I8",
+      "relationship": "supports"
+    },
+    {
+      "child": "L6",
+      "parent": "I8",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL1",
+      "parent": "L6",
+      "relationship": "interprets"
+    },
+    {
+      "child": "L24",
+      "parent": "I8",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL2",
+      "parent": "L24",
+      "relationship": "interprets"
+    },
+    {
+      "child": "LL3",
+      "parent": "L5",
+      "relationship": "interprets"
+    },
+    {
+      "child": "L13",
+      "parent": "I9",
+      "relationship": "supports"
+    },
+    {
+      "child": "L14",
+      "parent": "I9",
+      "relationship": "supports"
+    },
+    {
+      "child": "L25",
+      "parent": "I9",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL5",
+      "parent": "L25",
+      "relationship": "interprets"
+    },
+    {
+      "child": "L26",
+      "parent": "I9",
+      "relationship": "supports"
+    },
+    {
+      "child": "L27",
+      "parent": "I10",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL7",
+      "parent": "L27",
+      "relationship": "interprets"
+    },
+    {
+      "child": "L38",
+      "parent": "I10",
+      "relationship": "supports"
+    },
+    {
+      "child": "L28",
+      "parent": "I10",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL8",
+      "parent": "L28",
+      "relationship": "interprets"
+    },
+    {
+      "child": "L29",
+      "parent": "I10",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL9",
+      "parent": "L29",
+      "relationship": "supports"
+    },
+    {
+      "child": "L39",
+      "parent": "I10",
+      "relationship": "supports"
+    },
+    {
+      "child": "L11",
+      "parent": "I7",
+      "relationship": "supports"
+    },
+    {
+      "child": "L12",
+      "parent": "I7",
+      "relationship": "supports"
+    },
+    {
+      "child": "L19",
+      "parent": "I11",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "L20",
+      "parent": "I11",
+      "relationship": "supports"
+    },
+    {
+      "child": "L21",
+      "parent": "I11",
+      "relationship": "supports"
+    },
+    {
+      "child": "L22",
+      "parent": "I11",
+      "relationship": "supports"
+    },
+    {
+      "child": "L23",
+      "parent": "I11",
+      "relationship": "supports"
+    },
+    {
+      "child": "L7",
+      "parent": "I12",
+      "relationship": "supports"
+    },
+    {
+      "child": "L15",
+      "parent": "I4",
+      "relationship": "supports"
+    },
+    {
+      "child": "L16",
+      "parent": "I4",
+      "relationship": "supports"
+    },
+    {
+      "child": "L17",
+      "parent": "I4",
+      "relationship": "supports"
+    },
+    {
+      "child": "L8",
+      "parent": "I13",
+      "relationship": "supports"
+    },
+    {
+      "child": "L8",
+      "parent": "I5",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "L9",
+      "parent": "I13",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "L10",
+      "parent": "I13",
+      "relationship": "supports"
+    },
+    {
+      "child": "L30",
+      "parent": "I13",
+      "relationship": "supports"
+    },
+    {
+      "child": "L18",
+      "parent": "I6",
+      "relationship": "supports"
+    },
+    {
+      "child": "L37",
+      "parent": "I6",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL4",
+      "parent": "L37",
+      "relationship": "supports"
+    }
+  ],
+  "literature_candidates": [
+    {
+      "candidate_id": 1,
+      "claim_text": "RXRs function primarily as obligate heterodimer partners for more than 20 other nuclear receptors, mediating transcriptional regulation through DNA binding and recruitment of coregulators.",
+      "scenario": "foundational premise",
+      "source_sentence": "RXRs function primarily as obligate heterodimer partners for more than 20 other nuclear receptors, mediating transcriptional regulation through DNA binding and recruitment of coregulators [1,2].",
+      "connected_nodes": [
+        "I12",
+        "I6"
+      ],
+      "disposition": "included as LL10",
+      "reason": null
+    },
+    {
+      "candidate_id": 2,
+      "claim_text": "9-cis-13,14-dihydroretinoic acid was identified as a physiologically relevant RXR ligand in mice.",
+      "scenario": "foundational premise",
+      "source_sentence": "R. Ruhl et al. (2015) identified 9-cis-13,14-dihydroretinoic acid as a physiologically relevant RXR ligand in mice [3].",
+      "connected_nodes": [
+        "LL6"
+      ],
+      "disposition": "included within LL6",
+      "reason": null
+    },
+    {
+      "candidate_id": 3,
+      "claim_text": "RXR/NR1H3 (LXR) dimerization is a fundamental regulatory mechanism, and baseline RXR activity may be driven by endogenous ligands.",
+      "scenario": "foundational premise",
+      "source_sentence": "RXR/NR1H3 (LXR) dimerization, long recognized as a fundamental mechanism, emerged as a key regulatory axis in the control state, suggesting that baseline RXR activity may be driven by endogenous ligands.",
+      "connected_nodes": [
+        "I4",
+        "I3"
+      ],
+      "disposition": "included as LL6",
+      "reason": null
+    },
+    {
+      "candidate_id": 4,
+      "claim_text": "ABCA1 is an ATP-binding cassette transporter critical for cholesterol efflux and an RXR-responsive gene.",
+      "scenario": "foundational premise",
+      "source_sentence": "ABCA1, an ATP-binding cassette transporter critical for cholesterol efflux, emerged early as an RXR-responsive gene and has since been implicated across multiple neurodegenerative contexts.",
+      "connected_nodes": [],
+      "disposition": "excluded",
+      "reason": "Scene-setting: ABCA1 is mentioned as background context but does not serve as a structural premise for any specific claim in the DAG. No specific node depends on this claim."
+    },
+    {
+      "candidate_id": 5,
+      "claim_text": "Bexarotene significantly improved cognition and memory in APP mice.",
+      "scenario": "foundational premise",
+      "source_sentence": "Research demonstrated that Bexarotene significantly improved cognition and memory in APP mice [8-11], although its effect on plaque load remains controversial [8,11,12].",
+      "connected_nodes": [],
+      "disposition": "excluded",
+      "reason": "Scene-setting citation pile: multiple references cited to establish that Bexarotene has phenotypic effects, but no specific claim in the DAG structurally depends on this behavioral finding. The paper explicitly states it did not replicate behavioral endpoints."
+    },
+    {
+      "candidate_id": 6,
+      "claim_text": "Bexarotene increased APOE expression and protein level in APP/PS1 mice.",
+      "scenario": "comparative anchor",
+      "source_sentence": "Bexarotene's increased APOE expression and protein level was observed following short-term treatment in APP/PS1 mice [8,13] and long-term treatment in 3xTg-AD mice [10].",
+      "connected_nodes": [
+        "L6"
+      ],
+      "disposition": "excluded",
+      "reason": "Corroborative: the paper's own data independently establishes Apoe upregulation (L6 shows Apoe mRNA increase and chromatin accessibility increase). The literature reference adds agreement but no additional structural logic."
+    },
+    {
+      "candidate_id": 7,
+      "claim_text": "Apoe is a known RXR target gene under LXR/RXR heterodimer control.",
+      "scenario": "interpretation frame",
+      "source_sentence": "Apoe is a known RXR target gene under LXR/RXR heterodimer control, highlighting the central role of RXR signaling in lipid regulation",
+      "connected_nodes": [
+        "L6"
+      ],
+      "disposition": "included as LL1",
+      "reason": null
+    },
+    {
+      "candidate_id": 8,
+      "claim_text": "Fkbp5 is associated with intracellular trafficking of heterooligomeric forms of steroid hormone receptors.",
+      "scenario": "interpretation frame",
+      "source_sentence": "Fkbp5 is associated with intracellular trafficking of heterooligomeric forms of steroid hormone receptors, suggesting RXRs' role in regulating this pathway [50].",
+      "connected_nodes": [
+        "L24"
+      ],
+      "disposition": "included as LL2",
+      "reason": null
+    },
+    {
+      "candidate_id": 9,
+      "claim_text": "Spi1 (PU.1) is a microglia master regulator.",
+      "scenario": "interpretation frame",
+      "source_sentence": "cell differentiation (Notch2, Spi1 gene is microglia master regulator)",
+      "connected_nodes": [
+        "L5"
+      ],
+      "disposition": "included as LL3",
+      "reason": null
+    },
+    {
+      "candidate_id": 10,
+      "claim_text": "Nfatc2 physically interacts with RXRalpha and RARalpha, enhancing retinoic acid response element binding.",
+      "scenario": "mechanistic chain link",
+      "source_sentence": "Nfatc2, a key immune regulator, has been shown to physically interact with RXRalpha and RARalpha, enhancing retinoic acid response element binding.",
+      "connected_nodes": [
+        "L37"
+      ],
+      "disposition": "included as LL4",
+      "reason": null
+    },
+    {
+      "candidate_id": 11,
+      "claim_text": "Hes1 is a key regulator of cell differentiation and proliferation, particularly in neural and stem cell development.",
+      "scenario": "interpretation frame",
+      "source_sentence": "Hes1 (Figure 3B, locus-level coverage and linked peaks) is a key regulator of cell differentiation and proliferation, particularly in neural and stem cell development [51].",
+      "connected_nodes": [
+        "L25"
+      ],
+      "disposition": "included as LL5",
+      "reason": null
+    },
+    {
+      "candidate_id": 12,
+      "claim_text": "Nupr1 is a transcription regulator associated with resistance to stress and involved in cell-cycle, apoptosis, autophagy, and DNA repair.",
+      "scenario": "interpretation frame",
+      "source_sentence": "Nupr1 (Nuclear protein 1) is a transcription regulator associated with resistance to stress and is involved in numerous cell functions such as cell-cycle, apoptosis, autophagy, and DNA repair [59]",
+      "connected_nodes": [
+        "L27"
+      ],
+      "disposition": "included as LL7",
+      "reason": null
+    },
+    {
+      "candidate_id": 13,
+      "claim_text": "Pdgfra is an oligodendrocyte-specific gene and a major determinant of the timing of oligodendrocyte differentiation.",
+      "scenario": "interpretation frame",
+      "source_sentence": "Pdgfra is an oligodendrocytes specific gene which was upregulated after treatment",
+      "connected_nodes": [
+        "L28"
+      ],
+      "disposition": "included as LL8",
+      "reason": null
+    },
+    {
+      "candidate_id": 14,
+      "claim_text": "Mertk was previously reported to be upregulated by Bexarotene treatment.",
+      "scenario": "comparative anchor",
+      "source_sentence": "Mertk, a tyrosine kinase that was reported upregulated by Bexarotene [62]",
+      "connected_nodes": [
+        "L29"
+      ],
+      "disposition": "included as LL9",
+      "reason": null
+    },
+    {
+      "candidate_id": 15,
+      "claim_text": "Ccr1 is involved in cell migration in the CNS.",
+      "scenario": "interpretation frame",
+      "source_sentence": "RXR activation increased chromatin accessibility affecting categories such as cell migration (Ccr1 [43])",
+      "connected_nodes": [
+        "L4"
+      ],
+      "disposition": "excluded",
+      "reason": "The paper's own GO enrichment analysis independently establishes the cell migration category. Ccr1's role is used as a gene-level annotation within the GO result, not as a structurally necessary interpretive frame."
+    },
+    {
+      "candidate_id": 16,
+      "claim_text": "P2ry12 and Cx3cr1 are markers of homeostatic microglia and disease-associated microglia states.",
+      "scenario": "interpretation frame",
+      "source_sentence": "inflammatory response (Cx3cr1 [45])... phospholipase C-activating G protein-coupled receptor signaling pathway (P2ry12 [45], Lrp1 [49])",
+      "connected_nodes": [
+        "L4",
+        "L5"
+      ],
+      "disposition": "excluded",
+      "reason": "These are gene-level annotations within GO enrichment results. The paper's own data establishes the accessibility changes; the literature references annotate individual genes but do not resolve ambiguity in the interpretation."
+    },
+    {
+      "candidate_id": 17,
+      "claim_text": "Bexarotene reduces disease-associated microglia markers while enhancing Abeta phagocytosis.",
+      "scenario": "comparative anchor",
+      "source_sentence": "Additional studies connect Bexarotene to regulating brain immune responses by reducing disease-associated microglia markers while enhancing Abeta phagocytosis [13,14]",
+      "connected_nodes": [],
+      "disposition": "excluded",
+      "reason": "Scene-setting: cited in the Introduction to establish prior phenotypic findings. No specific claim in the DAG structurally depends on this."
+    },
+    {
+      "candidate_id": 18,
+      "claim_text": "RXR activation modulates lipid metabolism and promotes lysosomal clearance of alpha-synuclein aggregates in a non-AD model.",
+      "scenario": "comparative anchor",
+      "source_sentence": "Moreover, a recent study in a non-AD model demonstrated that RXR activation modulates lipid metabolism and promotes lysosomal clearance of alpha-synuclein aggregates [19]",
+      "connected_nodes": [],
+      "disposition": "excluded",
+      "reason": "Scene-setting: cited to provide broader context for RXR biology but no specific claim in the DAG depends on this finding."
+    },
+    {
+      "candidate_id": 19,
+      "claim_text": "Structural studies established the modular architecture of RXRs and revealed how ligand binding alters receptor conformation, enabling heterodimerization, DNA recognition, and transcriptional activation.",
+      "scenario": "foundational premise",
+      "source_sentence": "Structural studies established the modular architecture of RXRs and revealed how ligand binding alters receptor conformation, enabling heterodimerization, DNA recognition, and transcriptional activation [4,5].",
+      "connected_nodes": [],
+      "disposition": "excluded",
+      "reason": "General background knowledge about nuclear receptor biology. While important context, no specific claim in the DAG structurally depends on the details of RXR structural biology."
+    },
+    {
+      "candidate_id": 20,
+      "claim_text": "The effects on APOE and APOE-HDL in the brain and ISF and CSF of human subjects were independently validated in multiple studies.",
+      "scenario": "comparative anchor",
+      "source_sentence": "Importantly, the effects on APOE and APOE-HDL in the brain and ISF and CSF of human subjects were independently validated in multiple studies [8,15,73-75].",
+      "connected_nodes": [],
+      "disposition": "excluded",
+      "reason": "Corroborative citation pile: cited in the Discussion to support the translational relevance of APOE findings, but no specific claim in the DAG structurally depends on human validation data."
+    },
+    {
+      "candidate_id": 21,
+      "claim_text": "Ltbp4 is a key regulator of TGF-betas that controls TGF-beta activation by maintaining it in a latent state.",
+      "scenario": "interpretation frame",
+      "source_sentence": "apoptotic process (Ltbp4 is a key regulator of TGFBs that controls TGF-beta activation by maintaining it in a latent state [56])",
+      "connected_nodes": [
+        "L14"
+      ],
+      "disposition": "excluded",
+      "reason": "Gene-level annotation within a GO enrichment result. The paper's own data establishes the accessibility change; Ltbp4's function is used as a parenthetical annotation, not as a structurally necessary interpretive frame that resolves ambiguity."
+    },
+    {
+      "candidate_id": 22,
+      "claim_text": "Bexarotene promotes neurodevelopmental gene expression patterns that regulate neuronal differentiation and hippocampal neurogenesis.",
+      "scenario": "foundational premise",
+      "source_sentence": "promoting neurodevelopmental gene expression patterns that regulate neuronal differentiation and hippocampal neurogenesis [17,18]",
+      "connected_nodes": [],
+      "disposition": "excluded",
+      "reason": "Scene-setting: cited in the Introduction to establish prior findings. While related to the paper's themes, no specific claim in the DAG structurally depends on this prior finding."
+    }
+  ],
+  "excluded_borderline_claims": [
+    {
+      "claim_text": "ABCA1 is an ATP-binding cassette transporter critical for cholesterol efflux and an RXR-responsive gene.",
+      "reason": "Scene-setting background in the Introduction. No specific node in the DAG structurally depends on this claim."
+    },
+    {
+      "claim_text": "Bexarotene significantly improved cognition and memory in APP mice.",
+      "reason": "Citation pile establishing prior phenotypic effects. The paper explicitly states it did not replicate behavioral endpoints, and no DAG node depends on this behavioral finding."
+    },
+    {
+      "claim_text": "Bexarotene increased APOE expression and protein level in APP/PS1 mice (prior studies).",
+      "reason": "Corroborative: the paper's own data (L6) independently establishes Apoe upregulation at both chromatin and mRNA levels. The literature reference adds agreement but no additional structural logic."
+    },
+    {
+      "claim_text": "Ccr1 is involved in cell migration in the CNS.",
+      "reason": "Gene-level annotation within GO enrichment results. The paper's own analysis establishes the cell migration category independently."
+    },
+    {
+      "claim_text": "P2ry12 and Cx3cr1 are markers of homeostatic and disease-associated microglia states.",
+      "reason": "Gene-level annotations within GO enrichment results. The paper's own data establishes the accessibility changes; these references annotate individual genes without resolving interpretive ambiguity."
+    },
+    {
+      "claim_text": "Bexarotene reduces disease-associated microglia markers while enhancing Abeta phagocytosis.",
+      "reason": "Scene-setting in the Introduction. No specific DAG node structurally depends on this prior finding."
+    },
+    {
+      "claim_text": "RXR activation modulates lipid metabolism and promotes lysosomal clearance of alpha-synuclein aggregates in a non-AD model.",
+      "reason": "Scene-setting broader context. No specific DAG node depends on this finding."
+    },
+    {
+      "claim_text": "Structural studies established the modular architecture of RXRs and how ligand binding alters receptor conformation.",
+      "reason": "General background knowledge about nuclear receptor biology. No specific DAG node depends on structural details."
+    },
+    {
+      "claim_text": "The effects on APOE and APOE-HDL in human subjects were independently validated in multiple studies.",
+      "reason": "Corroborative citation pile in the Discussion. No specific DAG node depends on human validation data."
+    },
+    {
+      "claim_text": "Ltbp4 is a key regulator of TGF-betas that controls TGF-beta activation by maintaining it in a latent state.",
+      "reason": "Gene-level annotation within GO enrichment results. Does not resolve interpretive ambiguity for the parent claim."
+    },
+    {
+      "claim_text": "Bexarotene promotes neurodevelopmental gene expression patterns that regulate neuronal differentiation and hippocampal neurogenesis.",
+      "reason": "Scene-setting in the Introduction. No specific DAG node structurally depends on this prior finding."
+    }
+  ]
+}

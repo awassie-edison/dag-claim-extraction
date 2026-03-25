@@ -1,0 +1,5 @@
+dataset_id,dataset_type,repository,accession_or_url,role,description
+main_scrna_geo,scRNA-seq,GEO,GSE132042,primary,"Single-cell RNA sequencing data from 23 tissues and organs across 6 age groups in C57BL/6JN mice, including both FACS (Smart-seq2) and microfluidic droplet (10x Genomics) data."
+main_scrna_figshare,scRNA-seq,figshare,https://doi.org/10.6084/m9.figshare.8273102.v2,primary,"Gene counts and metadata for the Tabula Muris Senis single-cell transcriptomic atlas."
+main_scrna_aws,scRNA-seq,AWS S3,https://registry.opendata.aws/tabula-muris-senis/,primary,"Raw data files for the Tabula Muris Senis dataset hosted on a public AWS S3 bucket."
+interactive_browser,scRNA-seq,Custom Portal,http://tabula-muris-senis.ds.czbiohub.org/,primary,"Interactive data browser for exploring the entire Tabula Muris Senis dataset."

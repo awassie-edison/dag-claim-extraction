@@ -1,0 +1,2452 @@
+{
+  "paper": {
+    "title": "A single-cell transcriptomic atlas characterizes ageing tissues in the mouse",
+    "authors": [
+      "The Tabula Muris Consortium"
+    ],
+    "venue": "Nature",
+    "year": "2020"
+  },
+  "glossary": {
+    "Tabula Muris Senis": "The Mouse Ageing Cell Atlas; a single-cell transcriptomic atlas across the lifespan of Mus musculus covering 23 tissues and organs at six age groups",
+    "Tabula Muris": "The previously published single-cell transcriptomic atlas of 20 mouse organs at 3 months of age, used as a reference for cell-type annotation",
+    "FACS": "Fluorescence-activated cell sorting; here used to sort single cells into microtitre well plates for full-length transcript sequencing via Smart-seq2",
+    "droplet": "Microfluidic droplet-based single-cell RNA sequencing using the 10x Genomics Chromium platform for 3-prime end counting",
+    "Cdkn2a": "Gene encoding the p16 tumor suppressor protein; a widely used marker of cellular senescence",
+    "Sirt": "Sirtuin gene family; NAD-dependent deacetylases implicated in delaying cellular senescence",
+    "Umod": "Gene encoding uromodulin, the most abundant protein in urine, produced by epithelial cells lining the thick ascending limb of the loop of Henle",
+    "Mrc1": "Mannose receptor C-type 1 gene; encodes the mannose receptor involved in immune defense",
+    "LSECs": "Liver sinusoidal endothelial cells; specialized endothelial cells with a unique role in hepatic immune defense",
+    "ERCC": "External RNA Controls Consortium spike-in RNA standards used to estimate technical error rates in sequencing",
+    "MHC": "Major histocompatibility complex; a set of cell surface proteins essential for adaptive immune system recognition",
+    "AP1": "Activator protein 1 transcription factor complex, including Jun and Fos family members",
+    "Jchain": "Gene encoding the joining chain of immunoglobulins, also known as Igj; a marker of plasma cells",
+    "M1-macrophage": "Pro-inflammatory macrophage phenotype",
+    "M2-macrophage": "Anti-inflammatory macrophage phenotype",
+    "bbknn": "Batch balanced k-nearest neighbours; a batch-alignment algorithm used to correct for method-associated batch effects",
+    "MAST": "Model-based Analysis of Single-cell Transcriptomics; a statistical framework for differential expression analysis treating age as a continuous covariate",
+    "TraCeR": "Computational tool for reconstructing T cell receptor sequences from single-cell RNA-seq data",
+    "singlecell-ige": "Computational tool for reconstructing B cell receptor sequences from single-cell RNA-seq data",
+    "PAGA": "Partition-based graph abstraction; a method for reconstructing developmental or ageing trajectories from single-cell data",
+    "diversity score": "Shannon entropy of cluster assignments for a given cell type, regressed against age to detect systematic changes in transcriptomic heterogeneity",
+    "clonotype": "A group of B cells or T cells sharing the same receptor sequence, indicating clonal expansion from a common ancestor"
+  },
+  "nodes": [
+    {
+      "id": "R1",
+      "claim_text": "Single-cell transcriptomic profiling across the mouse lifespan reveals cell-type-specific molecular changes and tissue compositional shifts that characterize ageing across multiple organs.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "root",
+      "depth": 0,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Abstract; Title; Discussion (page 594)",
+      "supporting_quote": "Using single-cell transcriptomic data, we assessed cell-type-specific manifestations of different hallmarks of ageing-such as senescence, genomic instability and changes in the immune system.",
+      "dataset_link": null
+    },
+    {
+      "id": "R2",
+      "claim_text": "The Tabula Muris Senis provides a comprehensive single-cell transcriptomic resource that reveals how the most important hallmarks of ageing are reflected across a broad range of tissues and cell types.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "root",
+      "depth": 0,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Abstract; Discussion (page 594)",
+      "supporting_quote": "This transcriptomic atlas-which we denote Tabula Muris Senis, or 'Mouse Ageing Cell Atlas'-provides molecular information about how the most important hallmarks of ageing are reflected in a broad range of tissues and cell types.",
+      "dataset_link": null
+    },
+    {
+      "id": "I1",
+      "claim_text": "The Tabula Muris Senis is a validated, manually curated single-cell transcriptomic atlas spanning 23 tissues across six age groups, enabling cell-type-specific analyses of ageing.",
+      "claim_type": "data-driven characterization",
+      "node_type": "intermediate",
+      "depth": 1,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2 and 10x Genomics droplet)",
+      "experiment_detail": "Single-cell RNA sequencing was performed on more than 350,000 cells from male and female C57BL/6JN mice at six age groups (1, 3, 18, 21, 24, and 30 months) across 23 tissues using both FACS-based Smart-seq2 and 10x Genomics Chromium droplet platforms. After quality filtering, 110,824 FACS cells and 245,389 droplet cells were retained.",
+      "analysis_type": "cell type annotation and cross-method validation",
+      "analysis_detail": "INPUT DATA: Single-cell RNA-seq data from 23 tissues across 6 age groups (1, 3, 18, 21, 24, 30 months) collected via two methods: FACS (Smart-seq2, full-length transcripts, 384-well plates) and microfluidic droplet (10x Genomics, 3-prime end counting). A total of 529,823 cells were sequenced; 110,824 FACS cells and 245,389 droplet cells passed filtering.\n\nPREPROCESSING: Gene count tables were combined with metadata using Scanpy v1.4.2. Genes not expressed in at least 3 cells were removed. Cells with fewer than 250 detected genes were removed. For FACS, cells with fewer than 5,000 counts were removed; for droplet, cells with fewer than 2,500 UMIs were removed. Data was normalized using size factor normalization (10,000 counts per cell) and log-transformed. Highly variable genes were computed using default Scanpy parameters. Data was scaled to a maximum value of 10. PCA was computed, followed by neighbourhood graph construction.\n\nCORE ANALYSIS - Cell type annotation: Each organ was analyzed independently across all ages. PCA was performed on the most variable genes, followed by Louvain (Blondel et al. 2008) and Leiden (Traag et al. 2019) graph-based clustering. The 3-month Tabula Muris data was subset from each organ's clustered data, and the mapping between existing Tabula Muris cell-type labels and clusters was assessed. For clusters with a single 1:1 mapping (one cluster to one cell type), annotations were propagated to cells of all ages in that cluster. Clusters with 1:many mappings were flagged for manual validation. All automated annotations were reviewed and approved by tissue expert curators; remaining unannotated cells were annotated manually. Annotations were provided in the controlled vocabulary of the Cell Ontology.\n\nCORE ANALYSIS - Cross-method validation: To assess annotation consistency across the entire organism, the bbknn batch-alignment algorithm (Polanski et al. 2020) was used in place of the standard neighbourhood graph computation to correct for method-associated batch effects (FACS vs droplet). After batch correction, all cells were clustered using Louvain graph-based clustering. The co-occurrence of similarly annotated cells (e.g., B cells, endothelial cells) in the same clusters was assessed irrespective of tissue of origin or processing method.\n\nOUTPUT: A fully curated cell-type annotation for all 356,213 cells passing QC, with annotations consistent across tissues and methods as validated by cross-organism clustering. More than 70% of cells were automatically annotated; the remainder were manually curated.",
+      "evidence_location": "Figure 1; Main text paragraphs 1-2 (page 590)",
+      "supporting_quote": "We performed single-cell RNA sequencing on more than 350,000 cells from male and female C57BL/6JN mice belonging to six age groups, ranging from 1 month (the equivalent of human early childhood) to 30 months (the equivalent of a human centenarian).",
+      "dataset_link": null,
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "I2",
+      "claim_text": "Cellular senescence markers, particularly Cdkn2a, show age-related increases in both the fraction of expressing cells and per-cell expression levels across the organism.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 1,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Figure 2a-d; Main text paragraph 3 (page 590-591); Supplementary Table 4",
+      "supporting_quote": "The expression of Cdkn2a and its protein product p16 is one of the most frequently used markers of senescence and is an important hallmark of ageing.",
+      "dataset_link": null
+    },
+    {
+      "id": "I3",
+      "claim_text": "The cellular composition of tissues changes with age, with distinct cell-type proportional shifts observed in the bladder, kidney, spleen, mammary gland, liver, bone marrow, and skin.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 1,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Figures 2e-j; Extended Data Figures 5-6; Main text (pages 591-593)",
+      "supporting_quote": "The cellular composition of each tissue type tends to vary with age.",
+      "dataset_link": null
+    },
+    {
+      "id": "I4",
+      "claim_text": "Genomic instability, as measured by somatic mutation accumulation in transcribed genes, increases with age across all analysed organs and cell types.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 1,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Figure 3; Extended Data Figures 7-8; Main text (page 593)",
+      "supporting_quote": "Genomic instability is among the most widely studied hallmarks of ageing, and full-length transcript data enables analysis of the accumulation of somatic mutations with age.",
+      "dataset_link": null
+    },
+    {
+      "id": "I5",
+      "claim_text": "The adaptive immune system shows age-related changes including increased clonality of both B cell and T cell repertoires, suggesting reduced capacity to respond to new pathogens.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 1,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Figure 4a-b; Extended Data Figure 9; Main text (pages 593-594)",
+      "supporting_quote": "These changes in clonality for both B cell and T cell repertoires are noteworthy, because they suggest that the immune system of a 24-month-old mouse is less likely to respond to new pathogens.",
+      "dataset_link": null
+    },
+    {
+      "id": "I6",
+      "claim_text": "Immune cell populations in the brain and kidney undergo significant age-related transcriptomic diversification, with microglia acquiring a pro-inflammatory and neurodegeneration-associated signature and kidney macrophages shifting from an anti-inflammatory to a pro-inflammatory state.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 1,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Figure 4c-f; Extended Data Figures 10-11; Main text (pages 593-594)",
+      "supporting_quote": "We observed significant changes in diversity for cells of the immune system that originate from the brain and the kidney (Fig. 4c, Extended Data Fig. 11a, b).",
+      "dataset_link": null
+    },
+    {
+      "id": "I7",
+      "claim_text": "Single-cell data resolves that bulk gene expression changes with age are often attributable to both changes in cell-type proportions and changes in per-cell gene expression levels.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 1,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Extended Data Figure 5a-b; Main text paragraph 3 (page 590)",
+      "supporting_quote": "we observed that-in many cases-changes in gene expression are due to both changes in the numbers of cells in a population and changes in the gene expression levels in each cell",
+      "dataset_link": null
+    },
+    {
+      "id": "I8",
+      "claim_text": "The bladder undergoes pronounced age-related changes in cellular composition and gene expression, with a shift from mesenchymal to urothelial dominance, declining vascularization, and increasing inflammatory signatures.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Figure 2e-f; Main text (page 591); Supplementary Table 6",
+      "supporting_quote": "The bladder shows pronounced changes in cell-type composition with age (Fig. 2e)",
+      "dataset_link": null
+    },
+    {
+      "id": "I9",
+      "claim_text": "Age-related changes in the kidney include declining glomerular and tubular cell populations with compensatory increases in local gene expression, suggesting impaired kidney function.",
+      "claim_type": "mechanistic interpretation",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Figure 2g-h; Main text (pages 591-592); Supplementary Table 6",
+      "supporting_quote": "Both mesangial cells and capillary endothelial cells are core glomerular cells, and the reduction in their relative abundances with age (Fig. 2g, top)-together with a tissue-wide reduction of Egf and Atp1a1 expression (Fig. 2h, Supplementary Table 6)-suggest an impaired glomerular filtration rate",
+      "dataset_link": null
+    },
+    {
+      "id": "I10",
+      "claim_text": "The spleen shows age-related shifts in immune cell composition, with declining T cells and increasing plasma cells.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Figure 2i-j; Main text (page 592); Supplementary Table 5-6",
+      "supporting_quote": "In the spleen, the proportion of T cells decreases with age while the relative amount of plasma cells increases (Fig. 2i).",
+      "dataset_link": null
+    },
+    {
+      "id": "I11",
+      "claim_text": "The liver undergoes age-related changes including declining hepatocyte proportions, increased immune gene signatures, and altered Kupffer cell and sinusoidal endothelial cell phenotypes.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Extended Data Figure 6; Main text (page 593); Supplementary Tables 6-7",
+      "supporting_quote": "The tissue composition of the liver also changes with age.",
+      "dataset_link": null
+    },
+    {
+      "id": "I12",
+      "claim_text": "The mammary gland shows age-related T cell decline and upregulation of AP1 transcription factor genes.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Extended Data Figure 5c-d; Main text (pages 592-593); Supplementary Table 6",
+      "supporting_quote": "Similarly, in the mammary gland we observed a decline of the T cell population (Extended Data Fig. 5c).",
+      "dataset_link": null
+    },
+    {
+      "id": "I13",
+      "claim_text": "B cell clonality increases progressively with age across the organism.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Figure 4a; Main text (pages 593-594); Supplementary Table 9",
+      "supporting_quote": "whereas most of the cells at 3 months were not part of a clone (9% were part of a clonal family), the number of B cells belonging to a clonotype doubled at 18 months (20%) when compared to 3 months, and doubled again from 18 months to 24 months (around 38%).",
+      "dataset_link": null
+    },
+    {
+      "id": "I14",
+      "claim_text": "T cell clonality increases markedly with age across the organism.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Figure 4b; Main text (pages 593-594); Supplementary Table 9",
+      "supporting_quote": "only around 3% (55 out of 1,895) of the cells at 3 months were part of a clone. At 18 months and 24 months, this value increased to around 23% (479 out of 2,056) and around 20% (348 out of 1,780) of the cells, respectively",
+      "dataset_link": null
+    },
+    {
+      "id": "I15",
+      "claim_text": "Brain microglia undergo age-related transcriptomic changes characterized by expansion of a pro-inflammatory subset with interferon-responsive and neurodegeneration-associated gene signatures.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Figure 4c-e; Extended Data Figure 11a,c,e; Main text (page 594); Supplementary Table 10",
+      "supporting_quote": "gene expression in clusters 10, 12 and 14 is enriched with interferon responsive or regulatory genes (for example, Oasl2, Oas1a, Ifit3, Rtp4, Bst2, Stat1, Irf7, Ifitm3, Usp18, Ifi204 and Ifit2), suggesting an expansion of this small pro-inflammatory subset of microglia in the ageing brain",
+      "dataset_link": null
+    },
+    {
+      "id": "I16",
+      "claim_text": "Kidney macrophages shift from an anti-inflammatory (M2) to a pro-inflammatory (M1) transcriptomic state with age.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Figure 4f; Extended Data Figure 11b,d,f; Main text (page 594); Supplementary Table 10",
+      "supporting_quote": "Differential gene expression revealed that cluster 10 is enriched for an M2-macrophage gene signature (for example, Il10, H2-Eb1, H2-Ab1, H2-Aa, Cd74, C1qa, Cxcl16, Hexb, Cd81, C1qb and Cd72) whereas cluster 13 resembles a M1-proinflammatory macrophage state (for example, Hp, Itgal, Msrb1 and Gngt2)",
+      "dataset_link": null
+    },
+    {
+      "id": "I17",
+      "claim_text": "Cdkn2a expression increases with age in both the fraction of expressing cells and per-cell expression levels, with the strongest age-correlation among senescence markers.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Figure 2a-d; Main text paragraph 3 (page 590-591); Supplementary Table 4",
+      "supporting_quote": "Cdkn2a has the highest correlation between ageing and the fraction of cells in which it is expressed",
+      "dataset_link": null
+    },
+    {
+      "id": "I18",
+      "claim_text": "The fraction of cells expressing sirtuin family genes decreases with age, consistent with their role in delaying cellular senescence.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Main text paragraph 3 (page 591); Supplementary Table 4",
+      "supporting_quote": "For some genes, including members of the Sirt family (Sirt3, Sirt4 and Sirt5), the fraction of cells in which they were expressed was found to decrease with age; this is consistent with previous literature finding that sirtuins-the protein products of Sirt genes-are essential in delaying cellular senescence",
+      "dataset_link": null
+    },
+    {
+      "id": "LL1",
+      "claim_text": "Cdkn2a and its protein product p16 is one of the most frequently used markers of senescence and is an important hallmark of ageing (Rayess et al. 2012; Hernandez-Segura et al. 2018).",
+      "claim_type": "data-driven characterization",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Main text paragraph 3 (page 590-591); citing refs 10, 11",
+      "supporting_quote": "The expression of Cdkn2a and its protein product p16 is one of the most frequently used markers of senescence and is an important hallmark of ageing.",
+      "dataset_link": null
+    },
+    {
+      "id": "LL2",
+      "claim_text": "Sirtuins are essential in delaying cellular senescence (Saunders & Verdin 2007; Lee et al. 2019).",
+      "claim_type": "mechanistic interpretation",
+      "node_type": "intermediate",
+      "depth": 3,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Main text paragraph 3 (page 591); citing refs 20, 21",
+      "supporting_quote": "this is consistent with previous literature finding that sirtuins-the protein products of Sirt genes-are essential in delaying cellular senescence",
+      "dataset_link": null
+    },
+    {
+      "id": "LL3",
+      "claim_text": "Age-related decline of T cell populations has been associated with increased risk of infectious disease and cancer (Palmer et al. 2018).",
+      "claim_type": "mechanistic interpretation",
+      "node_type": "intermediate",
+      "depth": 2,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Main text (page 592); citing ref 33",
+      "supporting_quote": "Age-related decline of T cell populations has been associated with increased risk of infectious disease and cancer",
+      "dataset_link": null
+    },
+    {
+      "id": "LL4",
+      "claim_text": "Normal mammary gland involution is accompanied by increased expression of AP1 transcription factor family genes (Shen et al. 2006; Girnius et al. 2018).",
+      "claim_type": "mechanistic interpretation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Main text (pages 592-593); citing refs 34, 35",
+      "supporting_quote": "consistent with the observation that normal involution of the mammary gland is accompanied by increased expression of this gene family",
+      "dataset_link": null
+    },
+    {
+      "id": "LL5",
+      "claim_text": "Pro-inflammatory macrophages drive cellular senescence, and Il1b shows markedly different expression in the liver with age (Covarrubias et al. 2019).",
+      "claim_type": "mechanistic interpretation",
+      "node_type": "intermediate",
+      "depth": 3,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Main text (page 593); citing ref 12",
+      "supporting_quote": "Previous findings suggested that pro-inflammatory macrophages drive cellular senescence, and identified the gene Il1b as showing markedly different expression in the liver with age",
+      "dataset_link": null
+    },
+    {
+      "id": "LL6",
+      "claim_text": "Specific blocking of IL1-RI in hepatocytes attenuates cell death after injury, supporting the idea that increased Il1b expression in Kupffer cells is a poor prognostic indicator (Gehrke et al. 2018).",
+      "claim_type": "mechanistic interpretation",
+      "node_type": "leaf",
+      "depth": 4,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Main text (page 593); citing ref 37",
+      "supporting_quote": "Specific blocking of IL1-RI in hepatocytes has been shown to attenuate cell death after injury, supporting the idea that increased expression of Il1b in Kupffer cells is typically a poor prognostic",
+      "dataset_link": null
+    },
+    {
+      "id": "LL7",
+      "claim_text": "Liver sinusoidal endothelial cells are the main carriers of the mannose receptor (MRC1) in the liver (Liu et al. 2013).",
+      "claim_type": "data-driven characterization",
+      "node_type": "leaf",
+      "depth": 4,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Main text (page 593); citing ref 38",
+      "supporting_quote": "Liver sinusoidal endothelial cells (LSECs) have a unique role in immune defence, being the main carriers of the mannose receptor (MRC1) in this organ",
+      "dataset_link": null
+    },
+    {
+      "id": "LL8",
+      "claim_text": "A unique microglia type associated with restricting development of Alzheimer's disease has been identified with a specific transcriptomic signature (Keren-Shaul et al. 2017).",
+      "claim_type": "data-driven characterization",
+      "node_type": "intermediate",
+      "depth": 3,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Main text (page 594); citing ref 47",
+      "supporting_quote": "the list of differentially expressed genes between 'young' and 'old' clusters resembles the previously reported Alzheimer's disease-specific microglial signature",
+      "dataset_link": null
+    },
+    {
+      "id": "LL9",
+      "claim_text": "Older individuals have higher vulnerability to new infections and lower benefits from vaccination compared with younger individuals (Goronzy & Weyand 2013, 2017).",
+      "claim_type": "mechanistic interpretation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Main text (page 594); citing refs 45, 46",
+      "supporting_quote": "This corroborates literature reports suggesting that older individuals have a higher vulnerability to new infections and lower benefits from vaccination compared with younger individuals",
+      "dataset_link": null
+    },
+    {
+      "id": "LL10",
+      "claim_text": "Downregulation of ATP1A1 is associated with impaired function in renal cell carcinoma, and EGF serves as a prognostic biomarker in chronic kidney diseases (Zhang et al. 2017; Isaka 2016).",
+      "claim_type": "mechanistic interpretation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Main text (pages 591-592); citing refs 29, 30",
+      "supporting_quote": "together with a tissue-wide reduction of Egf and Atp1a1 expression (Fig. 2h, Supplementary Table 6)-suggest an impaired glomerular filtration rate",
+      "dataset_link": null
+    },
+    {
+      "id": "LL11",
+      "claim_text": "M1 and M2 macrophage states are defined by distinct marker gene sets (Jablonski et al. 2015).",
+      "claim_type": "data-driven characterization",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "literature",
+      "datasets": null,
+      "dataset_accessions": null,
+      "experiment_type": null,
+      "experiment_detail": null,
+      "analysis_type": null,
+      "analysis_detail": null,
+      "evidence_location": "Main text (page 594); citing ref 50",
+      "supporting_quote": "cluster 13 resembles a M1-proinflammatory macrophage state",
+      "dataset_link": null
+    },
+    {
+      "id": "L1",
+      "claim_text": "The proportion of cells expressing Cdkn2a more than doubled in older mice compared with younger mice in both FACS and droplet datasets.",
+      "claim_type": "statistical/quantitative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2 and 10x Genomics droplet)",
+      "experiment_detail": "Single-cell RNA-seq was performed on cells from C57BL/6JN mice at six age groups (1, 3, 18, 21, 24, 30 months) across 23 tissues using both FACS-based Smart-seq2 and 10x Genomics droplet platforms. n = 44,518, 34,027 and 31,551 cells for FACS at 3, 18 and 24 months; n = 25,980, 45,602, 44,645, 35,828, 37,660 and 55,674 cells for droplet at 1, 3, 18, 21, 24 and 30 months.",
+      "analysis_type": "fraction of cells expressing a marker gene across age groups",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from the FACS dataset (n = 44,518 at 3 months, 34,027 at 18 months, 31,551 at 24 months) and the droplet dataset (n = 25,980 at 1 month, 45,602 at 3 months, 44,645 at 18 months, 35,828 at 21 months, 37,660 at 24 months, 55,674 at 30 months), analyzed separately by method.\n\nPREPROCESSING: Standard preprocessing as described for the full dataset: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, FACS cells with fewer than 5,000 counts removed, droplet cells with fewer than 2,500 UMIs removed. Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS: For each age group, the fraction of all cells expressing Cdkn2a was computed, where a cell is considered to express Cdkn2a if it has greater than 0 counts for that gene. The fraction was computed as (number of cells with Cdkn2a > 0) / (total number of cells in that age group). Pairwise comparisons between age groups were performed using the Mann-Whitney-Wilcoxon rank-sum two-sided test. Analysis was performed separately for FACS (3 age groups: 3, 18, 24 months) and droplet (6 age groups: 1, 3, 18, 21, 24, 30 months).\n\nOUTPUT: Bar plots showing the fraction of cells expressing Cdkn2a per age group for each method, with exact P values from pairwise Mann-Whitney-Wilcoxon tests. Data expressed as mean +/- s.d. with individual data points shown.",
+      "evidence_location": "Figure 2a-d; Main text - paragraph 3 (page 590-591)",
+      "supporting_quote": "The proportion of cells expressing Cdkn2a more than doubled in older mice compared with younger mice according to analysis by both FACS (Fig. 2a) and droplet (Fig. 2b) methods; this was accompanied by a twofold increase in the expression levels of p16 in cells in which it was expressed (Fig. 2c, d).",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L2",
+      "claim_text": "The mean expression level of Cdkn2a approximately doubled in cells that express it when comparing old to young mice in both FACS and droplet data.",
+      "claim_type": "statistical/quantitative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2 and 10x Genomics droplet)",
+      "experiment_detail": "Single-cell RNA-seq was performed on cells from C57BL/6JN mice at six age groups across 23 tissues using both FACS and droplet platforms. Same sample sizes as L1.",
+      "analysis_type": "per-cell expression level comparison across age groups",
+      "analysis_detail": "INPUT DATA: Subset of cells that express Cdkn2a (>0 counts) from the FACS dataset (3, 18, 24 months) and the droplet dataset (1, 3, 18, 21, 24, 30 months). Total cell numbers per age group are the same as in L1.\n\nPREPROCESSING: Standard preprocessing: normalization to 10,000 counts per cell and log-transformation. Only cells with Cdkn2a expression > 0 (after normalization and log-transformation) were retained for this analysis.\n\nCORE ANALYSIS: For each age group, the median expression level of Cdkn2a was computed across only those cells that express the gene (>0 counts). Expression values are log-transformed and scaled. Pairwise comparisons between age groups were performed using the Mann-Whitney-Wilcoxon rank-sum two-sided test. Analysis was performed separately for FACS and droplet datasets.\n\nOUTPUT: Bar plots of the median expression of Cdkn2a for expressing cells at each age group, with y-axis showing log-transformed and scaled values. Data expressed as mean +/- s.d. with individual data points shown. Exact P values from pairwise Mann-Whitney-Wilcoxon tests are reported.",
+      "evidence_location": "Figure 2c-d; Main text - paragraph 3 (page 590-591)",
+      "supporting_quote": "this was accompanied by a twofold increase in the expression levels of p16 in cells in which it was expressed (Fig. 2c, d).",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L3",
+      "claim_text": "In 30-month-old mice the fraction of cells expressing Cdkn2a was smaller than in 24-month-old mice.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on cells from C57BL/6JN mice at 24 months (n = 37,660 cells) and 30 months (n = 55,674 cells).",
+      "analysis_type": "fraction of cells expressing a marker gene across age groups",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from the droplet dataset at 24 months (n = 37,660) and 30 months (n = 55,674).\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed. Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS: For each of the two age groups (24 months and 30 months), the fraction of all cells expressing Cdkn2a was computed, where a cell is considered to express Cdkn2a if it has greater than 0 counts for that gene. The fractions were compared between the two age groups. This comparison is part of the broader droplet analysis across all 6 age groups (1, 3, 18, 21, 24, 30 months) shown in Figure 2b.\n\nOUTPUT: The fraction of cells expressing Cdkn2a at 24 months and 30 months, enabling direct comparison of these two age groups within the droplet dataset.",
+      "evidence_location": "Figure 2b; Main text - paragraph 3 (page 590-591)",
+      "supporting_quote": "Notably, in 30-month-old mice the fraction of cells that expressed p16 was smaller than in 24-month-old mice, perhaps because long-living animals have a slower rate of senescence.",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L4",
+      "claim_text": "Among previously characterized senescence markers, Cdkn2a showed the highest correlation between ageing and the fraction of cells in which it is expressed.",
+      "claim_type": "statistical/quantitative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2 and 10x Genomics droplet)",
+      "experiment_detail": "Single-cell RNA-seq data from all age groups across all tissues. A curated list of previously characterized senescence markers was used (Supplementary Table 4).",
+      "analysis_type": "correlation of senescence marker expression fraction with age",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from both FACS and droplet datasets across all age groups. A curated list of previously characterized senescence markers compiled from references 12-15 (provided in Supplementary Table 4).\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, method-specific count thresholds applied (5,000 for FACS, 2,500 UMIs for droplet). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS: For each gene in the curated senescence marker list (Supplementary Table 4), the fraction of cells expressing the gene (>0 counts) was computed per age group across all tissues. The correlation between age (treated as a numerical variable corresponding to the age groups) and the fraction of cells expressing each senescence marker was computed. Genes were ranked by their correlation coefficient.\n\nOUTPUT: A ranking of senescence markers by their correlation between age and fraction of expressing cells. Cdkn2a was identified as having the highest positive correlation. The full results are provided in Supplementary Table 4.",
+      "evidence_location": "Main text - paragraph 3 (page 591); Supplementary Table 4",
+      "supporting_quote": "Cdkn2a has the highest correlation between ageing and the fraction of cells in which it is expressed; other genes with positive correlation include E2f2, Lmnb1, Tnf and Itgax.",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L5",
+      "claim_text": "The fraction of cells expressing members of the Sirt family (Sirt3, Sirt4, Sirt5) decreased with age.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2 and 10x Genomics droplet)",
+      "experiment_detail": "Single-cell RNA-seq data from all age groups across all tissues.",
+      "analysis_type": "fraction of cells expressing senescence-associated genes across age groups",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from both FACS and droplet datasets across all age groups. Sirt3, Sirt4, and Sirt5 were included in the curated list of senescence markers (Supplementary Table 4).\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, method-specific count thresholds applied (5,000 for FACS, 2,500 UMIs for droplet). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS: For each of Sirt3, Sirt4, and Sirt5, the fraction of cells expressing the gene (>0 counts) was computed per age group across all tissues. The correlation between age and the fraction of cells expressing each gene was computed, as part of the broader senescence marker analysis described in Supplementary Table 4.\n\nOUTPUT: The fraction of cells expressing Sirt3, Sirt4, and Sirt5 at each age group, along with the correlation between age and expression fraction for each gene.",
+      "evidence_location": "Main text - paragraph 3 (page 591); Supplementary Table 4",
+      "supporting_quote": "For some genes, including members of the Sirt family (Sirt3, Sirt4 and Sirt5), the fraction of cells in which they were expressed was found to decrease with age",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L6",
+      "claim_text": "In the bladder, the mesenchymal cell compartment decreased by approximately threefold over the mouse lifespan while the urothelial compartment increased by a similar amount.",
+      "claim_type": "statistical/quantitative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on bladder cells from C57BL/6JN mice at 1, 3, 18, and 24 months. n = 970, 3,804, 2,739 and 3,864 cells respectively.",
+      "analysis_type": "cell type proportion analysis across age",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from the bladder across available time points (n = 970 at 1 month, 3,804 at 3 months, 2,739 at 18 months, 3,864 at 24 months), with cell-type annotations assigned during the annotation workflow.\n\nPREPROCESSING: Standard preprocessing applied to the bladder dataset: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed (droplet). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS: For each age group, the relative proportion of each cell type in the bladder was computed as (number of cells of a given type) / (total number of cells in that tissue at that age). Linear regression of relative cell-type proportion against age was performed using scipy.stats linregress. Significance was assessed with P < 0.05 for a hypothesis test with the null hypothesis that the slope is zero, using a two-sided Wald test with t-distribution of the test statistic, and r2 > 0.7 (the threshold stated in the figure legend for bladder). This was computed separately for bladder mesenchymal cells and bladder urothelial cells.\n\nOUTPUT: Scatter plots of relative cell-type proportion versus age for bladder mesenchymal cells and bladder urothelial cells, with regression lines. P values and r2 values for the linear regression are reported in Supplementary Table 5.",
+      "evidence_location": "Figure 2e; Main text - bladder composition (page 591)",
+      "supporting_quote": "whereas the mesenchymal compartment of this tissue decreases by a factor of three over the lifetime of the mouse (Fig. 2e, left), the urothelial compartment increases by a similar amount (Fig. 2e, right).",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L7",
+      "claim_text": "Differential gene expression analysis of the bladder showed downregulation of stromal-associated genes (Col1a1, Col1a2, Col3a1, Dcn) and upregulation of epithelial-associated genes (Krt15, Krt18, Sfn) with age.",
+      "claim_type": "threshold-based or cutoff-dependent result",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on bladder cells from C57BL/6JN mice at 1, 3, 18, and 24 months. n = 970, 3,804, 2,739 and 3,864 cells respectively.",
+      "analysis_type": "differential gene expression analysis with age as continuous covariate",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from the bladder across available time points (n = 970 at 1 month, 3,804 at 3 months, 2,739 at 18 months, 3,864 at 24 months).\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed (droplet). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS: Differential gene expression analysis was performed on the bladder tissue using MAST (Finak et al. 2015), a flexible statistical framework for single-cell data. Age was treated as a continuous numerical covariate while controlling for sex and technology (FACS vs droplet) as additional covariates in the linear model. Genes were classified as significantly differentially expressed under a false-discovery rate (FDR) threshold of 0.01 and an age coefficient threshold of 0.005 (corresponding to an approximately 10% fold change).\n\nOUTPUT: A ranked list of differentially expressed genes with age coefficients. The top 20 upregulated and top 20 downregulated genes are shown in Figure 2f. The full gene list is provided in Supplementary Table 6.",
+      "evidence_location": "Figure 2f; Main text - bladder composition (page 591); Supplementary Table 6",
+      "supporting_quote": "Using differential gene expression analysis to assess overall changes in tissues with age, we found that stromal-associated genes (Col1a1, Col1a2, Col3a1 and Dcn) are downregulated while epithelial-associated genes (Krt15, Krt18 and Sfn) are upregulated, supporting the compositional observations",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L8",
+      "claim_text": "The bladder endothelial cell population declined with age, and vasculature-associated genes Htra1 and Fos were downregulated.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on bladder cells from C57BL/6JN mice at 1, 3, 18, and 24 months.",
+      "analysis_type": "cell type proportion analysis and differential gene expression",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from the bladder across available time points (n = 970 at 1 month, 3,804 at 3 months, 2,739 at 18 months, 3,864 at 24 months), with cell-type annotations.\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed (droplet). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS - Cell type proportion: For each age group, the relative proportion of endothelial cells in the bladder was computed as (number of endothelial cells) / (total number of cells in bladder at that age). Linear regression of relative cell-type proportion against age was performed using scipy.stats linregress. Significance was assessed with P < 0.05 for a hypothesis test with the null hypothesis that the slope is zero, using a two-sided Wald test with t-distribution of the test statistic, and r2 > 0.5 (the general threshold stated in Methods; the figure legend for bladder uses r2 > 0.7).\n\nCORE ANALYSIS - Differential gene expression: Tissue-wide differential gene expression was performed on all bladder cells using MAST, treating age as a continuous numerical covariate while controlling for sex and technology. Genes were classified as significant under FDR < 0.01 and age coefficient threshold of 0.005.\n\nOUTPUT: Relative proportion of endothelial cells per age group with regression statistics. Differentially expressed genes including Htra1 and Fos with their age coefficients, reported in Figure 2f and Supplementary Table 6.",
+      "evidence_location": "Figure 2e-f; Main text - bladder composition (page 591); Supplementary Table 6",
+      "supporting_quote": "The decline of the endothelial population suggests that bladder ageing in mice might be associated with lower organ vascularization, which is consistent with recent findings and with the observed downregulation of vasculature-associated genes Htra1 and Fos",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L9",
+      "claim_text": "The bladder leukocyte population increased with age, accompanied by overexpression of Lgals3, Igfbp2, and Ly6d across the tissue.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on bladder cells from C57BL/6JN mice at 1, 3, 18, and 24 months.",
+      "analysis_type": "cell type proportion analysis and differential gene expression",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from the bladder across available time points (n = 970 at 1 month, 3,804 at 3 months, 2,739 at 18 months, 3,864 at 24 months), with cell-type annotations.\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed (droplet). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS - Cell type proportion: For each age group, the relative proportion of leukocytes in the bladder was computed as (number of leukocytes) / (total number of cells in bladder at that age). Linear regression of relative cell-type proportion against age was performed using scipy.stats linregress. Significance was assessed with P < 0.05 for a hypothesis test with the null hypothesis that the slope is zero, using a two-sided Wald test with t-distribution of the test statistic, and r2 > 0.5.\n\nCORE ANALYSIS - Differential gene expression: Tissue-wide differential gene expression was performed on all bladder cells using MAST, treating age as a continuous numerical covariate while controlling for sex and technology. Genes were classified as significant under FDR < 0.01 and age coefficient threshold of 0.005.\n\nOUTPUT: Relative proportion of leukocytes per age group with regression statistics (Supplementary Table 5). Differentially expressed genes including Lgals3, Igfbp2, and Ly6d with their age coefficients, reported in Figure 2f and Supplementary Table 6.",
+      "evidence_location": "Figure 2e-f; Main text - bladder composition (page 591); Supplementary Table 6",
+      "supporting_quote": "The increase in the leukocyte population could indicate an inflammatory tissue microenvironment, a common hallmark of ageing that is consistent with literature on overactive bladders and is supported by a significant overexpression of Lgals3, Igfbp2 and Ly6d across the tissue",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L10",
+      "claim_text": "Old bladder leukocytes showed increased expression of pro-inflammatory markers (Cd14, Lgals3, Tnfrsf12a) and decreased expression of anti-inflammatory markers (Cd9, Cd81) compared with young leukocytes.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on bladder leukocytes from C57BL/6JN mice, comparing young and old age groups.",
+      "analysis_type": "differential gene expression within a cell type across age",
+      "analysis_detail": "INPUT DATA: Bladder leukocytes (cells annotated as leukocytes in the bladder) passing QC filters across available time points (1, 3, 18, 24 months). Total bladder cell numbers: n = 970 at 1 month, 3,804 at 3 months, 2,739 at 18 months, 3,864 at 24 months.\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed (droplet). Data normalized to 10,000 counts per cell and log-transformed. Only cells annotated as leukocytes in the bladder were retained for this analysis.\n\nCORE ANALYSIS: Differential gene expression was performed on bladder leukocytes using MAST, treating age as a continuous numerical covariate while controlling for sex and technology. Genes were classified as significant under FDR < 0.01 and age coefficient threshold of 0.005 (corresponding to approximately 10% fold change). Pro-inflammatory markers (Cd14, Lgals3, Tnfrsf12a) and anti-inflammatory markers (Cd9, Cd81) were assessed for their age coefficients.\n\nOUTPUT: A list of differentially expressed genes in bladder leukocytes with age coefficients, identifying upregulated pro-inflammatory markers and downregulated anti-inflammatory markers. Results reported in Supplementary Table 6.",
+      "evidence_location": "Main text - bladder composition (page 591); Supplementary Table 6",
+      "supporting_quote": "we observed that old leukocytes show increased expression of pro-inflammatory markers-such as Cd14, Lgals3 and Tnfrsf12a-and decreased expression of anti-inflammatory markers such as Cd9 and Cd81",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L11",
+      "claim_text": "In the kidney, the relative abundances of mesangial cells, capillary endothelial cells, loop of Henle ascending limb epithelial cells, and loop of Henle thick ascending limb epithelial cells all decreased with age.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on kidney cells from C57BL/6JN mice at 1, 3, 18, 21, 24, and 30 months. n = 2,488, 2,832, 3,806, 2,257, 6,384 and 5,713 cells respectively.",
+      "analysis_type": "cell type proportion analysis across age",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from the kidney across available time points (n = 2,488 at 1 month, 2,832 at 3 months, 3,806 at 18 months, 2,257 at 21 months, 6,384 at 24 months, 5,713 at 30 months), with cell-type annotations.\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed (droplet). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS: For each age group, the relative proportion of each cell type in the kidney was computed as (number of cells of a given type) / (total number of cells in kidney at that age). Linear regression of relative cell-type proportion against age was performed using scipy.stats linregress. Significance was assessed with P < 0.05 for a hypothesis test with the null hypothesis that the slope is zero, using a two-sided Wald test with t-distribution of the test statistic, and r2 > 0.7 (as stated in the Figure 2 legend). This was computed separately for mesangial cells, capillary endothelial cells, loop of Henle ascending limb epithelial cells, and loop of Henle thick ascending limb epithelial cells.\n\nOUTPUT: Scatter plots of relative cell-type proportion versus age for each of the four kidney cell types, with regression lines. P values and r2 values reported in Supplementary Table 5.",
+      "evidence_location": "Figure 2g; Main text - kidney composition (page 591-592); Supplementary Table 5",
+      "supporting_quote": "Age-related changes in the kidney include a decrease in the relative abundance of mesangial cells, capillary endothelial cells, loop of Henle ascending limb epithelial cells and loop of Henle thick ascending limb epithelial cells",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L12",
+      "claim_text": "Tissue-wide expression of Egf and Atp1a1 decreased with age in the kidney.",
+      "claim_type": "threshold-based or cutoff-dependent result",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on kidney cells from C57BL/6JN mice at 1, 3, 18, 21, 24, and 30 months.",
+      "analysis_type": "differential gene expression analysis with age as continuous covariate",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from the kidney across available time points (n = 2,488 at 1 month, 2,832 at 3 months, 3,806 at 18 months, 2,257 at 21 months, 6,384 at 24 months, 5,713 at 30 months).\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed (droplet). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS: Differential gene expression analysis was performed on the kidney tissue using MAST, treating age as a continuous numerical covariate while controlling for sex and technology as additional covariates. Genes were classified as significantly differentially expressed under FDR < 0.01 and age coefficient threshold of 0.005 (corresponding to approximately 10% fold change).\n\nOUTPUT: A ranked list of differentially expressed genes with age coefficients. The top 20 upregulated and top 20 downregulated genes are shown in Figure 2h. Egf and Atp1a1 appear among the downregulated genes. Full gene list in Supplementary Table 6.",
+      "evidence_location": "Figure 2h; Main text - kidney composition (page 591-592); Supplementary Table 6",
+      "supporting_quote": "together with a tissue-wide reduction of Egf and Atp1a1 expression (Fig. 2h, Supplementary Table 6)-suggest an impaired glomerular filtration rate",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L13",
+      "claim_text": "Local Atp1a1 expression increased with age in kidney capillary endothelial cells and mesangial cells despite the declining proportion of these cell types.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on kidney cells from C57BL/6JN mice at 1, 3, 18, 21, 24, and 30 months.",
+      "analysis_type": "cell-type-specific differential gene expression combined with proportion analysis",
+      "analysis_detail": "INPUT DATA: Kidney capillary endothelial cells and kidney mesangial cells (separately) passing QC filters across available time points (1, 3, 18, 21, 24, 30 months). Total kidney cell numbers: n = 2,488 at 1 month, 2,832 at 3 months, 3,806 at 18 months, 2,257 at 21 months, 6,384 at 24 months, 5,713 at 30 months.\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed (droplet). Data normalized to 10,000 counts per cell and log-transformed. Cells were subset to only capillary endothelial cells or mesangial cells for the cell-type-specific analysis.\n\nCORE ANALYSIS - Cell-type-specific differential gene expression: Differential gene expression was performed separately within kidney capillary endothelial cells and within kidney mesangial cells using MAST, treating age as a continuous numerical covariate while controlling for sex and technology. Genes were classified as significant under FDR < 0.01 and age coefficient threshold of 0.005. The age coefficient for Atp1a1 was assessed in each cell type.\n\nCORE ANALYSIS - Cell type proportion: The relative proportion of capillary endothelial cells and mesangial cells was computed per age group using scipy.stats linregress as described for L11.\n\nOUTPUT: Age coefficients for Atp1a1 within capillary endothelial cells and mesangial cells (showing local increase), alongside the declining proportions of these cell types. Results reported in Supplementary Table 6.",
+      "evidence_location": "Main text - kidney composition (page 591-592); Supplementary Table 6",
+      "supporting_quote": "Notably, local Atp1a1 expression increases with age in both capillary endothelial cells and mesangial cells, suggesting that a compensation mechanism counteracts the effects of the declining proportion of these cells with age.",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L14",
+      "claim_text": "Tissue-wide expression of Umod decreased with age in the kidney, while Umod expression increased within the thick ascending limb epithelial cells that became less abundant.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on kidney cells from C57BL/6JN mice at 1, 3, 18, 21, 24, and 30 months.",
+      "analysis_type": "tissue-wide and cell-type-specific differential gene expression combined with proportion analysis",
+      "analysis_detail": "INPUT DATA: All kidney cells and kidney loop of Henle thick ascending limb epithelial cells (separately) passing QC filters across available time points (n = 2,488 at 1 month, 2,832 at 3 months, 3,806 at 18 months, 2,257 at 21 months, 6,384 at 24 months, 5,713 at 30 months).\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed (droplet). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS - Tissue-wide differential gene expression: Differential gene expression was performed on all kidney cells using MAST, treating age as a continuous numerical covariate while controlling for sex and technology. Genes were classified as significant under FDR < 0.01 and age coefficient threshold of 0.005. The age coefficient for Umod was assessed at the tissue level.\n\nCORE ANALYSIS - Cell-type-specific differential gene expression: Cells were subset to loop of Henle thick ascending limb epithelial cells. Differential gene expression was performed within this cell type using MAST with the same model specification. The age coefficient for Umod was assessed within this cell type.\n\nCORE ANALYSIS - Cell type proportion: The relative proportion of thick ascending limb epithelial cells was computed per age group using scipy.stats linregress.\n\nOUTPUT: Tissue-wide age coefficient for Umod (negative, indicating decrease), cell-type-specific age coefficient for Umod within thick ascending limb epithelial cells (positive, indicating local increase), and the declining proportion of these cells. Results in Figure 2h and Supplementary Table 6.",
+      "evidence_location": "Figure 2h; Main text - kidney composition (page 592); Supplementary Table 6",
+      "supporting_quote": "the expression of Umod-which encodes uromodulin, the most abundant protein in urine-is also reduced across the tissue. The protein uromodulin is produced by the epithelial cells that line the thick ascending limb, and therefore-given the relative decrease in the proportion of epithelial cells in the ascending and the thick ascending limb-our results suggest that normal kidney functions are impaired",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L15",
+      "claim_text": "In the spleen, the proportion of T cells decreased with age while the relative amount of plasma cells increased.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on spleen cells from C57BL/6JN mice at 1, 3, 18, 21, 24, and 30 months. n = 2,986, 8,839, 7,141, 6,395, 5,245 and 8,946 cells respectively.",
+      "analysis_type": "cell type proportion analysis across age",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from the spleen across available time points (n = 2,986 at 1 month, 8,839 at 3 months, 7,141 at 18 months, 6,395 at 21 months, 5,245 at 24 months, 8,946 at 30 months), with cell-type annotations.\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed (droplet). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS: For each age group, the relative proportion of T cells and plasma cells in the spleen was computed as (number of cells of a given type) / (total number of cells in spleen at that age). Linear regression of relative cell-type proportion against age was performed using scipy.stats linregress. Significance was assessed with P < 0.05 for a hypothesis test with the null hypothesis that the slope is zero, using a two-sided Wald test with t-distribution of the test statistic, and r2 > 0.7 (as stated in the Figure 2 legend). This was computed separately for T cells and plasma cells.\n\nOUTPUT: Scatter plots of relative cell-type proportion versus age for spleen T cells and plasma cells, with regression lines. P values and r2 values reported in Supplementary Table 5.",
+      "evidence_location": "Figure 2i; Main text - spleen composition (page 592); Supplementary Table 5",
+      "supporting_quote": "In the spleen, the proportion of T cells decreases with age while the relative amount of plasma cells increases (Fig. 2i).",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L16",
+      "claim_text": "Spleen differential gene expression showed upregulation of B cell and plasma cell markers (Cd79a, Jchain) and downregulation of the T cell marker Cd3d with age.",
+      "claim_type": "threshold-based or cutoff-dependent result",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on spleen cells from C57BL/6JN mice at 1, 3, 18, 21, 24, and 30 months.",
+      "analysis_type": "differential gene expression analysis with age as continuous covariate",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from the spleen across available time points (n = 2,986 at 1 month, 8,839 at 3 months, 7,141 at 18 months, 6,395 at 21 months, 5,245 at 24 months, 8,946 at 30 months).\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed (droplet). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS: Differential gene expression analysis was performed on the spleen tissue using MAST, treating age as a continuous numerical covariate while controlling for sex and technology as additional covariates. Genes were classified as significantly differentially expressed under FDR < 0.01 and age coefficient threshold of 0.005 (corresponding to approximately 10% fold change).\n\nOUTPUT: A ranked list of differentially expressed genes with age coefficients. The top 20 upregulated and top 20 downregulated genes are shown in Figure 2j. Cd79a and Jchain (also known as Igj) appear among upregulated genes; Cd3d appears among downregulated genes. Full gene list in Supplementary Table 6.",
+      "evidence_location": "Figure 2j; Main text - spleen composition (page 592); Supplementary Table 6",
+      "supporting_quote": "This is supported by the upregulation of B cell and plasma cell marker genes (Cd79a and Jchain (also known as Igj), respectively; Fig. 2j, Supplementary Table 6) and the downregulation of Cd3d",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L17",
+      "claim_text": "The T cell population in the mammary gland declined with age.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2)",
+      "experiment_detail": "FACS-based single-cell RNA-seq on mammary gland cells from C57BL/6JN mice at 3, 18, and 21 months. n = 6,393, 3,635 and 5,549 cells respectively.",
+      "analysis_type": "cell type proportion analysis across age",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from the mammary gland across available time points (n = 6,393 at 3 months, 3,635 at 18 months, 5,549 at 21 months), with cell-type annotations. The mammary gland data was collected using FACS.\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 5,000 counts removed (FACS). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS: For each age group, the relative proportion of T cells in the mammary gland was computed as (number of T cells) / (total number of cells in mammary gland at that age). Linear regression of relative cell-type proportion against age was performed using scipy.stats linregress. Significance was assessed with P < 0.05 for a hypothesis test with the null hypothesis that the slope is zero, using a two-sided Wald test with t-distribution of the test statistic, and r2 > 0.7.\n\nOUTPUT: Scatter plot of relative T cell proportion versus age in the mammary gland, with regression line. P value and r2 value reported in Supplementary Table 5.",
+      "evidence_location": "Extended Data Figure 5c; Main text - mammary gland (page 592-593)",
+      "supporting_quote": "Similarly, in the mammary gland we observed a decline of the T cell population (Extended Data Fig. 5c).",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L18",
+      "claim_text": "AP1 transcription factor genes (Junb, Jund, Fos) were upregulated with age in the mammary gland.",
+      "claim_type": "threshold-based or cutoff-dependent result",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2)",
+      "experiment_detail": "FACS-based single-cell RNA-seq on mammary gland cells from C57BL/6JN mice at 3, 18, and 21 months.",
+      "analysis_type": "differential gene expression analysis with age as continuous covariate",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from the mammary gland across available time points (n = 6,393 at 3 months, 3,635 at 18 months, 5,549 at 21 months). The mammary gland data was collected using FACS.\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 5,000 counts removed (FACS). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS: Differential gene expression analysis was performed on the mammary gland tissue using MAST, treating age as a continuous numerical covariate while controlling for sex and technology as additional covariates. Genes were classified as significantly differentially expressed under FDR < 0.01 and age coefficient threshold of 0.005 (corresponding to approximately 10% fold change).\n\nOUTPUT: A ranked list of differentially expressed genes with age coefficients. The top 20 upregulated and top 20 downregulated genes are shown in Extended Data Figure 5d. Junb, Jund, and Fos appear among upregulated genes. Full gene list in Supplementary Table 6.",
+      "evidence_location": "Extended Data Figure 5d; Main text - mammary gland (page 592-593); Supplementary Table 6",
+      "supporting_quote": "Moreover, genes encoding AP1 transcription factors (Junb, Jund and Fos) were upregulated with age (Extended Data Fig. 5d, Supplementary Table 6)",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L19",
+      "claim_text": "The relative proportion of hepatocytes in the liver decreased with age.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on liver cells from C57BL/6JN mice at 1, 3, 18, 21, 24, and 30 months. n = 2,791, 2,832, 3,806, 2,257, 6,384 and 5,713 cells respectively.",
+      "analysis_type": "cell type proportion analysis across age",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from the liver across available time points (n = 2,791 at 1 month, 2,832 at 3 months, 3,806 at 18 months, 2,257 at 21 months, 6,384 at 24 months, 5,713 at 30 months), with cell-type annotations.\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed (droplet). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS: For each age group, the relative proportion of hepatocytes in the liver was computed as (number of hepatocytes) / (total number of cells in liver at that age). Linear regression of relative cell-type proportion against age was performed using scipy.stats linregress. Significance was assessed with P < 0.05 for a hypothesis test with the null hypothesis that the slope is zero, using a two-sided Wald test with t-distribution of the test statistic, and r2 > 0.7.\n\nOUTPUT: Scatter plot of relative hepatocyte proportion versus age in the liver, with regression line (Extended Data Figure 6a). P value and r2 value reported in Supplementary Table 5.",
+      "evidence_location": "Extended Data Figure 6a; Main text - liver composition (page 593)",
+      "supporting_quote": "We observed an age-related decrease in the relative number of hepatocytes (Extended Data Fig. 6a-d), which is supported by the reduction in the expression of albumin (Alb; Extended Data Fig. 6e, Supplementary Table 6).",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L20",
+      "claim_text": "Liver differential gene expression revealed an increased immune signature with age, including overexpression of H2-Aa, H2-Ab1, H2-D1, H2-Eb1, Cd74, and Lyz2.",
+      "claim_type": "threshold-based or cutoff-dependent result",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on liver cells from C57BL/6JN mice at 1, 3, 18, 21, 24, and 30 months.",
+      "analysis_type": "differential gene expression analysis with age as continuous covariate",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from the liver across available time points (n = 2,791 at 1 month, 2,832 at 3 months, 3,806 at 18 months, 2,257 at 21 months, 6,384 at 24 months, 5,713 at 30 months).\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed (droplet). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS: Differential gene expression analysis was performed on the liver tissue using MAST, treating age as a continuous numerical covariate while controlling for sex and technology as additional covariates. Genes were classified as significantly differentially expressed under FDR < 0.01 and age coefficient threshold of 0.005 (corresponding to approximately 10% fold change).\n\nOUTPUT: A ranked list of differentially expressed genes with age coefficients. The top 10 upregulated and top 10 downregulated genes are shown in Extended Data Figure 6e. H2-Aa, H2-Ab1, H2-D1, H2-Eb1, Cd74, and Lyz2 appear among upregulated genes. Full gene list in Supplementary Table 6.",
+      "evidence_location": "Extended Data Figure 6e; Main text - liver composition (page 593); Supplementary Table 6",
+      "supporting_quote": "Differential gene expression analysis revealed an increased immune signature, as illustrated by the overexpression of H2-Aa, H2-Ab1, H2-D1, H2-Eb1, Cd74, Lyz2 and others",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L21",
+      "claim_text": "The number of Clec4f-positive Kupffer cells in the liver did not change with age, but the number of cells co-expressing Clec4f and Il1b increased with age.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "in situ RNA hybridization (RNAscope)",
+      "experiment_detail": "In situ RNA hybridization was performed on 5-micrometer paraffin-embedded liver sections from C57BL/6JN mice at 3, 12, and 30 months using RNAscope Multiplex Fluorescent Detection kit v2. Probes for Clec4f and Il1b were used. Quantification was performed using the starfish image-based transcriptomics pipeline.",
+      "analysis_type": "in situ quantification of co-expressing cells across age",
+      "analysis_detail": "INPUT DATA: Paraffin-embedded mouse liver sections (5 micrometers thick) from mice at 3, 12, and 30 months of age. Mouse livers were fixed in 10% formalin buffer saline for 24 hours at room temperature before paraffin embedding.\n\nPREPROCESSING: Sections were prepared according to the Advanced Cell Diagnostics RNAscope Multiplex Fluorescent Detection kit v2 (323110, Bio-Techne) manufacturer's instructions.\n\nCORE ANALYSIS: In situ RNA hybridization was performed using RNAscope with multiplex probes for Clec4f (Mm-Clec4f 480421) and Il1b (Mm-Il1b 316891-C2). Slides were counterstained with Prolong gold antifade reagent with DAPI (P36931, Life Technologies). Mounted slides were imaged on a Leica DM6 B fluorescent microscope. Image quantification was performed using the starfish open source image-based transcriptomics pipeline. The number of Clec4f-positive cells and the number of cells co-expressing Clec4f and Il1b were quantified per field of view at each age. The ratio of Il1b+/Clec4f+ cells was also computed. Statistical comparisons between age groups were performed using Welch's test.\n\nOUTPUT: Quantification of Clec4f+ cells per field of view at 3, 12, and 30 months (Extended Data Figure 6h), Il1b+ cells per field of view (Extended Data Figure 6i), and the ratio of Il1b+/Clec4f+ cells (Extended Data Figure 6j), with P values from Welch's test. Sample sizes per group are in Supplementary Table 7.",
+      "evidence_location": "Extended Data Figure 6g-j; Main text - liver composition (page 593); Supplementary Table 7",
+      "supporting_quote": "We performed in situ RNA staining in liver Kupffer cells (Extended Data Fig. 6g) with Clec4f and found that the number of Clec4f-positive cells does not change with age, consistent with the results of the tissue composition analysis (Extended Data Fig. 6h, Supplementary Table 7). However, when co-staining with Il1b, we found that the number of cells expressing both Clec4f and Il1b increased with age",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L22",
+      "claim_text": "Mrc1 expression increased with age in liver Kupffer cells, while overall Mrc1 expression in liver endothelial cells decreased with age.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on liver cells from C57BL/6JN mice at 1, 3, 18, 21, 24, and 30 months.",
+      "analysis_type": "cell-type-specific differential gene expression across age",
+      "analysis_detail": "INPUT DATA: Liver Kupffer cells and liver endothelial cells (separately) passing QC filters from the droplet dataset across available time points (1, 3, 18, 21, 24, 30 months). Total liver cell numbers: n = 2,791 at 1 month, 2,832 at 3 months, 3,806 at 18 months, 2,257 at 21 months, 6,384 at 24 months, 5,713 at 30 months.\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed (droplet). Data normalized to 10,000 counts per cell and log-transformed. Cells were subset to Kupffer cells or liver endothelial cells for cell-type-specific analyses.\n\nCORE ANALYSIS: Differential gene expression was performed separately within liver Kupffer cells and within liver endothelial cells using MAST, treating age as a continuous numerical covariate while controlling for sex and technology. Genes were classified as significant under FDR < 0.01 and age coefficient threshold of 0.005. The age coefficient for Mrc1 was assessed in each cell type.\n\nOUTPUT: Age coefficients for Mrc1 within Kupffer cells (positive, indicating increase) and within liver endothelial cells (negative, indicating decrease). Results reported in Supplementary Table 6.",
+      "evidence_location": "Main text - liver composition (page 593); Supplementary Table 6",
+      "supporting_quote": "We identified increased expression of Mrc1 with age in Kupffer cells, whereas the overall expression of Mrc1 in liver endothelial cells decreased with age",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L23",
+      "claim_text": "The number of Mrc1-expressing liver sinusoidal endothelial cells increased with age as shown by in situ RNA staining.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "in situ RNA hybridization (RNAscope)",
+      "experiment_detail": "In situ RNA hybridization was performed on 5-micrometer paraffin-embedded liver sections from C57BL/6JN mice at 3, 12, and 30 months using RNAscope. Probes for Pecam1 and Mrc1 were used. Quantification was performed using the starfish pipeline.",
+      "analysis_type": "in situ quantification of co-expressing cells across age",
+      "analysis_detail": "INPUT DATA: Paraffin-embedded mouse liver sections (5 micrometers thick) from mice at 3, 12, and 30 months of age. Mouse livers were fixed in 10% formalin buffer saline for 24 hours at room temperature before paraffin embedding.\n\nPREPROCESSING: Sections were prepared according to the Advanced Cell Diagnostics RNAscope Multiplex Fluorescent Detection kit v2 (323110, Bio-Techne) manufacturer's instructions.\n\nCORE ANALYSIS: In situ RNA hybridization was performed using RNAscope with multiplex probes for Pecam1 (Mm-Pecam-1 316721) and Mrc1 (Mm-Mrc1 437511-C3). Slides were counterstained with Prolong gold antifade reagent with DAPI. Mounted slides were imaged on a Leica DM6 B fluorescent microscope. Image quantification was performed using the starfish open source image-based transcriptomics pipeline. The number of Pecam1-positive cells, Mrc1-positive cells, and Mrc1+/Pecam1+ co-expressing cells were quantified per field of view at each age. Statistical comparisons between age groups were performed using Welch's test.\n\nOUTPUT: Quantification of Pecam1+ cells (Extended Data Figure 6m), Mrc1+ cells (Extended Data Figure 6n), and the ratio of Mrc1+/Pecam1+ cells (Extended Data Figure 6o) per field of view at 3, 12, and 30 months, with P values from Welch's test. Sample sizes per group are in Supplementary Table 7.",
+      "evidence_location": "Extended Data Figure 6l-o; Main text - liver composition (page 593); Supplementary Table 7",
+      "supporting_quote": "we found that the number of Mrc1-expressing LSECs increased with age (Extended Data Fig. 6m-o).",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L24",
+      "claim_text": "An age-related increase in the number of somatic mutations was observed across all analysed organs using full-length transcript data from FACS.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2)",
+      "experiment_detail": "Full-length transcript single-cell RNA-seq data from FACS Smart-seq2 across all analysed organs at 3, 18, and 24 months. GATK HaplotypeCaller was used to identify single-nucleotide polymorphisms.",
+      "analysis_type": "somatic mutation calling from transcriptomic data",
+      "analysis_detail": "INPUT DATA: Aligned BAM files from all FACS (Smart-seq2) samples across 3-month, 18-month, and 24-month time points. The GRCm38 reference genome was used. ERCC spike-in control sequences were included in each well.\n\nPREPROCESSING: samtools v1.9 was used to create the index file (samtools faidx). GATK v4.1.1.0 CreateSequenceDictionary was used with GRCm38 as reference. GATK AddOrReplaceReadGroups was used to create a single read group with parameters: -RGID 4 -RGLB lib1 -RGPL illumina -RGPU unit1 -RGSM 20.\n\nCORE ANALYSIS: GATK HaplotypeCaller was used to call mutations. The following read filters were disabled: MappingQualityReadFilter, GoodCigarReadFilter, NotSecondaryAlignmentReadFilter, MappedReadFilter, MappingQualityAvailableReadFilter, NonzeroReferenceLengthAlignmentReadFilter, NotDuplicateReadFilter, PassesVendorQualityCheckReadFilter, and WellformedReadFilter; all other default settings were kept. Results were summarized per gene as a mutation count per cell table. Genes mutated in more than 60% of cells were removed to eliminate possible germline mutation bias. For each tissue, genes expressed in at least 75% of cells at all time points were selected to avoid confounding mutation results with differential gene expression associated with age. The average number of mutations in the gene set per cell was computed for each age group. The same pipeline was applied to ERCC spike-in control sequences. The pairwise difference of mean mutations between age groups (24 months minus 3 months, and 18 months minus 3 months) was computed for both the gene set and ERCC controls. Average raw counts per gene per cell were also computed to control for sequencing coverage.\n\nOUTPUT: Distributions of the pairwise difference of mean mutations per cell between age groups for the gene set and for ERCC spike-in controls, across all tissues and stratified by cell type. Shown in Figure 3 and Extended Data Figures 7-8. Detailed results in Supplementary Table 8.",
+      "evidence_location": "Figure 3; Extended Data Figure 7; Main text - genomic instability / mutations (page 593)",
+      "supporting_quote": "We focused on genes that were expressed in at least 75% of cells for each age group within a particular tissue, and observed an age-related increase in the number of mutations across all of the organs we analysed (Fig. 3, Extended Data Fig. 7a, c, e)",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L25",
+      "claim_text": "Tongue and bladder were the most affected organs in terms of age-related accumulation of somatic mutations.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2)",
+      "experiment_detail": "Full-length transcript single-cell RNA-seq data from FACS Smart-seq2 across all analysed organs at 3, 18, and 24 months.",
+      "analysis_type": "somatic mutation calling from transcriptomic data, cross-organ comparison",
+      "analysis_detail": "INPUT DATA: The mutation count per cell tables generated from the GATK HaplotypeCaller pipeline applied to all FACS samples, as described in L24. Results were available for all tissues with FACS data at 3, 18, and 24 months.\n\nPREPROCESSING: Same as L24: genes mutated in >60% of cells removed; for each tissue, only genes expressed in at least 75% of cells at all time points were retained.\n\nCORE ANALYSIS: The average number of mutations per gene per cell was computed for each tissue and age group. The pairwise difference of mean mutations between age groups (24 months minus 3 months, and 18 months minus 3 months) was computed for each tissue. Tissues were compared by the magnitude of the age-related mutation increase.\n\nOUTPUT: A ranking of tissues by the magnitude of age-related increase in mean mutations per cell. Results shown in Extended Data Figure 7.",
+      "evidence_location": "Main text - genomic instability / mutations (page 593); Extended Data Figure 7",
+      "supporting_quote": "tongue and bladder were the most affected.",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L26",
+      "claim_text": "The observed age-related increase in mutations exceeded the level expected from amplification and sequencing errors as estimated using ERCC spike-in controls.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2)",
+      "experiment_detail": "Full-length transcript single-cell RNA-seq data from FACS Smart-seq2 with ERCC spike-in controls added to each well.",
+      "analysis_type": "comparison of mutation rates in genes vs ERCC spike-in controls",
+      "analysis_detail": "INPUT DATA: Mutation calls from GATK HaplotypeCaller applied to both the gene set and ERCC spike-in control sequences from all FACS samples, as described in L24.\n\nPREPROCESSING: Same as L24 for the gene set. For ERCC controls, the same GATK HaplotypeCaller pipeline was applied to ERCC spike-in sequences that were spiked into each well.\n\nCORE ANALYSIS: The pairwise difference of mean mutations between age groups was computed separately for the gene set and for ERCC spike-in controls. For each comparison (24 months minus 3 months, and 18 months minus 3 months), the distribution of mean mutation differences in the gene set was compared to the distribution of mean mutation differences in ERCC controls. The ERCC controls provide an estimate of mutations expected from amplification and sequencing errors alone, since ERCC sequences are synthetic and should not accumulate biological mutations. Additionally, the average raw counts per gene per cell and per ERCC per cell were computed to control for sequencing coverage differences between age groups.\n\nOUTPUT: Overlaid distributions of pairwise mean mutation differences for gene sets (filled distributions) and ERCC controls (white/dashed distributions) shown in Figure 3a-f. Raw expression controls shown in Extended Data Figure 8. The gene set mutation differences exceed ERCC control differences, indicating the age-related increase is above the technical error baseline.",
+      "evidence_location": "Figure 3; Extended Data Figures 7-8; Main text - genomic instability / mutations (page 593)",
+      "supporting_quote": "we verified that the number of mutations exceeded those expected from amplification and sequencing errors, which can be estimated using External RNA Controls Consortium (ERCC) controls that were spiked into each well",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L27",
+      "claim_text": "B cell receptor sequences were computationally assembled for 6050 cells from FACS data across three time points.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2)",
+      "experiment_detail": "Full-length transcript single-cell RNA-seq data from FACS Smart-seq2 for B cells at 3, 18, and 24 months (n = 1,818, 1,356, and 2,876 cells respectively).",
+      "analysis_type": "B cell receptor assembly from scRNA-seq",
+      "analysis_detail": "INPUT DATA: Full-length transcript FACS (Smart-seq2) data for cells annotated as B cells across all tissues at 3, 18, and 24 months.\n\nPREPROCESSING: No additional preprocessing beyond standard FACS QC filtering (cells with fewer than 250 detected genes removed, cells with fewer than 5,000 counts removed).\n\nCORE ANALYSIS: singlecell-ige (version eafb6d126cc2d6511faae3efbd442abd7c6dc8ef, available from https://github.com/dcroote/singlecell-ige) was used to computationally reconstruct B cell receptor sequences from full-length FACS transcript data. Default configuration settings were used, except the species was set to mouse. The singlecell-ige output was parsed to define B cell clonotypes based on the assembled B cell receptor sequences.\n\nOUTPUT: B cell receptor sequences assembled for 6,050 cells total: 1,818 cells at 3 months, 1,356 cells at 18 months, and 2,876 cells at 24 months. Clonotype assignments provided in Supplementary Table 9.",
+      "evidence_location": "Figure 4a; Main text - immune repertoire (page 593-594)",
+      "supporting_quote": "B cell receptors were assembled for 6,050 cells (Fig. 4a, Extended Data Fig. 9a)",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L28",
+      "claim_text": "The fraction of B cells belonging to a clonal family increased from approximately 9% at 3 months to approximately 20% at 18 months and approximately 38% at 24 months.",
+      "claim_type": "statistical/quantitative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2)",
+      "experiment_detail": "Full-length transcript single-cell RNA-seq data from FACS Smart-seq2 for B cells at 3, 18, and 24 months (n = 1,818, 1,356, and 2,876 cells respectively).",
+      "analysis_type": "B cell clonality analysis",
+      "analysis_detail": "INPUT DATA: B cell receptor assembly output from singlecell-ige for 6,050 B cells across 3 time points (1,818 at 3 months, 1,356 at 18 months, 2,876 at 24 months), as generated in L27.\n\nPREPROCESSING: The singlecell-ige output was parsed to define B cell clonotypes based on assembled B cell receptor sequences.\n\nCORE ANALYSIS: For each age group, cells were classified as either singleton B cells (unique clonotype, not shared with any other cell) or as belonging to a clonal family (clonotype shared with at least one other cell). The fraction of B cells belonging to a clonal family was computed as (number of cells in clonal families) / (total number of cells with assembled BCR) for each age group.\n\nOUTPUT: Pie charts showing the proportion of singleton B cells versus B cells in clonal families at each age group (Figure 4a). Clonal family details in Supplementary Table 9 and network visualizations in Extended Data Figure 9a.",
+      "evidence_location": "Figure 4a; Main text - immune repertoire (page 593-594); Supplementary Table 9",
+      "supporting_quote": "whereas most of the cells at 3 months were not part of a clone (9% were part of a clonal family), the number of B cells belonging to a clonotype doubled at 18 months (20%) when compared to 3 months, and doubled again from 18 months to 24 months (around 38%).",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L29",
+      "claim_text": "T cell receptor sequences were computationally assembled for 6000 cells from FACS data across three time points.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2)",
+      "experiment_detail": "Full-length transcript single-cell RNA-seq data from FACS Smart-seq2 for T cells at 3, 18, and 24 months (n = 2,076, 2,056, and 1,868 cells respectively).",
+      "analysis_type": "T cell receptor assembly from scRNA-seq",
+      "analysis_detail": "INPUT DATA: Full-length transcript FACS (Smart-seq2) data for cells annotated as T cells across all tissues at 3, 18, and 24 months.\n\nPREPROCESSING: No additional preprocessing beyond standard FACS QC filtering (cells with fewer than 250 detected genes removed, cells with fewer than 5,000 counts removed).\n\nCORE ANALYSIS: TraCeR v0.5 was used to computationally reconstruct T cell receptor sequences. First, 'tracer assemble' was run with --species Mmus. Then 'tracer summarize' was run with --species Mmus to create final results including clonotype assignments. Dependencies used: igblast v1.7.0, kallisto v0.43.1, Salmon v0.8.2, Trinity v2.4.0, GRCm38 reference genome.\n\nOUTPUT: T cell receptor sequences assembled for 6,000 cells total: 2,076 cells at 3 months, 2,056 cells at 18 months, and 1,868 cells at 24 months. Clonotype assignments are part of the TraCeR summarize output, provided in Supplementary Table 9.",
+      "evidence_location": "Figure 4b; Main text - immune repertoire (page 593-594)",
+      "supporting_quote": "T cell receptors for 6,000 cells (Fig. 4b, Extended Data Fig. 9b).",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L30",
+      "claim_text": "The fraction of T cells belonging to a clonal family increased from approximately 3% at 3 months to approximately 23% at 18 months and approximately 20% at 24 months.",
+      "claim_type": "statistical/quantitative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2)",
+      "experiment_detail": "Full-length transcript single-cell RNA-seq data from FACS Smart-seq2 for T cells at 3, 18, and 24 months (n = 2,076, 2,056, and 1,868 cells respectively).",
+      "analysis_type": "T cell clonality analysis",
+      "analysis_detail": "INPUT DATA: T cell receptor assembly and clonotype assignment output from TraCeR for 6,000 T cells across 3 time points (2,076 at 3 months, 2,056 at 18 months, 1,868 at 24 months), as generated in L29. Note: the paper reports slightly different numbers in the text (1,895 at 3 months, 2,056 at 18 months, 1,780 at 24 months) when discussing clonotype percentages.\n\nPREPROCESSING: Clonotype assignment was obtained directly from the TraCeR summarize output.\n\nCORE ANALYSIS: For each age group, cells were classified as either singleton T cells (unique clonotype, not shared with any other cell) or as belonging to a clonal family (clonotype shared with at least one other cell). The fraction of T cells belonging to a clonal family was computed as (number of cells in clonal families) / (total number of cells with assembled TCR) for each age group.\n\nOUTPUT: Pie charts showing the proportion of singleton T cells versus T cells in clonal families at each age group (Figure 4b). Clonal family details in Supplementary Table 9 and network visualizations in Extended Data Figure 9b.",
+      "evidence_location": "Figure 4b; Main text - immune repertoire (page 593-594); Supplementary Table 9",
+      "supporting_quote": "only around 3% (55 out of 1,895) of the cells at 3 months were part of a clone. At 18 months and 24 months, this value increased to around 23% (479 out of 2,056) and around 20% (348 out of 1,780) of the cells, respectively",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L31",
+      "claim_text": "Transcriptomic diversity analysis identified brain myeloid microglial cells and kidney macrophages as cell types with significant age-related changes in diversity.",
+      "claim_type": "computational/modeling-derived conclusion",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2 and 10x Genomics droplet)",
+      "experiment_detail": "Single-cell RNA-seq data from FACS (brain myeloid) and droplet (kidney) platforms across all age groups.",
+      "analysis_type": "diversity score analysis across cell types and ages",
+      "analysis_detail": "INPUT DATA: Raw FACS or droplet datasets for each tissue-cell type combination. For FACS brain myeloid microglial cells: n = 4,532 at 3 months, 4,461 at 18 months, 4,424 at 24 months (n = 14 mice total). For droplet kidney macrophages: n = 62 at 1 month, 139 at 3 months, 264 at 18 months, 105 at 21 months, 284 at 24 months, 553 at 30 months (n = 16 mice total).\n\nPREPROCESSING: Genes expressed in fewer than 5 cells were filtered. Cells expressing fewer than 500 genes were filtered. Cells with total counts less than 5,000 were discarded. Size factor normalization was applied such that every cell had 10,000 counts, followed by log1p transformation.\n\nCORE ANALYSIS: For every tissue-cell type combination, cells from each individual mouse were clustered separately using 6 different configurations: 3 resolution parameters (0.3, 0.5, 0.7) crossed with 2 clustering methods (Louvain and Leiden). For each mouse-level clustering result, the diversity score was computed as the Shannon entropy of the cluster assignment. The diversity score was then regressed against age using linear regression to detect systematic increase or decrease of clustering diversity with respect to age. FDR correction (Benjamini-Hochberg) was applied for multiple comparisons across all tissue-cell type combinations. A tissue-cell type was selected as significant if: (1) the slope was consistent (same sign) across all 6 clustering configurations, and (2) at least 2 out of 6 configurations had FDR < 0.3.\n\nOUTPUT: Diversity scores per mouse for each clustering configuration, with regression P values (FDR-corrected). Heat map summaries of tissue-level and tissue-cell type-level diversity scores (Extended Data Figure 10). Detailed diversity score plots for brain myeloid microglial cells and kidney macrophages (Extended Data Figure 11a-b). Significant cell types identified in Figure 4c.",
+      "evidence_location": "Figure 4c; Extended Data Figure 10; Extended Data Figure 11a-b; Main text - diversity score (page 593-594)",
+      "supporting_quote": "We observed significant changes in diversity for cells of the immune system that originate from the brain and the kidney (Fig. 4c, Extended Data Fig. 11a, b).",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L32",
+      "claim_text": "The age-related diversity changes in brain microglia and kidney macrophages were not confounded by the number of genes expressed per cell.",
+      "claim_type": "computational/modeling-derived conclusion",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2 and 10x Genomics droplet)",
+      "experiment_detail": "Single-cell RNA-seq data from FACS (brain myeloid) and droplet (kidney) platforms across all age groups.",
+      "analysis_type": "confound analysis for diversity score",
+      "analysis_detail": "INPUT DATA: Diversity scores computed for all tissue-cell type combinations (as in L31) and the mean number of genes expressed per cell for each mouse-level clustering result.\n\nPREPROCESSING: Same as L31.\n\nCORE ANALYSIS: For each of the 6 clustering configurations (3 resolutions x 2 methods), the diversity score was plotted against the mean number of genes expressed per cell across all tissue-cell type-mouse combinations. Linear regression was performed to compute R2 values, assessing whether the number of genes detected per cell explains the variation in diversity scores. This was done separately at the tissue level and at the tissue-cell type level.\n\nOUTPUT: Scatter plots of diversity score versus mean number of genes per cell for each clustering configuration, with linear regression R2 values. Shown in Extended Data Figure 11c (tissue level) and Extended Data Figure 11d (tissue-cell type level). Low R2 values indicate that gene detection rate does not confound the diversity score results.",
+      "evidence_location": "Extended Data Figure 11c-d; Main text - diversity score (page 594)",
+      "supporting_quote": "These results were not confounded by the number of genes expressed per cell (Extended Data Fig. 11c, d).",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L33",
+      "claim_text": "In brain myeloid microglial cells, young (3-month) microglia predominantly occupied distinct transcriptomic clusters from old (18-month and 24-month) microglia.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2)",
+      "experiment_detail": "FACS-based single-cell RNA-seq on brain myeloid microglial cells from C57BL/6JN mice at 3, 18, and 24 months. n = 4,532, 4,461 and 4,424 individual microglia cells respectively.",
+      "analysis_type": "cluster composition analysis by age",
+      "analysis_detail": "INPUT DATA: FACS data for brain myeloid microglial cells across 3 time points (n = 4,532 at 3 months, 4,461 at 18 months, 4,424 at 24 months).\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 5,000 counts removed (FACS). Data normalized to 10,000 counts per cell and log-transformed. Highly variable genes computed, data scaled to maximum value of 10. PCA computed, followed by neighbourhood graph construction.\n\nCORE ANALYSIS: All microglial cells from all ages were clustered together using the Leiden algorithm. A separate UMAP was computed using cells from all mice for visualization, using Leiden clustering with resolution parameter 0.7 (as specified in the Methods for the diversity score visualization). The age composition of each cluster was assessed by computing the proportion of cells from each age group within each cluster.\n\nOUTPUT: UMAP plot of brain myeloid microglial cells with Leiden cluster numbers, colored by age (Figure 4d). Clusters 1 and 6 predominantly contain 3-month cells; clusters 10, 12, and 14 predominantly contain 18-month and 24-month cells.",
+      "evidence_location": "Figure 4d; Main text - brain microglia (page 594)",
+      "supporting_quote": "In brain myeloid microglial cells, the majority of young (3 month) microglia occupy clusters 1 and 6, whereas old (18 month and 24 month) microglia constitute the vast majority of cells in clusters 10, 12 and 14",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L34",
+      "claim_text": "Trajectory analysis suggested that young microglia transition through an intermediate state before acquiring the transcriptomic signature of old microglia.",
+      "claim_type": "computational/modeling-derived conclusion",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2)",
+      "experiment_detail": "FACS-based single-cell RNA-seq on brain myeloid microglial cells from C57BL/6JN mice at 3, 18, and 24 months.",
+      "analysis_type": "trajectory inference",
+      "analysis_detail": "INPUT DATA: FACS data for brain myeloid microglial cells across 3 time points (n = 4,532 at 3 months, 4,461 at 18 months, 4,424 at 24 months), with Leiden cluster assignments.\n\nPREPROCESSING: Standard preprocessing as described for L33.\n\nCORE ANALYSIS: Partition-based graph abstraction (PAGA) was used to reconstruct the ageing trajectory in brain microglial cells, as implemented in Scanpy (Wolf et al. 2019). PAGA infers connectivity between clusters and produces a topology-preserving map. Specific PAGA parameters are not stated in the paper beyond the use of the method itself.\n\nOUTPUT: A trajectory graph showing the inferred progression from young (3-month-enriched) clusters through intermediate (18-month-enriched) clusters to old (24-month-enriched) clusters (Extended Data Figure 11e).",
+      "evidence_location": "Extended Data Figure 11e; Main text - brain microglia (page 594)",
+      "supporting_quote": "Trajectory analysis suggests that young microglia go through an intermediate state, represented by the clusters mostly occupied by 18-month microglial cells, before acquiring the signature of old microglia",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L35",
+      "claim_text": "Old microglial clusters upregulated MHC class I genes (H2-D1, H2-K1, B2m) and genes associated with degenerative disease such as Fth1.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2)",
+      "experiment_detail": "FACS-based single-cell RNA-seq on brain myeloid microglial cells from C57BL/6JN mice at 3, 18, and 24 months.",
+      "analysis_type": "differential gene expression between age-defined clusters",
+      "analysis_detail": "INPUT DATA: FACS data for brain myeloid microglial cells, with Leiden cluster assignments. Cells in clusters 10, 12, and 14 (predominantly 18-month and 24-month cells) were compared to cells in clusters 1 and 6 (predominantly 3-month cells).\n\nPREPROCESSING: Standard preprocessing as described for L33.\n\nCORE ANALYSIS: Differential gene expression analysis was performed comparing old microglial clusters (10, 12, 14) to young microglial clusters (1, 6). The specific statistical method for this between-cluster comparison is not explicitly stated in the paper (the MAST framework with age as continuous covariate is described for tissue-level analyses; this cluster-based comparison may use a different approach). Genes upregulated in old clusters were identified.\n\nOUTPUT: A list of differentially expressed genes between young and old microglial clusters, with MHC class I genes (H2-D1, H2-K1, B2m) and Fth1 among the upregulated genes in old clusters. Full gene list in Supplementary Table 10.",
+      "evidence_location": "Main text - brain microglia (page 594); Supplementary Table 10",
+      "supporting_quote": "These cells upregulate major histocompatibility complex (MHC) class I genes (H2-D1, H2-K1 and B2m), along with genes associated with degenerative disease (for example, Fth1)",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L36",
+      "claim_text": "Old microglial clusters were enriched for interferon-responsive or regulatory genes including Oasl2, Oas1a, Ifit3, Rtp4, Bst2, Stat1, Irf7, Ifitm3, Usp18, Ifi204, and Ifit2.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2)",
+      "experiment_detail": "FACS-based single-cell RNA-seq on brain myeloid microglial cells from C57BL/6JN mice at 3, 18, and 24 months.",
+      "analysis_type": "differential gene expression between age-defined clusters",
+      "analysis_detail": "INPUT DATA: FACS data for brain myeloid microglial cells, with Leiden cluster assignments. Cells in clusters 10, 12, and 14 (predominantly 18-month and 24-month cells) were compared to cells in clusters 1 and 6 (predominantly 3-month cells).\n\nPREPROCESSING: Standard preprocessing as described for L33.\n\nCORE ANALYSIS: Differential gene expression analysis was performed comparing old microglial clusters (10, 12, 14) to young microglial clusters (1, 6). The specific statistical method for this between-cluster comparison is not explicitly stated in the paper beyond the general MAST framework described for tissue-level analyses. Genes upregulated in old clusters were assessed for enrichment of interferon-responsive or regulatory genes.\n\nOUTPUT: A list of differentially expressed genes between young and old microglial clusters, with interferon-responsive genes (Oasl2, Oas1a, Ifit3, Rtp4, Bst2, Stat1, Irf7, Ifitm3, Usp18, Ifi204, Ifit2) among the upregulated genes in old clusters. Full gene list in Supplementary Table 10.",
+      "evidence_location": "Main text - brain microglia (page 594); Supplementary Table 10",
+      "supporting_quote": "gene expression in clusters 10, 12 and 14 is enriched with interferon responsive or regulatory genes (for example, Oasl2, Oas1a, Ifit3, Rtp4, Bst2, Stat1, Irf7, Ifitm3, Usp18, Ifi204 and Ifit2), suggesting an expansion of this small pro-inflammatory subset of microglia in the ageing brain",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L37",
+      "claim_text": "Approximately 55 of the top 200 differentially expressed genes between young and old microglial clusters overlapped with a previously reported Alzheimer's disease-specific microglial signature.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2)",
+      "experiment_detail": "FACS-based single-cell RNA-seq on brain myeloid microglial cells from C57BL/6JN mice at 3, 18, and 24 months.",
+      "analysis_type": "gene set overlap analysis with Alzheimer's disease microglial signature",
+      "analysis_detail": "INPUT DATA: The top 200 differentially expressed genes between young microglial clusters (1, 6) and old microglial clusters (10, 12, 14) from the FACS brain myeloid dataset. The previously reported Alzheimer's disease-specific microglial signature from Keren-Shaul et al. 2017 (reference 47).\n\nPREPROCESSING: The differential gene expression list was generated as described in L35/L36.\n\nCORE ANALYSIS: The top 200 differentially expressed genes between young and old microglial clusters were compared to the Alzheimer's disease-specific microglial gene signature. The overlap between the two gene lists was computed by counting the number of shared genes. The Alzheimer's disease signature and the healthy microglia signature were also scored across all microglial cells for UMAP visualization (Figure 4e).\n\nOUTPUT: The number of overlapping genes between the top 200 age-related differentially expressed genes and the Alzheimer's disease microglial signature (55 out of 200). UMAP plots scored by Alzheimer's disease signature and healthy microglia signature (Figure 4e). Gene lists in Supplementary Table 10.",
+      "evidence_location": "Figure 4e; Main text - brain microglia (page 594); Supplementary Table 10",
+      "supporting_quote": "the list of differentially expressed genes between 'young' and 'old' clusters resembles the previously reported Alzheimer's disease-specific microglial signature, with 55 out of the top 200 differential expressed genes shared between the two differential gene expression lists",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L38",
+      "claim_text": "In kidney macrophages, a cluster predominantly composed of young (1-month and 3-month) cells was enriched for an M2-macrophage gene signature, while a cluster predominantly composed of old (18-month and older) cells resembled an M1-proinflammatory macrophage state.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on kidney macrophages from C57BL/6JN mice at 1, 3, 18, 21, 24, and 30 months. n = 62, 139, 264, 105, 284 and 553 individual macrophage cells respectively.",
+      "analysis_type": "cluster composition analysis by age and differential gene expression",
+      "analysis_detail": "INPUT DATA: Droplet data for kidney macrophages across 6 time points (n = 62 at 1 month, 139 at 3 months, 264 at 18 months, 105 at 21 months, 284 at 24 months, 553 at 30 months).\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed (droplet). Data normalized to 10,000 counts per cell and log-transformed. Highly variable genes computed, data scaled, PCA and neighbourhood graph computed.\n\nCORE ANALYSIS - Clustering: All kidney macrophages from all ages were clustered together using the Leiden algorithm with resolution parameter 0.7 (as specified in Methods for diversity score visualization). A UMAP was computed for visualization. The age composition of each cluster was assessed.\n\nCORE ANALYSIS - Differential gene expression: Differential gene expression was performed comparing cluster 10 (predominantly 1-month and 3-month cells) to cluster 13 (predominantly 18-month, 21-month, 24-month, and 30-month cells). The specific statistical method for this between-cluster comparison is not explicitly stated beyond the general MAST framework. Upregulated genes in each cluster were assessed for M1 and M2 macrophage gene signatures.\n\nOUTPUT: UMAP plot of kidney macrophages with Leiden cluster numbers colored by age group (Figure 4f). Heat map of differential gene expression between cluster 10 and cluster 13 (Extended Data Figure 11f). Cluster 10 enriched for M2 markers (Il10, H2-Eb1, H2-Ab1, H2-Aa, Cd74, C1qa, Cxcl16, Hexb, Cd81, C1qb, Cd72); cluster 13 enriched for M1 markers (Hp, Itgal, Msrb1, Gngt2). Full gene list in Supplementary Table 10.",
+      "evidence_location": "Figure 4f; Extended Data Figure 11f; Main text - kidney macrophages (page 594); Supplementary Table 10",
+      "supporting_quote": "Differential gene expression revealed that cluster 10 is enriched for an M2-macrophage gene signature (for example, Il10, H2-Eb1, H2-Ab1, H2-Aa, Cd74, C1qa, Cxcl16, Hexb, Cd81, C1qb and Cd72) whereas cluster 13 resembles a M1-proinflammatory macrophage state (for example, Hp, Itgal, Msrb1 and Gngt2)",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L39",
+      "claim_text": "Changes in gene expression observed in bulk experiments are often attributable to both changes in the number of cells of a given type and changes in per-cell gene expression levels.",
+      "claim_type": "comparative or integrative finding",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2 and 10x Genomics droplet)",
+      "experiment_detail": "Single-cell RNA-seq data from FACS and droplet platforms were compared with bulk RNA-seq data from tissues (Schaum et al. 2019). Only male mice were used for comparison.",
+      "analysis_type": "comparison of bulk and single-cell age-related gene expression changes",
+      "analysis_detail": "INPUT DATA: Single-cell RNA-seq data from male mice only, from both FACS and droplet datasets. Bulk RNA-seq data from tissues (reference 9, Schaum et al. 2019 preprint). Analysis performed on a per-tissue basis.\n\nPREPROCESSING - Single-cell: Only cells from male mice were retained. Count matrices were transformed using log(1 + counts per million (cpm)), with normalization done on a per-cell basis. Cells were divided into two age groups: young (age <= 3 months, denoted Y) and old (age > 3 months, denoted O).\n\nPREPROCESSING - Bulk: Bulk RNA-seq data was normalized using DESeq2.\n\nCORE ANALYSIS - Single-cell: For each gene, two metrics were computed: (1) Cell count: the fraction of cells expressing the gene (>0 counts). The log2 fold change of cell count between O and Y was computed. (2) Read count: the mean read count of the gene in cells that express it. The log2 fold change of read count between O and Y was computed.\n\nCORE ANALYSIS - Bulk: For each gene, the Spearman correlation (rho) of DESeq2-normalized bulk gene expression with age was computed. Genes were classified into two groups: increasing with age (rho > 0.7, denoted U) and decreasing with age (rho < -0.7, denoted D).\n\nCORE ANALYSIS - Comparison: The single-cell log2 fold changes (both cell count and read count) were compared between the bulk-defined groups U and D using the Wilcoxon-Mann-Whitney test. The U statistic was used as the effect size. This assessed whether single-cell-based changes in cell count or read count could distinguish between genes that increase or decrease with age in bulk data.\n\nOUTPUT: Scatter plots of read count-based effect size versus cell count-based effect size, and read count-based -log10(P value) versus cell count-based -log10(P value), for each tissue (Extended Data Figure 5a for FACS, 5b for droplet). Points are colored by tissue and categorized as: bulk signal explained by cell count only, read count only, both, or neither.",
+      "evidence_location": "Extended Data Figure 5a-b; Main text - paragraph 3 (page 590)",
+      "supporting_quote": "we observed that-in many cases-changes in gene expression are due to both changes in the numbers of cells in a population and changes in the gene expression levels in each cell",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L40",
+      "claim_text": "B cells and endothelial cells independently annotated in different organs clustered together by unbiased whole-transcriptome analysis irrespective of tissue of origin or processing method.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2 and 10x Genomics droplet)",
+      "experiment_detail": "All 356,213 cells from both FACS and droplet platforms were combined after batch correction using bbknn.",
+      "analysis_type": "cross-tissue and cross-method clustering validation",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from both FACS (n = 110,824) and droplet (n = 245,389) datasets, with cell-type annotations assigned independently for each tissue.\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, method-specific count thresholds applied. Data normalized to 10,000 counts per cell and log-transformed. Highly variable genes computed, data scaled to maximum value of 10. PCA computed. The bbknn batch-alignment algorithm (Polanski et al. 2020) was used in place of the standard neighbourhood graph computation to correct for method-associated batch effects between FACS and droplet data.\n\nCORE ANALYSIS: After bbknn batch correction, all cells were clustered using Louvain graph-based clustering (Blondel et al. 2008). UMAP visualization was computed. The co-occurrence of cells with the same cell-type annotation (e.g., B cells from different tissues, endothelial cells from different tissues) in the same Louvain clusters was assessed, irrespective of tissue of origin or sequencing method.\n\nOUTPUT: UMAP plots showing B cells and endothelial cells clustering together across tissues and methods (Figure 1e-f for combined data; Extended Data Figure 1g-h for FACS only; Extended Data Figure 1i-j for droplet only; Extended Data Figure 1k-l for cross-method).",
+      "evidence_location": "Figure 1e-f; Extended Data Figure 1g-l",
+      "supporting_quote": "cells annotated as B cells or endothelial cells tend to occupy the same clusters irrespective of their tissue of origin or the method with which they were processed",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L41",
+      "claim_text": "More than 70% of cells in the dataset were automatically annotated using the Tabula Muris 3-month reference, with the remainder annotated manually by tissue experts.",
+      "claim_type": "computational/modeling-derived conclusion",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2 and 10x Genomics droplet)",
+      "experiment_detail": "Cell type annotation was performed on all cells across all age groups using the Tabula Muris 3-month data as reference.",
+      "analysis_type": "semi-automated cell type annotation",
+      "analysis_detail": "INPUT DATA: Single-cell RNA-seq data from all tissues across all age groups, from both FACS and droplet methods. The Tabula Muris (3-month time point) served as the reference dataset with existing cell-type annotations.\n\nPREPROCESSING: Standard preprocessing applied per tissue: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, method-specific count thresholds applied. Data normalized to 10,000 counts per cell and log-transformed. Highly variable genes computed, data scaled.\n\nCORE ANALYSIS: Each organ was analyzed independently, combining all ages. PCA was performed on the most variable genes. Louvain and Leiden graph-based clustering were applied. The data was then subset to 3-month cells (Tabula Muris), and the mapping between existing Tabula Muris cell-type labels and the clusters was computed. For clusters with a single 1:1 mapping (one cluster maps to exactly one cell type), the cell-type annotation was propagated to all cells in that cluster across all ages. For clusters with a 1:many mapping (one cluster maps to multiple cell types), the cluster was flagged for manual validation. All automated annotations were reviewed by tissue expert curators. Remaining unannotated cells were annotated manually by hand. Annotations were provided in the controlled vocabulary of the Cell Ontology (Diehl et al. 2016). The automated annotation step took approximately 1 minute per tissue.\n\nOUTPUT: Cell-type annotations for all cells in the dataset. More than 70% of cells were automatically annotated; the remainder were manually curated. Annotation workflow schematic shown in Figure 1b.",
+      "evidence_location": "Figure 1b; Main text - paragraph 2 (page 590)",
+      "supporting_quote": "Using this approach, we were able to automatically annotate more than 70% of the cells. All the automated cell annotations were reviewed and approved by human experts, and the remaining cells were annotated by hand",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L42",
+      "claim_text": "The relative abundance of precursor B cells in bone marrow decreased significantly with age.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on bone marrow cells from C57BL/6JN mice at 1, 3, 18, 21, 24, and 30 months. n = 3,027, 8,559, 11,496, 5,216, 12,943 and 13,496 cells respectively.",
+      "analysis_type": "cell type proportion analysis across age",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from bone marrow across available time points (n = 3,027 at 1 month, 8,559 at 3 months, 11,496 at 18 months, 5,216 at 21 months, 12,943 at 24 months, 13,496 at 30 months), with cell-type annotations.\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed (droplet). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS: For each age group, the relative proportion of precursor B cells in bone marrow was computed as (number of precursor B cells) / (total number of cells in marrow at that age). Linear regression of relative cell-type proportion against age was performed using scipy.stats linregress. Significance was assessed with P < 0.05 for a hypothesis test with the null hypothesis that the slope is zero, using a two-sided Wald test with t-distribution of the test statistic, and r2 > 0.7.\n\nOUTPUT: Scatter plot of relative precursor B cell proportion versus age in bone marrow, with regression line (Extended Data Figure 5e). P value and r2 value reported in Supplementary Table 5.",
+      "evidence_location": "Extended Data Figure 5e; Supplementary Table 5",
+      "supporting_quote": "Relative abundances of marrow precursor B cells change significantly with age",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L43",
+      "claim_text": "The relative abundance of keratinocyte stem cells in skin changed significantly with age.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2)",
+      "experiment_detail": "FACS-based single-cell RNA-seq on skin cells from C57BL/6JN mice at 3, 18, 21, and 24 months. n = 2,346, 1,494, 4,352 and 1,122 cells respectively.",
+      "analysis_type": "cell type proportion analysis across age",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from skin across available time points (n = 2,346 at 3 months, 1,494 at 18 months, 4,352 at 21 months, 1,122 at 24 months), with cell-type annotations. Skin data was collected using FACS.\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 5,000 counts removed (FACS). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS: For each age group, the relative proportion of keratinocyte stem cells in skin was computed as (number of keratinocyte stem cells) / (total number of cells in skin at that age). Linear regression of relative cell-type proportion against age was performed using scipy.stats linregress. Significance was assessed with P < 0.05 for a hypothesis test with the null hypothesis that the slope is zero, using a two-sided Wald test with t-distribution of the test statistic, and r2 > 0.7.\n\nOUTPUT: Scatter plot of relative keratinocyte stem cell proportion versus age in skin, with regression line (Extended Data Figure 5g). P value and r2 value reported in Supplementary Table 5.",
+      "evidence_location": "Extended Data Figure 5g; Supplementary Table 5",
+      "supporting_quote": "Relative abundances of skin keratinocyte stem cells change significantly with age",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L44",
+      "claim_text": "Hepatocyte cell size increased and cell number decreased with age in the liver as shown by bright-field imaging.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "bright-field imaging",
+      "experiment_detail": "Bright-field imaging of hepatocytes from C57BL/6JN mice at 3, 12, 18, and 24 months. Cell size and cell number were quantified.",
+      "analysis_type": "image-based quantification of cell size and number",
+      "analysis_detail": "INPUT DATA: Bright-field images of liver tissue from mice at 3, 12, 18, and 24 months of age. Beta-catenin staining was used to visualize cell boundaries.\n\nPREPROCESSING: Liver tissue was prepared for bright-field imaging. Beta-catenin staining was performed to delineate hepatocyte boundaries (as shown in Extended Data Figure 6b).\n\nCORE ANALYSIS: Hepatocyte cell size (in micrometers) and cell number per field of view were quantified from bright-field images at each age group (3, 12, 18, 24 months). Statistical comparisons between age groups were performed using Welch's test (pairwise comparisons between all age groups).\n\nOUTPUT: Box plots of cell size and cell number at each age group with P values from Welch's test (Extended Data Figure 6c for cell size, Extended Data Figure 6d for cell number). Sample sizes for each group are not explicitly stated in the figure legend but data points are shown.",
+      "evidence_location": "Extended Data Figure 6b-d",
+      "supporting_quote": "Bright-field imaging of hepatocytes at different ages (b) and respective quantification (c, d).",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L45",
+      "claim_text": "Albumin (Alb) expression in the liver decreased with age, consistent with the declining proportion of hepatocytes.",
+      "claim_type": "threshold-based or cutoff-dependent result",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on liver cells from C57BL/6JN mice at 1, 3, 18, 21, 24, and 30 months.",
+      "analysis_type": "differential gene expression analysis with age as continuous covariate",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from the liver across available time points (n = 2,791 at 1 month, 2,832 at 3 months, 3,806 at 18 months, 2,257 at 21 months, 6,384 at 24 months, 5,713 at 30 months).\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed (droplet). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS: Differential gene expression analysis was performed on the liver tissue using MAST, treating age as a continuous numerical covariate while controlling for sex and technology as additional covariates. Genes were classified as significantly differentially expressed under FDR < 0.01 and age coefficient threshold of 0.005 (corresponding to approximately 10% fold change).\n\nOUTPUT: A ranked list of differentially expressed genes with age coefficients. Alb (albumin) appears among the top 10 downregulated genes in Extended Data Figure 6e. Full gene list in Supplementary Table 6.",
+      "evidence_location": "Extended Data Figure 6e; Main text - liver composition (page 593); Supplementary Table 6",
+      "supporting_quote": "We observed an age-related decrease in the relative number of hepatocytes (Extended Data Fig. 6a-d), which is supported by the reduction in the expression of albumin (Alb; Extended Data Fig. 6e, Supplementary Table 6).",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L46",
+      "claim_text": "Immune response genes Tnfrsf12a and Cdkn1a were overexpressed with age in both bladder mesenchymal cells and bladder urothelial cells.",
+      "claim_type": "threshold-based or cutoff-dependent result",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (10x Genomics droplet)",
+      "experiment_detail": "Droplet-based single-cell RNA-seq on bladder cells from C57BL/6JN mice at 1, 3, 18, and 24 months.",
+      "analysis_type": "cell-type-specific differential gene expression across age",
+      "analysis_detail": "INPUT DATA: Bladder mesenchymal cells and bladder urothelial cells (separately) passing QC filters across available time points (1, 3, 18, 24 months). Total bladder cell numbers: n = 970 at 1 month, 3,804 at 3 months, 2,739 at 18 months, 3,864 at 24 months.\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, cells with fewer than 2,500 UMIs removed (droplet). Data normalized to 10,000 counts per cell and log-transformed. Cells were subset to bladder mesenchymal cells or bladder urothelial cells for cell-type-specific analyses.\n\nCORE ANALYSIS: Differential gene expression was performed separately within bladder mesenchymal cells and within bladder urothelial cells using MAST, treating age as a continuous numerical covariate while controlling for sex and technology. Genes were classified as significant under FDR < 0.01 and age coefficient threshold of 0.005 (corresponding to approximately 10% fold change). The age coefficients for Tnfrsf12a and Cdkn1a were assessed in each cell type.\n\nOUTPUT: Age coefficients for Tnfrsf12a and Cdkn1a within bladder mesenchymal cells and bladder urothelial cells. Results reported in Supplementary Table 6.",
+      "evidence_location": "Main text - bladder composition (page 591); Supplementary Table 6",
+      "supporting_quote": "the overexpression of genes associated with immune response-such as Tnfrsf12a and Cdkn1a-in both bladder (mesenchymal) cells and bladder urothelial cells",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L47",
+      "claim_text": "The age-related increase in somatic mutations was observed across all five functional cell-type groups (endothelial, immune, parenchymal, stem/progenitor, and stromal cells).",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 2,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2)",
+      "experiment_detail": "Full-length transcript single-cell RNA-seq data from FACS Smart-seq2 across all analysed organs at 3, 18, and 24 months. Cell types were grouped into five functional categories.",
+      "analysis_type": "somatic mutation analysis stratified by cell-type functional group",
+      "analysis_detail": "INPUT DATA: Mutation count per cell tables generated from the GATK HaplotypeCaller pipeline applied to all FACS samples, as described in L24. Cell-type annotations were used to stratify cells into five functional groups: endothelial cells, immune cells, parenchymal cells, stem/progenitor cells, and stromal cells.\n\nPREPROCESSING: Same as L24: genes mutated in >60% of cells removed to eliminate germline mutation bias. For each tissue, genes expressed in at least 75% of cells at all time points were selected.\n\nCORE ANALYSIS: The average number of mutations per gene per cell was computed for each age group, stratified by the five functional cell-type groups. The pairwise difference of mean mutations between age groups (24 months minus 3 months, and 18 months minus 3 months) was computed separately for each functional group. The same analysis was performed on ERCC spike-in controls for comparison. Average raw counts were also computed to control for sequencing coverage.\n\nOUTPUT: Distributions of pairwise mean mutation differences for each of the five functional cell-type groups, shown separately for gene sets (filled distributions) and ERCC controls (dashed distributions) in Figure 3b-f. Extended Data Figures 7 and 8 show per-tissue breakdowns.",
+      "evidence_location": "Figure 3b-f; Extended Data Figure 7",
+      "supporting_quote": "Distribution of the difference of the mean mutation in the gene set (and ERCC spike-in controls) per cell between 24 months and 3 months and between 18 months and 3 months for all tissues and cells (a) and with the cell types split into five functional groups: endothelial cells (b), immune cells (c), parenchymal cells (d), stem/progenitor cells (e) and stromal cells (f).",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    },
+    {
+      "id": "L48",
+      "claim_text": "Senescence-associated genes E2f2, Lmnb1, Tnf, and Itgax showed positive correlation between ageing and the fraction of cells expressing them.",
+      "claim_type": "direct empirical observation",
+      "node_type": "leaf",
+      "depth": 3,
+      "source": "dataset",
+      "datasets": [
+        "Tabula Muris Senis"
+      ],
+      "dataset_accessions": [
+        "GEO: GSE132042"
+      ],
+      "experiment_type": "single-cell RNA-seq (FACS Smart-seq2 and 10x Genomics droplet)",
+      "experiment_detail": "Single-cell RNA-seq data from all age groups across all tissues.",
+      "analysis_type": "correlation of senescence marker expression fraction with age",
+      "analysis_detail": "INPUT DATA: All cells passing QC filters from both FACS and droplet datasets across all age groups. A curated list of previously characterized senescence markers compiled from references 12-15 (provided in Supplementary Table 4), which includes E2f2, Lmnb1, Tnf, and Itgax.\n\nPREPROCESSING: Standard preprocessing: genes not expressed in at least 3 cells removed, cells with fewer than 250 detected genes removed, method-specific count thresholds applied (5,000 for FACS, 2,500 UMIs for droplet). Data normalized to 10,000 counts per cell and log-transformed.\n\nCORE ANALYSIS: For each gene in the curated senescence marker list (Supplementary Table 4), the fraction of cells expressing the gene (>0 counts) was computed per age group across all tissues. The correlation between age and the fraction of cells expressing each senescence marker was computed. Genes with positive correlation were identified.\n\nOUTPUT: Correlation values between age and fraction of expressing cells for each senescence marker. E2f2, Lmnb1, Tnf, and Itgax showed positive correlations. Results plotted in Supplementary Table 4.",
+      "evidence_location": "Main text - paragraph 3 (page 591); Supplementary Table 4",
+      "supporting_quote": "other genes with positive correlation include E2f2, Lmnb1, Tnf and Itgax.",
+      "dataset_link": "GEO: GSE132042: direct",
+      "analysis_detail_enhanced": false
+    }
+  ],
+  "edges": [
+    {
+      "child": "I1",
+      "parent": "R2",
+      "relationship": "enables"
+    },
+    {
+      "child": "I2",
+      "parent": "R1",
+      "relationship": "supports"
+    },
+    {
+      "child": "I3",
+      "parent": "R1",
+      "relationship": "supports"
+    },
+    {
+      "child": "I4",
+      "parent": "R1",
+      "relationship": "supports"
+    },
+    {
+      "child": "I5",
+      "parent": "R1",
+      "relationship": "supports"
+    },
+    {
+      "child": "I6",
+      "parent": "R1",
+      "relationship": "supports"
+    },
+    {
+      "child": "I7",
+      "parent": "R1",
+      "relationship": "supports"
+    },
+    {
+      "child": "I2",
+      "parent": "R2",
+      "relationship": "supports"
+    },
+    {
+      "child": "I3",
+      "parent": "R2",
+      "relationship": "supports"
+    },
+    {
+      "child": "I4",
+      "parent": "R2",
+      "relationship": "supports"
+    },
+    {
+      "child": "I5",
+      "parent": "R2",
+      "relationship": "supports"
+    },
+    {
+      "child": "I6",
+      "parent": "R2",
+      "relationship": "supports"
+    },
+    {
+      "child": "I8",
+      "parent": "I3",
+      "relationship": "supports"
+    },
+    {
+      "child": "I9",
+      "parent": "I3",
+      "relationship": "supports"
+    },
+    {
+      "child": "I10",
+      "parent": "I3",
+      "relationship": "supports"
+    },
+    {
+      "child": "I11",
+      "parent": "I3",
+      "relationship": "supports"
+    },
+    {
+      "child": "I12",
+      "parent": "I3",
+      "relationship": "supports"
+    },
+    {
+      "child": "I17",
+      "parent": "I2",
+      "relationship": "supports"
+    },
+    {
+      "child": "I18",
+      "parent": "I2",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL1",
+      "parent": "I2",
+      "relationship": "interprets"
+    },
+    {
+      "child": "I13",
+      "parent": "I5",
+      "relationship": "supports"
+    },
+    {
+      "child": "I14",
+      "parent": "I5",
+      "relationship": "supports"
+    },
+    {
+      "child": "I15",
+      "parent": "I6",
+      "relationship": "supports"
+    },
+    {
+      "child": "I16",
+      "parent": "I6",
+      "relationship": "supports"
+    },
+    {
+      "child": "L1",
+      "parent": "I17",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "L2",
+      "parent": "I17",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "L3",
+      "parent": "I17",
+      "relationship": "qualifies"
+    },
+    {
+      "child": "L4",
+      "parent": "I17",
+      "relationship": "supports"
+    },
+    {
+      "child": "L48",
+      "parent": "I17",
+      "relationship": "supports"
+    },
+    {
+      "child": "L5",
+      "parent": "I18",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL2",
+      "parent": "I18",
+      "relationship": "interprets"
+    },
+    {
+      "child": "L6",
+      "parent": "I8",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "L7",
+      "parent": "I8",
+      "relationship": "supports"
+    },
+    {
+      "child": "L8",
+      "parent": "I8",
+      "relationship": "supports"
+    },
+    {
+      "child": "L9",
+      "parent": "I8",
+      "relationship": "supports"
+    },
+    {
+      "child": "L10",
+      "parent": "I8",
+      "relationship": "supports"
+    },
+    {
+      "child": "L46",
+      "parent": "I8",
+      "relationship": "supports"
+    },
+    {
+      "child": "L11",
+      "parent": "I9",
+      "relationship": "supports"
+    },
+    {
+      "child": "L12",
+      "parent": "I9",
+      "relationship": "supports"
+    },
+    {
+      "child": "L13",
+      "parent": "I9",
+      "relationship": "supports"
+    },
+    {
+      "child": "L14",
+      "parent": "I9",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL10",
+      "parent": "I9",
+      "relationship": "interprets"
+    },
+    {
+      "child": "L15",
+      "parent": "I10",
+      "relationship": "supports"
+    },
+    {
+      "child": "L16",
+      "parent": "I10",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL3",
+      "parent": "I10",
+      "relationship": "interprets"
+    },
+    {
+      "child": "L17",
+      "parent": "I12",
+      "relationship": "supports"
+    },
+    {
+      "child": "L18",
+      "parent": "I12",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL4",
+      "parent": "I12",
+      "relationship": "interprets"
+    },
+    {
+      "child": "L19",
+      "parent": "I11",
+      "relationship": "supports"
+    },
+    {
+      "child": "L20",
+      "parent": "I11",
+      "relationship": "supports"
+    },
+    {
+      "child": "L21",
+      "parent": "I11",
+      "relationship": "supports"
+    },
+    {
+      "child": "L22",
+      "parent": "I11",
+      "relationship": "supports"
+    },
+    {
+      "child": "L23",
+      "parent": "I11",
+      "relationship": "supports"
+    },
+    {
+      "child": "L44",
+      "parent": "I11",
+      "relationship": "supports"
+    },
+    {
+      "child": "L45",
+      "parent": "I11",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL5",
+      "parent": "I11",
+      "relationship": "interprets"
+    },
+    {
+      "child": "LL6",
+      "parent": "L21",
+      "relationship": "interprets"
+    },
+    {
+      "child": "LL7",
+      "parent": "L22",
+      "relationship": "interprets"
+    },
+    {
+      "child": "LL7",
+      "parent": "L23",
+      "relationship": "interprets"
+    },
+    {
+      "child": "L42",
+      "parent": "I3",
+      "relationship": "supports"
+    },
+    {
+      "child": "L43",
+      "parent": "I3",
+      "relationship": "supports"
+    },
+    {
+      "child": "L24",
+      "parent": "I4",
+      "relationship": "supports"
+    },
+    {
+      "child": "L25",
+      "parent": "I4",
+      "relationship": "qualifies"
+    },
+    {
+      "child": "L26",
+      "parent": "I4",
+      "relationship": "supports"
+    },
+    {
+      "child": "L47",
+      "parent": "I4",
+      "relationship": "supports"
+    },
+    {
+      "child": "L27",
+      "parent": "I13",
+      "relationship": "enables"
+    },
+    {
+      "child": "L28",
+      "parent": "I13",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "L29",
+      "parent": "I14",
+      "relationship": "enables"
+    },
+    {
+      "child": "L30",
+      "parent": "I14",
+      "relationship": "quantifies"
+    },
+    {
+      "child": "LL9",
+      "parent": "I5",
+      "relationship": "interprets"
+    },
+    {
+      "child": "L31",
+      "parent": "I6",
+      "relationship": "supports"
+    },
+    {
+      "child": "L32",
+      "parent": "I15",
+      "relationship": "supports"
+    },
+    {
+      "child": "L32",
+      "parent": "I16",
+      "relationship": "supports"
+    },
+    {
+      "child": "L33",
+      "parent": "I15",
+      "relationship": "supports"
+    },
+    {
+      "child": "L34",
+      "parent": "I15",
+      "relationship": "supports"
+    },
+    {
+      "child": "L35",
+      "parent": "I15",
+      "relationship": "supports"
+    },
+    {
+      "child": "L36",
+      "parent": "I15",
+      "relationship": "supports"
+    },
+    {
+      "child": "L37",
+      "parent": "I15",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL8",
+      "parent": "L37",
+      "relationship": "enables"
+    },
+    {
+      "child": "L38",
+      "parent": "I16",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL11",
+      "parent": "L38",
+      "relationship": "interprets"
+    },
+    {
+      "child": "L39",
+      "parent": "I7",
+      "relationship": "supports"
+    },
+    {
+      "child": "L40",
+      "parent": "I1",
+      "relationship": "supports"
+    },
+    {
+      "child": "L41",
+      "parent": "I1",
+      "relationship": "supports"
+    },
+    {
+      "child": "LL3",
+      "parent": "I12",
+      "relationship": "interprets"
+    }
+  ],
+  "literature_candidates": [
+    {
+      "candidate_id": 1,
+      "claim_text": "Ageing is characterized by a progressive loss of physiological integrity, leading to impaired function and increased vulnerability to death (Lopez-Otin et al. 2013).",
+      "scenario": "foundational premise",
+      "source_sentence": "Ageing is characterized by a progressive loss of physiological integrity, leading to impaired function and increased vulnerability to death.",
+      "connected_nodes": [
+        "R1"
+      ],
+      "disposition": "excluded",
+      "reason": "Scene-setting: this is a general definition of ageing that frames the paper but does not serve as a specific premise that any particular claim in the DAG structurally depends on."
+    },
+    {
+      "candidate_id": 2,
+      "claim_text": "Cdkn2a and its protein product p16 is one of the most frequently used markers of senescence and is an important hallmark of ageing (Rayess et al. 2012; Hernandez-Segura et al. 2018).",
+      "scenario": "foundational premise",
+      "source_sentence": "The expression of Cdkn2a and its protein product p16 is one of the most frequently used markers of senescence and is an important hallmark of ageing.",
+      "connected_nodes": [
+        "I2",
+        "I17"
+      ],
+      "disposition": "included as LL1",
+      "reason": null
+    },
+    {
+      "candidate_id": 3,
+      "claim_text": "Sirtuins are essential in delaying cellular senescence (Saunders & Verdin 2007; Lee et al. 2019).",
+      "scenario": "interpretation frame",
+      "source_sentence": "this is consistent with previous literature finding that sirtuins-the protein products of Sirt genes-are essential in delaying cellular senescence",
+      "connected_nodes": [
+        "I18"
+      ],
+      "disposition": "included as LL2",
+      "reason": null
+    },
+    {
+      "candidate_id": 4,
+      "claim_text": "Age-related urothelial changes are known to occur in the bladder (Daly et al. 2014).",
+      "scenario": "comparative anchor",
+      "source_sentence": "The observation that the proportion of bladder urothelial cells increases with age is concordant with known age-related urothelial changes.",
+      "connected_nodes": [
+        "I8"
+      ],
+      "disposition": "excluded",
+      "reason": "Corroborative: the paper's own data independently establishes the increase in urothelial cells. The literature reference merely confirms agreement and does not provide an interpretation or premise that the paper's argument depends on."
+    },
+    {
+      "candidate_id": 5,
+      "claim_text": "Bladder ageing is associated with lower organ vascularization (Burmeister et al. 2013; Andersson et al. 2017).",
+      "scenario": "comparative anchor",
+      "source_sentence": "The decline of the endothelial population suggests that bladder ageing in mice might be associated with lower organ vascularization, which is consistent with recent findings",
+      "connected_nodes": [
+        "L8"
+      ],
+      "disposition": "excluded",
+      "reason": "Corroborative: the paper's own data shows the endothelial decline and gene downregulation. The literature reference confirms agreement but does not provide a structurally necessary premise."
+    },
+    {
+      "candidate_id": 6,
+      "claim_text": "Overactive bladders are associated with inflammatory tissue microenvironments (Suskind 2017).",
+      "scenario": "comparative anchor",
+      "source_sentence": "The increase in the leukocyte population could indicate an inflammatory tissue microenvironment, a common hallmark of ageing that is consistent with literature on overactive bladders",
+      "connected_nodes": [
+        "L9"
+      ],
+      "disposition": "excluded",
+      "reason": "Corroborative: the paper's own data shows the leukocyte increase and inflammatory gene expression. The literature reference provides context but is not structurally necessary."
+    },
+    {
+      "candidate_id": 7,
+      "claim_text": "Downregulation of ATP1A1 is associated with impaired function in renal cell carcinoma, and EGF serves as a prognostic biomarker in chronic kidney diseases (Zhang et al. 2017; Isaka 2016).",
+      "scenario": "interpretation frame",
+      "source_sentence": "together with a tissue-wide reduction of Egf and Atp1a1 expression (Fig. 2h, Supplementary Table 6)-suggest an impaired glomerular filtration rate",
+      "connected_nodes": [
+        "I9"
+      ],
+      "disposition": "included as LL10",
+      "reason": null
+    },
+    {
+      "candidate_id": 8,
+      "claim_text": "Uromodulin is the most abundant protein in urine and is produced by epithelial cells lining the thick ascending limb (Devuyst et al. 2017; Tokonami et al. 2018).",
+      "scenario": "interpretation frame",
+      "source_sentence": "the expression of Umod-which encodes uromodulin, the most abundant protein in urine-is also reduced across the tissue.",
+      "connected_nodes": [
+        "L14"
+      ],
+      "disposition": "excluded",
+      "reason": "General textbook-level knowledge about uromodulin's identity and production site. The paper's own data shows the Umod expression changes; the literature provides basic gene annotation rather than resolving an ambiguous interpretation."
+    },
+    {
+      "candidate_id": 9,
+      "claim_text": "Age-related decline of T cell populations has been associated with increased risk of infectious disease and cancer (Palmer et al. 2018).",
+      "scenario": "interpretation frame",
+      "source_sentence": "Age-related decline of T cell populations has been associated with increased risk of infectious disease and cancer",
+      "connected_nodes": [
+        "I10",
+        "I12"
+      ],
+      "disposition": "included as LL3",
+      "reason": null
+    },
+    {
+      "candidate_id": 10,
+      "claim_text": "Normal mammary gland involution is accompanied by increased expression of AP1 transcription factor family genes (Shen et al. 2006; Girnius et al. 2018).",
+      "scenario": "interpretation frame",
+      "source_sentence": "consistent with the observation that normal involution of the mammary gland is accompanied by increased expression of this gene family",
+      "connected_nodes": [
+        "I12"
+      ],
+      "disposition": "included as LL4",
+      "reason": null
+    },
+    {
+      "candidate_id": 11,
+      "claim_text": "Pro-inflammatory macrophages drive cellular senescence, and Il1b shows markedly different expression in the liver with age (Covarrubias et al. 2019).",
+      "scenario": "foundational premise",
+      "source_sentence": "Previous findings suggested that pro-inflammatory macrophages drive cellular senescence, and identified the gene Il1b as showing markedly different expression in the liver with age",
+      "connected_nodes": [
+        "I11",
+        "L21"
+      ],
+      "disposition": "included as LL5",
+      "reason": null
+    },
+    {
+      "candidate_id": 12,
+      "claim_text": "Specific blocking of IL1-RI in hepatocytes attenuates cell death after injury (Gehrke et al. 2018).",
+      "scenario": "mechanistic chain link",
+      "source_sentence": "Specific blocking of IL1-RI in hepatocytes has been shown to attenuate cell death after injury, supporting the idea that increased expression of Il1b in Kupffer cells is typically a poor prognostic",
+      "connected_nodes": [
+        "L21"
+      ],
+      "disposition": "included as LL6",
+      "reason": null
+    },
+    {
+      "candidate_id": 13,
+      "claim_text": "Liver sinusoidal endothelial cells are the main carriers of the mannose receptor (MRC1) in the liver (Liu et al. 2013).",
+      "scenario": "interpretation frame",
+      "source_sentence": "Liver sinusoidal endothelial cells (LSECs) have a unique role in immune defence, being the main carriers of the mannose receptor (MRC1) in this organ",
+      "connected_nodes": [
+        "L22",
+        "L23"
+      ],
+      "disposition": "included as LL7",
+      "reason": null
+    },
+    {
+      "candidate_id": 14,
+      "claim_text": "LSECs have been found to have a reduced endocytic capacity in aged livers, and it has been suggested that LSECs proliferate after injury or that bone-marrow-derived LSEC progenitors are recruited to the liver.",
+      "scenario": "interpretation frame",
+      "source_sentence": "LSECs have been found to have a reduced endocytic capacity in aged livers, and it has been suggested that LSECs proliferate after injury or that bone-marrow-derived LSEC progenitors are recruited to the liver.",
+      "connected_nodes": [
+        "L23"
+      ],
+      "disposition": "excluded",
+      "reason": "Corroborative/speculative context: the paper's own data shows the increase in Mrc1-expressing LSECs. This literature finding provides additional context but the paper does not structurally depend on it for any specific claim."
+    },
+    {
+      "candidate_id": 15,
+      "claim_text": "Genomic instability is among the most widely studied hallmarks of ageing (Lopez-Otin et al. 2013; Vijg & Suh 2013).",
+      "scenario": "foundational premise",
+      "source_sentence": "Genomic instability is among the most widely studied hallmarks of ageing, and full-length transcript data enables analysis of the accumulation of somatic mutations with age.",
+      "connected_nodes": [
+        "I4"
+      ],
+      "disposition": "excluded",
+      "reason": "Scene-setting: this is a general statement about the importance of genomic instability as a hallmark. The paper's mutation analysis stands on its own data without requiring this as a structural premise."
+    },
+    {
+      "candidate_id": 16,
+      "claim_text": "A unique microglia type associated with restricting development of Alzheimer's disease has been identified with a specific transcriptomic signature (Keren-Shaul et al. 2017).",
+      "scenario": "comparative anchor",
+      "source_sentence": "the list of differentially expressed genes between 'young' and 'old' clusters resembles the previously reported Alzheimer's disease-specific microglial signature",
+      "connected_nodes": [
+        "L37"
+      ],
+      "disposition": "included as LL8",
+      "reason": null
+    },
+    {
+      "candidate_id": 17,
+      "claim_text": "Older individuals have higher vulnerability to new infections and lower benefits from vaccination compared with younger individuals (Goronzy & Weyand 2013, 2017).",
+      "scenario": "interpretation frame",
+      "source_sentence": "This corroborates literature reports suggesting that older individuals have a higher vulnerability to new infections and lower benefits from vaccination compared with younger individuals",
+      "connected_nodes": [
+        "I5"
+      ],
+      "disposition": "included as LL9",
+      "reason": null
+    },
+    {
+      "candidate_id": 18,
+      "claim_text": "M1 and M2 macrophage states are defined by distinct marker gene sets (Jablonski et al. 2015).",
+      "scenario": "interpretation frame",
+      "source_sentence": "cluster 13 resembles a M1-proinflammatory macrophage state",
+      "connected_nodes": [
+        "L38"
+      ],
+      "disposition": "included as LL11",
+      "reason": null
+    },
+    {
+      "candidate_id": 19,
+      "claim_text": "Senescence markers have been previously characterized in multiple studies (Covarrubias et al. 2019; Nagano et al. 2016; Carnero 2013; Wang & Dreesen 2018).",
+      "scenario": "foundational premise",
+      "source_sentence": "Using a list of previously characterized senescence markers, we plotted the fraction of cells expressing each marker across all age groups (Supplementary Table 4).",
+      "connected_nodes": [
+        "I2"
+      ],
+      "disposition": "excluded",
+      "reason": "Citation pile: multiple references establishing that senescence markers exist. The specific marker list is a methodological input, not a structural premise the argument depends on."
+    },
+    {
+      "candidate_id": 20,
+      "claim_text": "Lmnb1 fluctuations have differential effects on cellular proliferation and senescence (Dreesen et al. 2013; Shah et al. 2013).",
+      "scenario": "interpretation frame",
+      "source_sentence": "other genes with positive correlation include E2f2, Lmnb1, Tnf and Itgax",
+      "connected_nodes": [
+        "L48"
+      ],
+      "disposition": "excluded",
+      "reason": "Corroborative: the paper's own data shows the positive correlation of Lmnb1 with age. The literature provides background on Lmnb1's role but the paper does not use it to interpret an otherwise ambiguous result."
+    },
+    {
+      "candidate_id": 21,
+      "claim_text": "E2f2 regulation is linked to senescence through PML nuclear bodies (Vernier et al. 2011).",
+      "scenario": "interpretation frame",
+      "source_sentence": "other genes with positive correlation include E2f2, Lmnb1, Tnf and Itgax",
+      "connected_nodes": [
+        "L48"
+      ],
+      "disposition": "excluded",
+      "reason": "Corroborative: the paper's own data shows the positive correlation. The literature reference provides mechanistic context but is not structurally required."
+    },
+    {
+      "candidate_id": 22,
+      "claim_text": "TNF-alpha promotes premature senescence via the PI3K/Akt signaling pathway (Li et al. 2017).",
+      "scenario": "interpretation frame",
+      "source_sentence": "other genes with positive correlation include E2f2, Lmnb1, Tnf and Itgax",
+      "connected_nodes": [
+        "L48"
+      ],
+      "disposition": "excluded",
+      "reason": "Corroborative: the paper's own data shows the positive correlation of Tnf with age. The literature provides mechanistic context but is not structurally required."
+    },
+    {
+      "candidate_id": 23,
+      "claim_text": "Hammond et al. (2019) reported complex cell-state changes in microglia throughout the mouse lifespan.",
+      "scenario": "comparative anchor",
+      "source_sentence": "suggesting an expansion of this small pro-inflammatory subset of microglia in the ageing brain",
+      "connected_nodes": [
+        "I15"
+      ],
+      "disposition": "excluded",
+      "reason": "Corroborative: the paper's own data independently establishes the microglial transcriptomic changes. The Hammond et al. reference is cited but not used as a structural premise."
+    },
+    {
+      "candidate_id": 24,
+      "claim_text": "The hallmarks of ageing include senescence, genomic instability, and changes in the immune system (Lopez-Otin et al. 2013).",
+      "scenario": "foundational premise",
+      "source_sentence": "Using single-cell transcriptomic data, we assessed cell-type-specific manifestations of different hallmarks of ageing-such as senescence, genomic instability and changes in the immune system.",
+      "connected_nodes": [
+        "R1",
+        "R2"
+      ],
+      "disposition": "excluded",
+      "reason": "Scene-setting: this is a general framework from Lopez-Otin et al. that motivates the paper's organization but the paper's specific claims about each hallmark stand on their own data. The framework is too general to serve as a specific structural premise."
+    }
+  ],
+  "excluded_borderline_claims": [
+    {
+      "claim_text": "Ageing is characterized by a progressive loss of physiological integrity (Lopez-Otin et al. 2013).",
+      "reason": "Scene-setting: general definition of ageing that frames the paper but is not a specific premise any DAG node depends on."
+    },
+    {
+      "claim_text": "Age-related urothelial changes are known to occur in the bladder (Daly et al. 2014).",
+      "reason": "Corroborative: the paper's own data independently establishes the urothelial cell increase. The literature reference merely confirms agreement."
+    },
+    {
+      "claim_text": "Bladder ageing is associated with lower organ vascularization (Burmeister et al. 2013; Andersson et al. 2017).",
+      "reason": "Corroborative: the paper's own data shows the endothelial decline and gene downregulation independently."
+    },
+    {
+      "claim_text": "Overactive bladders are associated with inflammatory tissue microenvironments (Suskind 2017).",
+      "reason": "Corroborative: the paper's own data shows the leukocyte increase and inflammatory gene expression independently."
+    },
+    {
+      "claim_text": "Uromodulin is the most abundant protein in urine and is produced by epithelial cells lining the thick ascending limb (Devuyst et al. 2017).",
+      "reason": "General textbook-level knowledge about uromodulin's identity and production site that does not resolve an ambiguous interpretation."
+    },
+    {
+      "claim_text": "LSECs have been found to have a reduced endocytic capacity in aged livers.",
+      "reason": "Corroborative/speculative context: the paper's own data shows the LSEC changes. This literature finding provides additional context but is not structurally required."
+    },
+    {
+      "claim_text": "Genomic instability is among the most widely studied hallmarks of ageing (Lopez-Otin et al. 2013; Vijg & Suh 2013).",
+      "reason": "Scene-setting: general statement about the importance of genomic instability. The paper's mutation analysis stands on its own data."
+    },
+    {
+      "claim_text": "Senescence markers have been previously characterized in multiple studies (refs 12-15).",
+      "reason": "Citation pile: multiple references establishing that senescence markers exist. The specific marker list is a methodological input."
+    },
+    {
+      "claim_text": "Lmnb1 fluctuations have differential effects on cellular proliferation and senescence (Dreesen et al. 2013; Shah et al. 2013).",
+      "reason": "Corroborative: the paper's own data shows the positive correlation of Lmnb1 with age independently."
+    },
+    {
+      "claim_text": "E2f2 regulation is linked to senescence through PML nuclear bodies (Vernier et al. 2011).",
+      "reason": "Corroborative: the paper's own data shows the positive correlation independently."
+    },
+    {
+      "claim_text": "TNF-alpha promotes premature senescence via the PI3K/Akt signaling pathway (Li et al. 2017).",
+      "reason": "Corroborative: the paper's own data shows the positive correlation of Tnf with age independently."
+    },
+    {
+      "claim_text": "Hammond et al. (2019) reported complex cell-state changes in microglia throughout the mouse lifespan.",
+      "reason": "Corroborative: the paper's own data independently establishes the microglial transcriptomic changes."
+    },
+    {
+      "claim_text": "The hallmarks of ageing include senescence, genomic instability, and changes in the immune system (Lopez-Otin et al. 2013).",
+      "reason": "Scene-setting: general framework that motivates the paper's organization but is too general to serve as a specific structural premise."
+    }
+  ]
+}
