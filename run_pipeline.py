@@ -251,6 +251,8 @@ def call_claude(client, messages, *, max_retries=3):
     Uses streaming to handle long Opus responses.
     Returns (text, input_tokens, output_tokens, elapsed).
     """
+    import httpx  # for catching transport-level errors
+
     for attempt in range(1, max_retries + 1):
         try:
             t0 = time.time()
@@ -265,7 +267,7 @@ def call_claude(client, messages, *, max_retries=3):
                 response = stream.get_final_message()
 
             elapsed = time.time() - t0
-            text = response.content[0].text
+            text = response.content[0].text if response.content else ""
             usage = response.usage
             print(f"    Response: {usage.input_tokens:,} in / {usage.output_tokens:,} out "
                   f"({elapsed:.1f}s, stop={response.stop_reason})")
@@ -273,9 +275,18 @@ def call_claude(client, messages, *, max_retries=3):
             if response.stop_reason != "end_turn":
                 print(f"    WARNING: stop_reason={response.stop_reason} — response may be truncated")
 
+            # Guard against empty/corrupted responses — retry instead of
+            # failing downstream at JSON parsing
+            if not text or not text.strip():
+                raise anthropic.APIError(
+                    message="Empty response body",
+                    request=None, body=None)
+
             return text, usage.input_tokens, usage.output_tokens, elapsed
 
-        except (anthropic.APIError, anthropic.APIConnectionError) as e:
+        except (anthropic.APIError, anthropic.APIConnectionError,
+                httpx.RemoteProtocolError, httpx.ReadError,
+                httpx.ConnectError, httpx.ReadTimeout) as e:
             print(f"    Attempt {attempt}/{max_retries} failed: {e}")
             if attempt < max_retries:
                 wait = 10 * attempt
@@ -330,6 +341,12 @@ def extract_json_from_response(text):
                 raw = candidate
                 break
 
+    # Fallback: if raw doesn't start with '{', find the first '{' in the text
+    if not raw.startswith("{"):
+        idx = raw.find("{")
+        if idx != -1:
+            raw = raw[idx:]
+
     if raw.startswith("{"):
         depth = 0
         for i, ch in enumerate(raw):
@@ -359,6 +376,51 @@ def extract_markdown_from_response(text):
 # ---------------------------------------------------------------------------
 # Stage 4 helpers: code repository fetching and processing
 # ---------------------------------------------------------------------------
+def extract_pdf_annotation_urls(pdf_path):
+    """Extract hyperlink URLs from PDF link annotations using PyMuPDF.
+
+    Many journals (e.g. Nature) embed code/data repository URLs as clickable
+    hyperlinks without showing the full URL in the visible text. This function
+    reads those link annotations directly from the PDF structure.
+    """
+    try:
+        import fitz  # PyMuPDF
+    except ImportError:
+        print("    [warn] PyMuPDF not installed — skipping PDF annotation URL extraction")
+        return []
+
+    repo_patterns = re.compile(
+        r'https?://(?:github\.com|gitlab\.com|bitbucket\.org|zenodo\.org|'
+        r'doi\.org/10\.5281/zenodo|figshare\.com|doi\.org/10\.6084/m9\.figshare|'
+        r'datadryad\.org)', re.IGNORECASE
+    )
+
+    urls = []
+    try:
+        doc = fitz.open(str(pdf_path))
+        for page in doc:
+            for link in page.get_links():
+                uri = link.get("uri", "")
+                if uri and repo_patterns.search(uri):
+                    clean = uri.rstrip('.,;:)]}\'\"')
+                    if clean.endswith('.git'):
+                        clean = clean[:-4]
+                    urls.append(clean)
+        doc.close()
+    except Exception as e:
+        print(f"    [warn] Failed to parse PDF annotations: {e}")
+        return []
+
+    # Deduplicate preserving order
+    seen = set()
+    unique = []
+    for u in urls:
+        if u.lower() not in seen:
+            seen.add(u.lower())
+            unique.append(u)
+    return unique
+
+
 def extract_code_repo_urls(pdf_text):
     """Extract GitHub/GitLab/Bitbucket repository URLs from paper text.
 
@@ -1129,6 +1191,19 @@ def run_stage4(client, pdf_text, pdf_name, paper_dir, code_repo_url=None):
         print(f"    Code repository (user-specified): {repo_url}")
     else:
         repo_urls = extract_code_repo_urls(pdf_text)
+        # Also extract URLs from PDF link annotations (catches hyperlinked
+        # URLs that aren't visible in the extracted text)
+        pdf_path = paper_dir / "paper.pdf"
+        if pdf_path.exists():
+            annotation_urls = extract_pdf_annotation_urls(pdf_path)
+            if annotation_urls:
+                print(f"    PDF annotation URLs found: {', '.join(annotation_urls)}")
+                # Merge: add annotation URLs not already in text-extracted list
+                existing_lower = {u.lower() for u in repo_urls}
+                for u in annotation_urls:
+                    if u.lower() not in existing_lower:
+                        repo_urls.append(u)
+                        existing_lower.add(u.lower())
         if not repo_urls:
             print("    No code repository URLs found in paper")
             repo_url = None
@@ -1460,7 +1535,9 @@ def main():
                         help="Code repository URL for Stage 4 (overrides auto-detection)")
     args = parser.parse_args()
 
-    client = anthropic.Anthropic()
+    client = anthropic.Anthropic(
+        timeout=1800.0,  # 30 minutes — Stage 4 code-enhanced calls can exceed 15 min
+    )
 
     # Resolve all paper paths
     paper_paths = []
